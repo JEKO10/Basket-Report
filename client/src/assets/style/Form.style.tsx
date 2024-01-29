@@ -6,6 +6,8 @@ export const Form = styled.form`
   color: #fff;
   ${flexMixin({ justify: "center", align: "center" })};
   flex-direction: column;
+  margin: 5rem 0;
+  padding: 40px;
 
   div {
     ${flexMixin({ justify: "center", align: "center" })};
