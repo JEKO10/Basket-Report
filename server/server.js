@@ -17,16 +17,40 @@ app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.post("/register", (req, res) => {
-  const username = req.body.username;
-  const email = req.body.email;
-  const password = req.body.password;
+  let { username, email, password } = req.body;
+  username = username.trim();
+  email = email.trim();
+  password = password.trim();
 
-  const sqlInsert =
-    "INSERT INTO users (username, email, password) VALUES (?, ?, ?);";
+  db.query(
+    "INSERT INTO users (username, email, password) VALUES (?, ?, ?);",
+    [username, email, password],
+    (err, result) => {
+      console.log(err);
+    }
+  );
+});
 
-  db.query(sqlInsert, [username, email, password], (err, result) => {
-    console.log(err);
-  });
+app.post("/login", (req, res) => {
+  let { email, password } = req.body;
+  email = email.trim();
+  password = password.trim();
+
+  db.query(
+    "SELECT * FROM users WHERE email = ? AND password = ?",
+    [email, password],
+    (err, result) => {
+      if (err) {
+        res.send({ err: err });
+      }
+
+      if (result.length > 0) {
+        res.send(result);
+      } else {
+        res.send({ message: "Email and password are not matching!" });
+      }
+    }
+  );
 });
 
 app.listen(PORT, () => {

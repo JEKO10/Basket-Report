@@ -9,7 +9,7 @@ const SignUp = () => {
   const [passConfirm, setPassConfirm] = useState("");
 
   const addUser = (event: React.FormEvent<HTMLFormElement>) => {
-    event?.preventDefault();
+    event.preventDefault();
 
     if (password !== passConfirm) {
       alert("Password and Password Confirmation do not match");
