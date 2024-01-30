@@ -26,7 +26,7 @@ app.post("/register", (req, res) => {
     "INSERT INTO users (username, email, password) VALUES (?, ?, ?);",
     [username, email, password],
     (err, result) => {
-      console.log(err);
+      res.send({ message: err });
     }
   );
 });

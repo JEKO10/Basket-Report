@@ -7,12 +7,13 @@ const SignUp = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passConfirm, setPassConfirm] = useState("");
+  const [signupStatus, setSignupStatus] = useState("");
 
   const addUser = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     if (password !== passConfirm) {
-      alert("Password and Password Confirmation do not match");
+      setSignupStatus("Password and Password Confirmation do not match");
       return;
     }
 
@@ -22,11 +23,15 @@ const SignUp = () => {
         email,
         password,
       })
-      .then(() => {
-        alert("Success!");
+      .then((response) => {
+        if (response.data.message.sqlMessage) {
+          setSignupStatus(response.data.message.sqlMessage);
+        } else {
+          setSignupStatus("Success!");
+        }
       })
-      .catch(() => {
-        alert("Something went wrong!");
+      .catch((err) => {
+        console.log(err);
       });
   };
 
@@ -65,6 +70,7 @@ const SignUp = () => {
         />
       </div>
       <button type="submit">Create an account</button>
+      <p>{signupStatus}</p>
     </Form>
   );
 };
