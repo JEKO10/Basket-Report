@@ -12,6 +12,11 @@ const SignUp = () => {
   const addUser = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
+    if (!username || !email || !password || !passConfirm) {
+      setSignupStatus("All fields are required");
+      return;
+    }
+
     if (password !== passConfirm) {
       setSignupStatus("Password and Password Confirmation do not match");
       return;
@@ -24,8 +29,18 @@ const SignUp = () => {
         password,
       })
       .then((response) => {
-        if (response.data.message.sqlMessage) {
-          setSignupStatus(response.data.message.sqlMessage);
+        if (response.data.message) {
+          let message = response.data.message;
+
+          if (typeof message === "string") {
+            if (message.includes("username") || message.includes("email")) {
+              setSignupStatus("Username or Email is already taken");
+            } else {
+              setSignupStatus(message);
+            }
+          } else {
+            setSignupStatus("Success!");
+          }
         } else {
           setSignupStatus("Success!");
         }
