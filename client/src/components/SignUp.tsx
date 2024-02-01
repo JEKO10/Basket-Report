@@ -13,12 +13,12 @@ const SignUp = () => {
     event.preventDefault();
 
     if (!username || !email || !password || !passConfirm) {
-      setSignupStatus("All fields are required");
+      setSignupStatus("All fields are required!");
       return;
     }
 
     if (password !== passConfirm) {
-      setSignupStatus("Password and Password Confirmation do not match");
+      setSignupStatus("Password and Password Confirmation do not match!");
       return;
     }
 

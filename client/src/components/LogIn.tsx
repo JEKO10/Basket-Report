@@ -10,6 +10,11 @@ const LogIn = () => {
   const loginUser = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
+    if (!email || !password) {
+      setLoginstatus("All files are required!");
+      return;
+    }
+
     axios
       .post("http://localhost:3001/login", { email, password })
       .then((response) => {
