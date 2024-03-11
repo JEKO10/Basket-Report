@@ -3,12 +3,16 @@ import { Form } from "../assets/style/Form.style";
 import axios from "axios";
 
 const LogIn = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [logInInfo, setLogInInfo] = useState({
+    email: "",
+    password: ""
+  })
   const [loginstatus, setLoginstatus] = useState("");
 
   const loginUser = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
+    const {email, password} = logInInfo;
 
     if (!email || !password) {
       setLoginstatus("All files are required!");
@@ -33,7 +37,7 @@ const LogIn = () => {
         <input
           type="text"
           placeholder="Email"
-          onChange={(event) => setEmail(event.target.value)}
+          onChange={(event) => setLogInInfo({...logInInfo, email:event.target.value})}
         />
       </div>
       <div>
@@ -41,7 +45,7 @@ const LogIn = () => {
         <input
           type="password"
           placeholder="Password"
-          onChange={(event) => setPassword(event.target.value)}
+          onChange={(event) => setLogInInfo({...logInInfo, password:event.target.value})}
         />
       </div>
       <button type="submit">Log in</button>
