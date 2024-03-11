@@ -6,7 +6,7 @@ const LogIn = () => {
   const [logInInfo, setLogInInfo] = useState({
     email: "",
     password: ""
-  })
+  });
   const [loginstatus, setLoginstatus] = useState("");
 
   const loginUser = (event: React.FormEvent<HTMLFormElement>) => {

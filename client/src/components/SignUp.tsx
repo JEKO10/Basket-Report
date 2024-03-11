@@ -3,14 +3,18 @@ import { Form } from "../assets/style/Form.style";
 import axios from "axios";
 
 const SignUp = () => {
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [passConfirm, setPassConfirm] = useState("");
+  const [userInfo, setUserInfo] = useState({
+    username: "",
+    email: "",
+    password: "",
+    passConfirm:" ",
+  })
   const [signupStatus, setSignupStatus] = useState("");
 
   const addUser = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
+    const {username, email, password, passConfirm} = userInfo;
 
     if (!username || !email || !password || !passConfirm) {
       setSignupStatus("All fields are required!");
@@ -30,7 +34,7 @@ const SignUp = () => {
       })
       .then((response) => {
         if (response.data.message) {
-          let message = response.data.message;
+          const message = response.data.message;
 
           if (typeof message === "string") {
             if (message.includes("username") || message.includes("email")) {
@@ -57,7 +61,7 @@ const SignUp = () => {
         <input
           type="text"
           placeholder="Username"
-          onChange={(event) => setUsername(event.target.value)}
+          onChange={(event) => setUserInfo({ ...userInfo, username: event.target.value })}
         />
       </div>
       <div>
@@ -65,23 +69,23 @@ const SignUp = () => {
         <input
           type="text"
           placeholder="Email"
-          onChange={(event) => setEmail(event.target.value)}
-        />
+          onChange={(event) => setUserInfo({ ...userInfo, email: event.target.value })} 
+          />
       </div>
       <div>
         <label>Password</label>
         <input
           type="password"
           placeholder="Password"
-          onChange={(event) => setPassword(event.target.value)}
-        />
+          onChange={(event) => setUserInfo({ ...userInfo, password: event.target.value })}
+          />
       </div>
       <div>
         <label>Password Confirmation</label>
         <input
           type="password"
           placeholder="Password Confirmation"
-          onChange={(event) => setPassConfirm(event.target.value)}
+          onChange={(event) => setUserInfo({ ...userInfo, passConfirm: event.target.value })}
         />
       </div>
       <button type="submit">Create an account</button>
