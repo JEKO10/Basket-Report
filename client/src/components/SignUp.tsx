@@ -33,21 +33,13 @@ const SignUp = () => {
         password,
       })
       .then((response) => {
-        if (response.data.message) {
-          const message = response.data.message;
+        const message = response.data.message;
 
-          if (typeof message === "string") {
-            if (message.includes("username") || message.includes("email")) {
-              setSignupStatus("Username or Email is already taken");
-            } else {
-              setSignupStatus(message);
-            }
-          } else {
-            setSignupStatus("Success!");
-          }
-        } else {
-          setSignupStatus("Success!");
-        }
+        if (message.includes("username"))
+          setSignupStatus("Username already taken!");
+        else if (message.includes("email"))
+          setSignupStatus("Email already taken!");
+        else setSignupStatus(message);      
       })
       .catch((err) => {
         console.log(err);

@@ -36,8 +36,7 @@ app.post("/register", (req, res) => {
     [username, email, password],
     (err, result) => {
       if (err) {
-        console.error("Error executing query:", err);
-        res.status(500).send({ message: "Internal Server Error" });
+        res.send({ message: err.sqlMessage });
       } else {
         res.send({ message: "User registered successfully" });
       }
@@ -54,9 +53,8 @@ app.post("/login", (req, res) => {
     "SELECT * FROM users WHERE email = ? AND password = ?",
     [email, password],
     (err, result) => {
-      if (err) {
-        res.send({ err: err });
-      }
+      if (err) res.send({ err: err });
+      
 
       if (result.length > 0) {
         res.send(result);
