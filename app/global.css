@@ -10,10 +10,11 @@
 
 @layer components {
   .sidebar-items {
-    @apply flex items-center justify-start mb-6 cursor-pointer;
+    @apply bg-background text-dark flex items-center justify-start mb-2 py-3 px-4 rounded-lg transition-colors cursor-pointer hover:bg-dark hover:text-text;
   }
 
   .sidebar-items svg {
     @apply mr-2;
   }
+
 }

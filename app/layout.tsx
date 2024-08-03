@@ -1,11 +1,11 @@
 import "./global.css";
 
 import type { Metadata } from "next";
-import { Lusitana } from "next/font/google";
+import { Inter } from "next/font/google";
 
 import Navbar from "@/components/Navbar";
 
-const lusitana = Lusitana({
+const inter = Inter({
   subsets: ["latin"],
   weight: ["400", "700"],
 });
@@ -22,7 +22,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={lusitana.className}>
+      <body className={inter.className}>
         <Navbar />
         <main>{children}</main>
       </body>
