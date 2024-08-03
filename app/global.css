@@ -7,3 +7,13 @@
     margin: 1.2rem;
   }
 }
+
+@layer components {
+  .sidebar-items {
+    @apply flex items-center justify-start mb-6 cursor-pointer;
+  }
+
+  .sidebar-items svg {
+    @apply mr-2;
+  }
+}
