@@ -26,11 +26,11 @@ const Navbar = () => {
     >
       <div className="flex items-center justify-start">
         {isBasketball ? (
-          <MdOutlineSportsBasketball className="text-4xl text-text mr-1 -rotate-45" />
+          <MdOutlineSportsBasketball className="text-4xl text-accent mr-1 -rotate-45" />
         ) : (
-          <MdOutlineSportsVolleyball className="text-4xl text-text mr-1 -rotate-45" />
+          <MdOutlineSportsVolleyball className="text-4xl text-accent mr-1 -rotate-45" />
         )}
-        <p className="text-4xl text-text">Turniri</p>
+        <p className="text-4xl text-accent">Turniri</p>
       </div>
     </nav>
   );

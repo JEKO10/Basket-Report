@@ -10,11 +10,27 @@
 
 @layer components {
   .sidebar-items {
-    @apply bg-background text-dark flex items-center justify-start mb-2 py-3 px-4 rounded-lg transition-colors cursor-pointer hover:bg-dark hover:text-text;
+    @apply bg-background text-text flex items-center justify-start mb-2 py-3 px-4 rounded-lg transition-colors cursor-pointer hover:bg-text hover:text-background;
   }
 
   .sidebar-items svg {
     @apply mr-2;
   }
+}
 
+.dark {
+  --body: 0, 0, 0;
+  --primary: 22, 22, 22;
+  --text: 110, 171, 218;
+  --background: 21, 52, 72;
+  --accent: 238, 238, 238;
+}
+
+/* light */
+.light {
+  --body: 255, 255, 255;
+  --primary: 47, 111, 235;
+  --text: 238, 238, 238;
+  --background: 110, 171, 218;
+  --accent: 238, 238, 238;
 }
