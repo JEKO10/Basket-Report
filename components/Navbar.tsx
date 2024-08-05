@@ -24,7 +24,7 @@ const Navbar = () => {
 
   return (
     <nav
-      className={`${lusitana.className} flex items-end justify-start bg-primary px-5 py-5 h-52 rounded-lg`}
+      className={`${lusitana.className} relative top-0 left-0 flex items-end justify-start bg-primary px-5 py-5 h-52 rounded-lg`}
     >
       <div className="flex items-center justify-start">
         {isBasketball ? (
@@ -34,6 +34,7 @@ const Navbar = () => {
         )}
         <p className="text-4xl text-accent">Turniri</p>
       </div>
+      <ToggleTheme />
     </nav>
   );
 };

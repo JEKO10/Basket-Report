@@ -6,16 +6,3 @@
     "simple-import-sort/imports": "error"
   }
 }
-
-// {
-//   "extends": "next/core-web-vitals",
-//   "plugins": ["simple-import-sort", "@typescript-eslint"],
-//   "rules": {
-//     "no-unused-vars": "error",
-//     "simple-import-sort/imports": "error",
-//     "@typescript-eslint/no-unused-vars": [
-//       "error",
-//       { "ignoreRestSiblings": false, "reportUsedIgnorePattern": false }
-//     ]
-//   }
-// }
