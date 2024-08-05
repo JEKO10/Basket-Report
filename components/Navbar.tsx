@@ -4,6 +4,8 @@ import React, { useEffect, useState } from "react";
 import { MdOutlineSportsBasketball } from "react-icons/md";
 import { MdOutlineSportsVolleyball } from "react-icons/md";
 
+import ToggleTheme from "./ToggleTheme";
+
 const lusitana = Lusitana({
   subsets: ["latin"],
   weight: ["400", "700"],
