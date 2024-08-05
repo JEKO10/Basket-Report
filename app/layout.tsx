@@ -1,14 +1,20 @@
 import "./global.css";
 
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Lusitana } from "next/font/google";
 
 import Navbar from "@/components/Navbar";
 import { ThemeProvider } from "@/components/ThemeProvider";
 
 const inter = Inter({
   subsets: ["latin"],
+  variable: "--font-inter",
+});
+
+const lusitana = Lusitana({
+  subsets: ["latin"],
   weight: ["400", "700"],
+  variable: "--font-lusitana",
 });
 
 export const metadata: Metadata = {
@@ -23,7 +29,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.className} bg-body`}>
+      <body className={`${inter.variable} ${lusitana.variable} bg-body`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"

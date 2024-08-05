@@ -16,10 +16,9 @@ const config: Config = {
         background: "rgba(var(--background))",
         accent: "rgba(var(--accent))",
       },
-      backgroundImage: {
-        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "gradient-conic":
-          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+      fontFamily: {
+        inter: ["var(--font-inter)", "sans-serif"],
+        lusitana: ["var(--font-lusitana)", "serif"],
       },
     },
   },
