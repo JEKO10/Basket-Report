@@ -17,7 +17,7 @@ const FormField = ({
 }: FormFieldProps) => {
   return (
     <label className="flex items-start justify-center flex-col w-full mb-6">
-      <span className="mb-1 text-sm select-none">{label}</span>
+      <span className="mb-1.5 text-sm select-none">{label}</span>
       <div className="w-full flex items-center justify-center bg-body px-2 border-2 rounded-md focus-within:border-primary">
         {icon && <span className="text-[#8e8e8e] text-xl">{icon}</span>}
         <input
