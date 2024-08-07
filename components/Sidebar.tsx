@@ -7,7 +7,7 @@ import {
   PiQuestionLight,
   PiUserCheckLight,
   PiUserLight,
-  PiUsersLight,
+  // PiUsersLight,
 } from "react-icons/pi";
 import { TbTournament } from "react-icons/tb";
 
@@ -39,12 +39,12 @@ const Sidebar = () => {
             <p className="text-base">FaQ</p>
           </Link>
         </li>
-        <li>
+        {/* <li>
           <Link href="/users" className="sidebar-link">
             <PiUsersLight strokeWidth={10} />
             <p className="text-base">Korisnici</p>
           </Link>
-        </li>
+        </li> */}
         <li>
           <Link href="/new" className="sidebar-link">
             <TbTournament strokeWidth={1.5} />
