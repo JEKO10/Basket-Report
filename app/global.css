@@ -18,11 +18,11 @@ input:-webkit-autofill:active {
 }
 
 @layer components {
-  .sidebar-items {
-    @apply bg-background text-text flex items-center justify-start mb-2 py-3 px-4 rounded-lg transition-colors cursor-pointer hover:bg-text hover:text-background;
+  .sidebar-link {
+    @apply bg-background text-text flex items-center justify-start w-full mb-2 py-3 px-4 rounded-lg transition-colors cursor-pointer hover:bg-text hover:text-background;
   }
 
-  .sidebar-items svg {
+  .sidebar-link svg {
     @apply mr-2;
   }
 }

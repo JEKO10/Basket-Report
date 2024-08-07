@@ -3,7 +3,6 @@ import "./global.css";
 import type { Metadata } from "next";
 import { Inter, Lusitana } from "next/font/google";
 
-import Navbar from "@/components/Navbar";
 import { ThemeProvider } from "@/components/ThemeProvider";
 
 const inter = Inter({
@@ -36,7 +35,6 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          {/* <Navbar /> */}
           <main>{children}</main>
         </ThemeProvider>
       </body>
