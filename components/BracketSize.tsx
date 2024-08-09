@@ -1,9 +1,11 @@
 "use client";
 
 import React, { useState } from "react";
+import { PiMinus, PiPlus } from "react-icons/pi";
 
 const BracketSize = () => {
   const [isBlank, setIsBlank] = useState(false);
+  const [participants, setParticipants] = useState(2);
 
   return (
     <section className="my-6">
@@ -29,7 +31,27 @@ const BracketSize = () => {
         </button>
       </article>
       {isBlank ? (
-        ""
+        <section>
+          <p className="text-2xl italic font-medium">Unesite broj učesnika</p>
+          <article className="flex items-center justify-start my-5">
+            <button
+              className="bg-primary px-5 cursor-pointer"
+              onClick={() => setParticipants(participants - 1)}
+              disabled={participants === 2}
+            >
+              <PiMinus className="text-text h-8 text-xl" />
+            </button>
+            <div className="bg-accent w-48 p-1 flex items-center justify-center">
+              <p className="select-none">{participants}</p>
+            </div>
+            <button
+              className="bg-primary px-5 cursor-pointer"
+              onClick={() => setParticipants(participants + 1)}
+            >
+              <PiPlus className="text-text h-8 text-xl" />
+            </button>
+          </article>
+        </section>
       ) : (
         <article>
           <p className="text-2xl italic font-medium">Učesnici</p>
