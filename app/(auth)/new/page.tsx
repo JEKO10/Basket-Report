@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 
 import BracketSize from "@/components/BracketSize";
+import Name from "@/components/Name";
 import Navbar from "@/components/Navbar";
 import TournamentForm from "@/components/TournamentForm";
 
@@ -12,7 +13,13 @@ const NewPage = () => {
   return (
     <div>
       <Navbar />
-      {page === 1 ? <TournamentForm /> : <BracketSize />}
+      {page === 1 ? (
+        <TournamentForm />
+      ) : page === 2 ? (
+        <BracketSize />
+      ) : (
+        <Name />
+      )}
       <article className="mb-8">
         {page > 1 && (
           <button
