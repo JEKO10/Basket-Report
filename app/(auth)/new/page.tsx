@@ -33,7 +33,7 @@ const NewPage = () => {
           className="bg-accent text-xl italic font-medium tracking-wider px-4 py-2 mr-10 rounded-lg hover:bg-primary"
           onClick={() => setPage(page + 1)}
         >
-          Sledeće
+          {page === 3 ? "Napravi" : "Sledeće"}
         </button>
       </article>
     </div>
