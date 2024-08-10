@@ -8,7 +8,7 @@ const Name = () => {
         type="text"
         name="name"
         placeholder="Ime turnira"
-        className="bg-primary text-base text-text w-52 px-3 py-1 rounded-md focus:border-primary"
+        className="bg-primary text-base text-text w-52 px-3 py-1 border-2 border-transparent rounded-md outline-none focus:border-accent focus:border-2 placeholder-white"
       />
     </div>
   );
