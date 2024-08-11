@@ -19,12 +19,42 @@ const NewPage = () => {
     thirdPlace: false,
   });
 
-  // const handleNextClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
-  //   if (page !== 3) {
-  //     event.preventDefault();
-  //     setPage(page + 1);
-  //   }
-  // };
+  const handleNextClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
+    event.preventDefault();
+
+    if (page === 1 && formData.tournamentType === 0) return;
+    if (page === 2 && !formData.bracketSize && formData.teams === "") return;
+
+    if (page !== 3) {
+      setPage(page + 1);
+    }
+  };
+
+  const handlePrevClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+
+    if (page === 2) {
+      setFormData({
+        ...formData,
+        tournamentType: 0,
+      });
+    } else if (page === 3) {
+      setFormData({
+        ...formData,
+        bracketSize: false,
+        thirdPlace: false,
+        participants: 2,
+        teams: "",
+      });
+    } else if (page === 4) {
+      setFormData({
+        ...formData,
+        tournamentName: "",
+      });
+    }
+
+    setPage(page - 1);
+  };
 
   return (
     <div>
@@ -40,22 +70,17 @@ const NewPage = () => {
         {page > 1 && (
           <button
             className="bg-primary text-text text-xl italic font-medium px-4 py-2 mr-10 rounded-lg hover:bg-background"
-            onClick={() => setPage(page - 1)}
+            onClick={handlePrevClick}
           >
             Prethodno
           </button>
         )}
         <Link
-          href={"#"}
-          // href={page === 3 ? "/profile" : "#"}
+          href={page === 3 ? "/profile" : "#"}
           className={`bg-accent text-xl italic font-medium tracking-wider px-4 py-2 ${
             page === 1 && "ml-5"
           } rounded-lg hover:bg-primary`}
-          onClick={() => {
-            // handleNextClick(e);
-            setPage(page + 1);
-            console.log(formData);
-          }}
+          onClick={handleNextClick}
         >
           {page === 3 ? "Napravi" : "Sledeće"}
         </Link>
