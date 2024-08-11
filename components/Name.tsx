@@ -11,6 +11,7 @@ const Name = ({
     participants: number;
     teams: string;
     thirdPlace: boolean;
+    randomize: boolean;
   };
   setFormData: React.Dispatch<
     React.SetStateAction<{
@@ -20,6 +21,7 @@ const Name = ({
       participants: number;
       teams: string;
       thirdPlace: boolean;
+      randomize: boolean;
     }>
   >;
 }) => {

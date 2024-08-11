@@ -18,6 +18,7 @@ const NewPage = () => {
     participants: 2,
     teams: "",
     thirdPlace: false,
+    randomize: false,
   });
 
   const handleNextClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
@@ -40,6 +41,8 @@ const NewPage = () => {
     }
 
     setPage(page + 1);
+
+    console.log(formData);
   };
 
   const handlePrevClick = (event: React.MouseEvent<HTMLButtonElement>) => {

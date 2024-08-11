@@ -15,6 +15,7 @@ const BracketSize = ({
     participants: number;
     teams: string;
     thirdPlace: boolean;
+    randomize: boolean;
   };
   setFormData: React.Dispatch<
     React.SetStateAction<{
@@ -24,6 +25,7 @@ const BracketSize = ({
       participants: number;
       teams: string;
       thirdPlace: boolean;
+      randomize: boolean;
     }>
   >;
 }) => {

@@ -16,6 +16,7 @@ const ParticipantsFormat = ({
     participants: number;
     teams: string;
     thirdPlace: boolean;
+    randomize: boolean;
   };
   setFormData: React.Dispatch<
     React.SetStateAction<{
@@ -25,6 +26,7 @@ const ParticipantsFormat = ({
       participants: number;
       teams: string;
       thirdPlace: boolean;
+      randomize: boolean;
     }>
   >;
 }) => {
@@ -74,7 +76,14 @@ const ParticipantsFormat = ({
       />
       <label className="flex align-center justify-start flex-col">
         <div className="flex align-center justify-start cursor-pointer">
-          <input type="checkbox" name="thirdPlace" className="w-5 mr-3" />
+          <input
+            type="checkbox"
+            name="thirdPlace"
+            className="w-5 mr-3"
+            onChange={(event) =>
+              setFormData({ ...formData, randomize: event.target.checked })
+            }
+          />
           <p className="text-base opacity-65 italic select-none">
             Nasumično rasporedi takmičare
           </p>

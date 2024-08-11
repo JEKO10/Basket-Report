@@ -17,6 +17,7 @@ const TournamentForm = ({
     participants: number;
     teams: string;
     thirdPlace: boolean;
+    randomize: boolean;
   };
   setFormData: React.Dispatch<
     React.SetStateAction<{
@@ -26,16 +27,11 @@ const TournamentForm = ({
       participants: number;
       teams: string;
       thirdPlace: boolean;
+      randomize: boolean;
     }>
   >;
 }) => {
   const [activeFormat, setActiveFormat] = useState<number>(0);
-  const [isThirdPlace, setIsThirdPlace] = useState(false);
-
-  const handleCheckboxChange = () => {
-    setIsThirdPlace(!isThirdPlace);
-    setFormData({ ...formData, thirdPlace: !isThirdPlace });
-  };
 
   const handleFormatClick = (index: number) => {
     setActiveFormat(index);
@@ -115,7 +111,9 @@ const TournamentForm = ({
               type="checkbox"
               name="thirdPlace"
               className="w-5 mr-3"
-              onChange={handleCheckboxChange}
+              onChange={(event) =>
+                setFormData({ ...formData, thirdPlace: event.target.checked })
+              }
             />
             <p className="text-base opacity-65 italic select-none">
               Dodaj meč za treće mjesto
