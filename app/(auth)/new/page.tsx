@@ -10,6 +10,7 @@ import TournamentForm from "@/components/TournamentForm";
 
 const NewPage = () => {
   const [page, setPage] = useState(1);
+  const [message, setMessage] = useState("");
   const [formData, setFormData] = useState({
     tournamentType: 0,
     bracketSize: false,
@@ -22,12 +23,23 @@ const NewPage = () => {
   const handleNextClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
     event.preventDefault();
 
-    if (page === 1 && formData.tournamentType === 0) return;
-    if (page === 2 && !formData.bracketSize && formData.teams === "") return;
+    if (page === 1 && formData.tournamentType === 0) {
+      setMessage("Izaberi format!");
 
-    if (page !== 3) {
-      setPage(page + 1);
+      return;
     }
+
+    if (page === 2 && !formData.bracketSize && !formData.teams.includes("\n")) {
+      setMessage("Unesi bar dva tima!");
+      return;
+    }
+
+    if (page === 3 && formData.tournamentName === "") {
+      setMessage("Unesi ime turnira!");
+      return;
+    }
+
+    setPage(page + 1);
   };
 
   const handlePrevClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -66,6 +78,7 @@ const NewPage = () => {
         <BracketSize formData={formData} setFormData={setFormData} />
       )}
       {page === 3 && <Name formData={formData} setFormData={setFormData} />}
+      {message}
       <article className="mb-8">
         {page > 1 && (
           <button
