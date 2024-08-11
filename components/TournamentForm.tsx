@@ -5,11 +5,45 @@ import React, { useState } from "react";
 import double from "@/public/double.png";
 import robin from "@/public/robin.png";
 import single from "@/public/single.png";
-const TournamentForm = () => {
-  const [activeFormat, setActiveFormat] = useState<number | null>(null);
+
+const TournamentForm = ({
+  formData,
+  setFormData,
+}: {
+  formData: {
+    tournamentType: number;
+    bracketSize: boolean;
+    tournamentName: string;
+    participants: number;
+    teams: string;
+    thirdPlace: boolean;
+  };
+  setFormData: React.Dispatch<
+    React.SetStateAction<{
+      tournamentType: number;
+      bracketSize: boolean;
+      tournamentName: string;
+      participants: number;
+      teams: string;
+      thirdPlace: boolean;
+    }>
+  >;
+}) => {
+  const [activeFormat, setActiveFormat] = useState<number>(0);
+  const [isThirdPlace, setIsThirdPlace] = useState(false);
+
+  const handleCheckboxChange = () => {
+    setIsThirdPlace(!isThirdPlace);
+    setFormData({ ...formData, thirdPlace: !isThirdPlace });
+  };
 
   const handleFormatClick = (index: number) => {
     setActiveFormat(index);
+
+    setFormData({
+      ...formData,
+      tournamentType: index,
+    });
   };
 
   return (
@@ -77,7 +111,12 @@ const TournamentForm = () => {
         </h2>
         <label className="flex align-center justify-start flex-col">
           <div className="flex align-center justify-start cursor-pointer">
-            <input type="checkbox" name="thirdPlace" className="w-5 mr-3" />
+            <input
+              type="checkbox"
+              name="thirdPlace"
+              className="w-5 mr-3"
+              onChange={handleCheckboxChange}
+            />
             <p className="text-base opacity-65 italic select-none">
               Dodaj meč za treće mjesto
             </p>

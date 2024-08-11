@@ -1,10 +1,39 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { PiMinus, PiPlus } from "react-icons/pi";
 
-const ParticipantsFormat = ({ isBlank }: { isBlank: boolean }) => {
+const ParticipantsFormat = ({
+  isBlank,
+  formData,
+  setFormData,
+}: {
+  isBlank: boolean;
+  formData: {
+    tournamentType: number;
+    bracketSize: boolean;
+    tournamentName: string;
+    participants: number;
+    teams: string;
+    thirdPlace: boolean;
+  };
+  setFormData: React.Dispatch<
+    React.SetStateAction<{
+      tournamentType: number;
+      bracketSize: boolean;
+      tournamentName: string;
+      participants: number;
+      teams: string;
+      thirdPlace: boolean;
+    }>
+  >;
+}) => {
   const [participants, setParticipants] = useState(2);
+  const [teams, setTeams] = useState("");
+
+  useEffect(() => {
+    setFormData({ ...formData, participants, teams });
+  }, [participants, teams]);
 
   if (isBlank) {
     return (
@@ -41,6 +70,7 @@ const ParticipantsFormat = ({ isBlank }: { isBlank: boolean }) => {
         className="bg-primary text-base text-text w-1/2 h-60 my-2 py-4 px-5 resize-none rounded-md outline-none"
         name="participants"
         placeholder="Unesite učesnike"
+        onChange={(event) => setTeams(event.target.value)}
       />
       <label className="flex align-center justify-start flex-col">
         <div className="flex align-center justify-start cursor-pointer">

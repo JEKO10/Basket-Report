@@ -4,8 +4,36 @@ import React, { useState } from "react";
 
 import ParticipantsFormat from "./ParticipantsFormat";
 
-const BracketSize = () => {
+const BracketSize = ({
+  formData,
+  setFormData,
+}: {
+  formData: {
+    tournamentType: number;
+    bracketSize: boolean;
+    tournamentName: string;
+    participants: number;
+    teams: string;
+    thirdPlace: boolean;
+  };
+  setFormData: React.Dispatch<
+    React.SetStateAction<{
+      tournamentType: number;
+      bracketSize: boolean;
+      tournamentName: string;
+      participants: number;
+      teams: string;
+      thirdPlace: boolean;
+    }>
+  >;
+}) => {
   const [isBlank, setIsBlank] = useState(false);
+
+  const handleSizeSelect = (size: boolean) => {
+    setFormData({ ...formData, bracketSize: size });
+
+    setIsBlank(size);
+  };
 
   return (
     <section className="my-6">
@@ -17,7 +45,7 @@ const BracketSize = () => {
           className={`bg-accent mr-5 py-3 px-5 border-4 rounded-lg hover:border-[#6EABDA] ${
             !isBlank ? "border-[#6EABDA]" : "border-transparent"
           }`}
-          onClick={() => setIsBlank(false)}
+          onClick={() => handleSizeSelect(false)}
         >
           Unesite imena timova, od najboljeg ka najlošijem
         </button>
@@ -25,12 +53,16 @@ const BracketSize = () => {
           className={`bg-primary text-text mr-5 py-3 px-5 border-4 rounded-lg hover:border-[#f08953] ${
             isBlank ? "border-[#f08953]" : "border-transparent"
           }`}
-          onClick={() => setIsBlank(true)}
+          onClick={() => handleSizeSelect(true)}
         >
           Unesite broj i generišite prazan kostur
         </button>
       </article>
-      <ParticipantsFormat isBlank={isBlank} />
+      <ParticipantsFormat
+        isBlank={isBlank}
+        formData={formData}
+        setFormData={setFormData}
+      />
     </section>
   );
 };
