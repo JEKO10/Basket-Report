@@ -35,7 +35,7 @@ const Name = ({
         onChange={(event) =>
           setFormData({ ...formData, tournamentName: event.target.value })
         }
-        className="bg-primary text-lg text-text w-52 px-3 py-2 border-2 border-transparent rounded-md outline-none focus:border-accent focus:border-2 placeholder-white"
+        className="name bg-primary text-lg text-text w-52 px-3 py-2 border-2 border-transparent rounded-md outline-none focus:border-accent focus:border-2 placeholder-white"
       />
     </div>
   );
