@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import BracketSize from "@/components/BracketSize";
 import Name from "@/components/Name";
@@ -40,9 +40,8 @@ const NewPage = () => {
       return;
     }
 
+    setMessage("");
     setPage(page + 1);
-
-    console.log(formData);
   };
 
   const handlePrevClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -68,8 +67,19 @@ const NewPage = () => {
       });
     }
 
+    setMessage("");
     setPage(page - 1);
   };
+
+  useEffect(() => {
+    if (message) {
+      const timeout = setTimeout(() => {
+        setMessage("");
+      }, 2000);
+
+      return () => clearTimeout(timeout);
+    }
+  }, [message]);
 
   return (
     <div>
@@ -81,7 +91,9 @@ const NewPage = () => {
         <BracketSize formData={formData} setFormData={setFormData} />
       )}
       {page === 3 && <Name formData={formData} setFormData={setFormData} />}
-      {message}
+      <div className={`my-5 ${page === 1 && "ml-6"} h-6`}>
+        <p className="text-xl text-red-600 italic font-medium">{message}</p>
+      </div>
       <article className="mb-8">
         {page > 1 && (
           <button

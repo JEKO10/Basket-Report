@@ -44,7 +44,7 @@ const TournamentForm = ({
 
   return (
     <div>
-      <section className="flex items-center justify-around my-10">
+      <section className="flex items-center justify-around mt-10 mb-5">
         <article
           className={`flex items-center justify-start flex-col bg-accent h-[30rem] w-80 py-4 px-8 border-2 rounded-lg cursor-pointer hover:border-[#6EABDA] ${
             activeFormat === 1 ? "border-[#6EABDA]" : "border-transparent"
@@ -101,7 +101,7 @@ const TournamentForm = ({
           </p>
         </article>
       </section>
-      <article className="my-16 px-5">
+      <article className="mt-16 px-5">
         <h2 className="text-2xl mb-4 italic font-medium">
           Važi za format sa jednom eliminacijom
         </h2>

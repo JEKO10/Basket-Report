@@ -69,12 +69,12 @@ const ParticipantsFormat = ({
         Jedan ispod drugog, od najboljeg ka najlošijem
       </p>
       <textarea
-        className="bg-primary text-base text-text w-1/2 h-60 my-2 py-4 px-5 resize-none rounded-md outline-none"
+        className="bg-primary text-base text-text w-1/2 h-60 my-2 py-4 px-5 resize-none rounded-md outline-none placeholder-text"
         name="participants"
         placeholder="Unesite učesnike"
         onChange={(event) => setTeams(event.target.value)}
       />
-      <label className="flex align-center justify-start flex-col">
+      <label className="flex align-center justify-start flex-col w-fit">
         <div className="flex align-center justify-start cursor-pointer">
           <input
             type="checkbox"
