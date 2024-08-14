@@ -1,3 +1,4 @@
+import axios from "axios";
 import Link from "next/link";
 import React from "react";
 
@@ -34,6 +35,21 @@ const ControlButtons = ({
   setFormData,
   setMessage,
 }: ControlButtonsProps) => {
+  const handleSubmit = async () => {
+    try {
+      const response = await axios.post("/api/tournament", formData);
+
+      if (response.data.success) {
+        setMessage("Form submitted successfully!");
+      } else {
+        setMessage("Submission failed, please try again.");
+      }
+    } catch (error) {
+      console.error(error);
+      setMessage("An error occurred, please try again.");
+    }
+  };
+
   const handleNextClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
     event.preventDefault();
 
@@ -51,6 +67,10 @@ const ControlButtons = ({
     if (page === 3 && formData.tournamentName === "") {
       setMessage("Unesi ime turnira!");
       return;
+    }
+
+    if (page === 3) {
+      handleSubmit();
     }
 
     setMessage("");
