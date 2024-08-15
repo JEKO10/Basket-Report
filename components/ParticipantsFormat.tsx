@@ -25,8 +25,12 @@ const ParticipantsFormat = ({
   const [teams, setTeams] = useState("");
 
   useEffect(() => {
-    setFormData({ ...formData, participants, teams });
-  }, [participants, teams]);
+    setFormData({ ...formData, teams });
+  }, [teams]);
+
+  useEffect(() => {
+    setFormData({ ...formData, participants });
+  }, [participants]);
 
   if (isBlank) {
     return (
@@ -41,7 +45,15 @@ const ParticipantsFormat = ({
             <PiMinus className="text-text h-8 text-xl" />
           </button>
           <div className="bg-accent w-48 p-1 flex items-center justify-center">
-            <p className="select-none">{participants}</p>
+            <input
+              type="number"
+              {...register("participants")}
+              onChange={(event) =>
+                setParticipants(parseInt(event.target.value))
+              }
+              value={participants}
+              min={2}
+            />
           </div>
           <button
             className="bg-primary px-5 cursor-pointer rounded-r-md"
@@ -61,7 +73,7 @@ const ParticipantsFormat = ({
       </p>
       <textarea
         className="bg-primary text-base text-text w-1/2 h-60 my-2 py-4 px-5 resize-none rounded-md outline-none placeholder-text"
-        name="participants"
+        {...register("teams")}
         placeholder="Unesite učesnike, jedan učesnik ispod drugog"
         onChange={(event) => setTeams(event.target.value)}
       />

@@ -1,5 +1,5 @@
 import Image from "next/image";
-import React, { useState } from "react";
+import React from "react";
 
 import double from "@/public/double.png";
 import robin from "@/public/robin.png";
@@ -11,11 +11,7 @@ const TournamentForm = ({
   setFormData,
   register,
 }: TournamentProps) => {
-  const [activeFormat, setActiveFormat] = useState<number>(0);
-
   const handleFormatClick = (index: number) => {
-    setActiveFormat(index);
-
     setFormData({
       ...formData,
       tournamentType: index,
@@ -27,7 +23,9 @@ const TournamentForm = ({
       <section className="flex items-center justify-around mt-10 mb-5">
         <article
           className={`flex items-center justify-start flex-col bg-accent h-[30rem] w-80 py-4 px-8 border-2 rounded-lg cursor-pointer hover:border-[#6EABDA] ${
-            activeFormat === 1 ? "border-[#6EABDA]" : "border-transparent"
+            formData.tournamentType === 1
+              ? "border-[#6EABDA]"
+              : "border-transparent"
           }`}
           onClick={() => handleFormatClick(1)}
         >
@@ -46,7 +44,9 @@ const TournamentForm = ({
         </article>
         <article
           className={`flex items-center justify-start flex-col bg-accent h-[30rem] w-80 py-4 px-8 border-2 rounded-lg cursor-pointer hover:border-[#6EABDA] ${
-            activeFormat === 2 ? "border-[#6EABDA]" : "border-transparent"
+            formData.tournamentType === 2
+              ? "border-[#6EABDA]"
+              : "border-transparent"
           }`}
           onClick={() => handleFormatClick(2)}
         >
@@ -64,7 +64,9 @@ const TournamentForm = ({
         </article>
         <article
           className={`flex items-center justify-start flex-col bg-accent h-[30rem] w-80 py-4 px-8 border-2 rounded-lg cursor-pointer hover:border-[#6EABDA] ${
-            activeFormat === 3 ? "border-[#6EABDA]" : "border-transparent"
+            formData.tournamentType === 3
+              ? "border-[#6EABDA]"
+              : "border-transparent"
           }`}
           onClick={() => handleFormatClick(3)}
         >

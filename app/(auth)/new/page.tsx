@@ -26,7 +26,8 @@ const NewPage = () => {
     thirdPlace: false,
     randomize: false,
   });
-  const [isPending, startTransition] = useTransition();
+  // eslint-disable-next-line no-unused-vars
+  const [_, startTransition] = useTransition();
   const router = useRouter();
 
   const form = useForm<z.infer<typeof TournamentSchema>>({
@@ -41,7 +42,7 @@ const NewPage = () => {
       randomize: false,
     },
   });
-  const { register, handleSubmit } = form;
+  const { register, handleSubmit, formState } = form;
 
   const onSubmit = async (data: z.infer<typeof TournamentSchema>) => {
     startTransition(async () => {
@@ -68,7 +69,15 @@ const NewPage = () => {
 
       return () => clearTimeout(timeout);
     }
-  }, [error]);
+
+    if (success) {
+      const timeout = setTimeout(() => {
+        setSuccess("");
+      }, 2000);
+
+      return () => clearTimeout(timeout);
+    }
+  }, [error, success]);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -97,11 +106,18 @@ const NewPage = () => {
         </div>
       )}
       <div className={`my-5 ${page === 1 && "ml-6"} h-6`}>
-        {error && (
+        {error ? (
           <p className="text-xl text-red-600 italic font-medium">{error}</p>
-        )}
-        {success && (
+        ) : success ? (
           <p className="text-xl text-green-600 italic font-medium">{success}</p>
+        ) : (
+          page === 3 &&
+          formState.isSubmitted &&
+          formState.errors.tournamentName && (
+            <p className="text-xl text-red-600 italic font-medium">
+              {formState.errors.tournamentName?.message}
+            </p>
+          )
         )}
       </div>
       <ControlButtons
@@ -110,7 +126,6 @@ const NewPage = () => {
         formData={formData}
         setFormData={setFormData}
         setError={setError}
-        isPending={isPending}
       />
     </form>
   );

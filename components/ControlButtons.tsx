@@ -11,7 +11,6 @@ interface ControlButtonsProps {
     React.SetStateAction<z.infer<typeof TournamentSchema>>
   >;
   setError: React.Dispatch<React.SetStateAction<string>>;
-  isPending: boolean;
 }
 
 const ControlButtons = ({
@@ -20,7 +19,6 @@ const ControlButtons = ({
   formData,
   setFormData,
   setError,
-  isPending,
 }: ControlButtonsProps) => {
   const handleNextClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
@@ -72,13 +70,6 @@ const ControlButtons = ({
     setPage(page - 1);
   };
 
-  const onSubmit = () => {
-    if (formData.tournamentName === "") {
-      setError("Ime mora da ima bar tri slova!");
-      return;
-    }
-  };
-
   return (
     <article className="mb-8">
       {page > 1 && (
@@ -96,7 +87,6 @@ const ControlButtons = ({
             page === 1 && "ml-5"
           } rounded-lg hover:bg-primary`}
           onClick={handleNextClick}
-          disabled={isPending}
         >
           Sledeće
         </button>
@@ -104,8 +94,6 @@ const ControlButtons = ({
         <button
           type="submit"
           className="bg-accent text-xl italic font-medium tracking-wider px-4 py-2 ml-5 rounded-lg hover:bg-primary"
-          disabled={isPending}
-          onClick={onSubmit}
         >
           Napravi
         </button>
