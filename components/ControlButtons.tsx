@@ -10,7 +10,7 @@ interface ControlButtonsProps {
   setFormData: React.Dispatch<
     React.SetStateAction<z.infer<typeof TournamentSchema>>
   >;
-  setMessage: React.Dispatch<React.SetStateAction<string>>;
+  setError: React.Dispatch<React.SetStateAction<string>>;
   isPending: boolean;
 }
 
@@ -19,29 +19,29 @@ const ControlButtons = ({
   setPage,
   formData,
   setFormData,
-  setMessage,
+  setError,
   isPending,
 }: ControlButtonsProps) => {
   const handleNextClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
 
     if (page === 1 && formData.tournamentType === 0) {
-      setMessage("Izaberi format!");
+      setError("Izaberi format!");
 
       return;
     }
 
     if (page === 2 && !formData.bracketSize && !formData.teams.includes("\n")) {
-      setMessage("Unesi bar dva tima!");
+      setError("Unesi bar dva tima!");
       return;
     }
 
     if (page === 3 && formData.tournamentName === "") {
-      setMessage("Unesi ime turnira!");
+      setError("Unesi ime turnira!");
       return;
     }
 
-    setMessage("");
+    setError("");
     setPage(page + 1);
   };
 
@@ -68,8 +68,15 @@ const ControlButtons = ({
       });
     }
 
-    setMessage("");
+    setError("");
     setPage(page - 1);
+  };
+
+  const onSubmit = () => {
+    if (formData.tournamentName === "") {
+      setError("Ime mora da ima bar tri slova!");
+      return;
+    }
   };
 
   return (
@@ -98,6 +105,7 @@ const ControlButtons = ({
           type="submit"
           className="bg-accent text-xl italic font-medium tracking-wider px-4 py-2 ml-5 rounded-lg hover:bg-primary"
           disabled={isPending}
+          onClick={onSubmit}
         >
           Napravi
         </button>

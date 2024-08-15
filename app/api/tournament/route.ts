@@ -17,11 +17,14 @@ export const POST = async (request: Request) => {
   }
 
   try {
-    const tournament = await db.tournament.create({
+    await db.tournament.create({
       data: validateFields.data,
     });
 
-    return NextResponse.json({ data: tournament }, { status: 201 });
+    return NextResponse.json(
+      { success: "Uspješno napravljen turnir!" },
+      { status: 201 },
+    );
   } catch (error) {
     return NextResponse.json(
       { error: "Veza sa bazom podataka je prekinuta, probajte ponovo." },

@@ -10,7 +10,9 @@ export const TournamentSchema = z.object({
     .string({
       message: "Ime je obavezno!",
     })
-    .min(3),
+    .min(3, {
+      message: "Ime mora da sadrži najmanje 3 slova!",
+    }),
   participants: z.number().min(2),
   teams: z.string(),
   thirdPlace: z.boolean(),

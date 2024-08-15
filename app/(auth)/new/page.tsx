@@ -15,7 +15,8 @@ import { TournamentSchema } from "@/schemas";
 
 const NewPage = () => {
   const [page, setPage] = useState(1);
-  const [message, setMessage] = useState("");
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
   const [formData, setFormData] = useState({
     tournamentType: 0,
     bracketSize: false,
@@ -48,26 +49,26 @@ const NewPage = () => {
         const response = await axios.post("/api/tournament", data);
 
         if (response.data.success) {
-          setMessage("Uspješno napravljen turnir!");
+          setSuccess("Uspješno napravljen turnir!");
           router.push("/profile");
         } else {
-          setMessage(response.data.error);
+          setError(response.data.error);
         }
       } catch (error) {
-        setMessage("Došlo je do greške, pokušajte ponovo.");
+        setError("Došlo je do greške, pokušajte ponovo.");
       }
     });
   };
 
   useEffect(() => {
-    if (message) {
+    if (error) {
       const timeout = setTimeout(() => {
-        setMessage("");
+        setError("");
       }, 2000);
 
       return () => clearTimeout(timeout);
     }
-  }, [message]);
+  }, [error]);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -87,21 +88,28 @@ const NewPage = () => {
         />
       )}
       {page === 3 && (
-        <Name
-          formData={formData}
-          setFormData={setFormData}
-          register={register}
-        />
+        <div>
+          <Name
+            formData={formData}
+            setFormData={setFormData}
+            register={register}
+          />
+        </div>
       )}
       <div className={`my-5 ${page === 1 && "ml-6"} h-6`}>
-        <p className="text-xl text-red-600 italic font-medium">{message}</p>
+        {error && (
+          <p className="text-xl text-red-600 italic font-medium">{error}</p>
+        )}
+        {success && (
+          <p className="text-xl text-green-600 italic font-medium">{success}</p>
+        )}
       </div>
       <ControlButtons
         page={page}
         setPage={setPage}
         formData={formData}
         setFormData={setFormData}
-        setMessage={setMessage}
+        setError={setError}
         isPending={isPending}
       />
     </form>
