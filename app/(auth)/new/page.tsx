@@ -1,6 +1,7 @@
 "use client";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
+import { useRouter } from "next/navigation";
 import React, { useEffect, useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
@@ -24,7 +25,8 @@ const NewPage = () => {
     thirdPlace: false,
     randomize: false,
   });
-  const [_, startTransition] = useTransition();
+  const [isPending, startTransition] = useTransition();
+  const router = useRouter();
 
   const form = useForm<z.infer<typeof TournamentSchema>>({
     resolver: zodResolver(TournamentSchema),
@@ -40,13 +42,14 @@ const NewPage = () => {
   });
   const { register, handleSubmit } = form;
 
-  const onSubmit = async () => {
+  const onSubmit = async (data: z.infer<typeof TournamentSchema>) => {
     startTransition(async () => {
       try {
-        const response = await axios.post("/api/tournament", formData);
+        const response = await axios.post("/api/tournament", data);
 
         if (response.data.success) {
           setMessage("Uspješno napravljen turnir!");
+          router.push("/profile");
         } else {
           setMessage(response.data.error);
         }
@@ -99,6 +102,7 @@ const NewPage = () => {
         formData={formData}
         setFormData={setFormData}
         setMessage={setMessage}
+        isPending={isPending}
       />
     </form>
   );

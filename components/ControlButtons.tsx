@@ -1,30 +1,17 @@
-import { useRouter } from "next/navigation";
 import React from "react";
+import * as z from "zod";
+
+import { TournamentSchema } from "@/schemas";
 
 interface ControlButtonsProps {
   page: number;
   setPage: React.Dispatch<React.SetStateAction<number>>;
-  formData: {
-    tournamentType: number;
-    bracketSize: boolean;
-    tournamentName: string;
-    participants: number;
-    teams: string;
-    thirdPlace: boolean;
-    randomize: boolean;
-  };
+  formData: z.infer<typeof TournamentSchema>;
   setFormData: React.Dispatch<
-    React.SetStateAction<{
-      tournamentType: number;
-      bracketSize: boolean;
-      tournamentName: string;
-      participants: number;
-      teams: string;
-      thirdPlace: boolean;
-      randomize: boolean;
-    }>
+    React.SetStateAction<z.infer<typeof TournamentSchema>>
   >;
   setMessage: React.Dispatch<React.SetStateAction<string>>;
+  isPending: boolean;
 }
 
 const ControlButtons = ({
@@ -33,9 +20,8 @@ const ControlButtons = ({
   formData,
   setFormData,
   setMessage,
+  isPending,
 }: ControlButtonsProps) => {
-  const router = useRouter();
-
   const handleNextClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
 
@@ -52,14 +38,6 @@ const ControlButtons = ({
 
     if (page === 3 && formData.tournamentName === "") {
       setMessage("Unesi ime turnira!");
-      return;
-    }
-
-    if (page === 3) {
-      // setTimeout(() => {
-      //   router.push("/profile");
-      // }, 500);
-
       return;
     }
 
@@ -104,15 +82,26 @@ const ControlButtons = ({
           Prethodno
         </button>
       )}
-      <button
-        type={`${page === 3 ? "submit" : "button"}`}
-        className={`bg-accent text-xl italic font-medium tracking-wider px-4 py-2 ${
-          page === 1 && "ml-5"
-        } rounded-lg hover:bg-primary`}
-        onClick={handleNextClick}
-      >
-        {page === 3 ? "Napravi" : "Sledeće"}
-      </button>
+      {page < 3 ? (
+        <button
+          type="button"
+          className={`bg-accent text-xl italic font-medium tracking-wider px-4 py-2 ${
+            page === 1 && "ml-5"
+          } rounded-lg hover:bg-primary`}
+          onClick={handleNextClick}
+          disabled={isPending}
+        >
+          Sledeće
+        </button>
+      ) : (
+        <button
+          type="submit"
+          className="bg-accent text-xl italic font-medium tracking-wider px-4 py-2 ml-5 rounded-lg hover:bg-primary"
+          disabled={isPending}
+        >
+          Napravi
+        </button>
+      )}
     </article>
   );
 };
