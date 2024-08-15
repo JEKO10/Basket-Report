@@ -1,4 +1,3 @@
-import axios from "axios";
 import { useRouter } from "next/navigation";
 import React from "react";
 
@@ -37,20 +36,6 @@ const ControlButtons = ({
 }: ControlButtonsProps) => {
   const router = useRouter();
 
-  const handleSubmit = async () => {
-    try {
-      const response = await axios.post("/api/tournament", formData);
-
-      if (response.data.success) {
-        setMessage("Uspješno napravljen turnir!");
-      } else {
-        setMessage("Slanje nije uspjelo, pokušajte ponovo.");
-      }
-    } catch (error) {
-      setMessage("Došlo je do greške, pokušajte ponovo.");
-    }
-  };
-
   const handleNextClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
 
@@ -71,11 +56,9 @@ const ControlButtons = ({
     }
 
     if (page === 3) {
-      handleSubmit();
-
-      setTimeout(() => {
-        router.push("/profile");
-      }, 500);
+      // setTimeout(() => {
+      //   router.push("/profile");
+      // }, 500);
 
       return;
     }
@@ -122,6 +105,7 @@ const ControlButtons = ({
         </button>
       )}
       <button
+        type={`${page === 3 ? "submit" : "button"}`}
         className={`bg-accent text-xl italic font-medium tracking-wider px-4 py-2 ${
           page === 1 && "ml-5"
         } rounded-lg hover:bg-primary`}
