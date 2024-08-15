@@ -1,4 +1,3 @@
-import { UseFormRegister } from "react-hook-form";
 import * as z from "zod";
 
 export const TournamentSchema = z.object({
@@ -24,5 +23,4 @@ export interface TournamentProps {
   setFormData: React.Dispatch<
     React.SetStateAction<z.infer<typeof TournamentSchema>>
   >;
-  register: UseFormRegister<z.infer<typeof TournamentSchema>>;
 }

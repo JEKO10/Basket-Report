@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { UseFormRegister } from "react-hook-form";
 import { PiMinus, PiPlus } from "react-icons/pi";
 import * as z from "zod";
 
@@ -12,14 +11,12 @@ interface ParticipantsFormatProps {
   setFormData: React.Dispatch<
     React.SetStateAction<z.infer<typeof TournamentSchema>>
   >;
-  register: UseFormRegister<z.infer<typeof TournamentSchema>>;
 }
 
 const ParticipantsFormat = ({
   isBlank,
   formData,
   setFormData,
-  register,
 }: ParticipantsFormatProps) => {
   const [participants, setParticipants] = useState(2);
   const [teams, setTeams] = useState("");
@@ -47,7 +44,6 @@ const ParticipantsFormat = ({
           <div className="bg-accent w-48 p-1 flex items-center justify-center">
             <input
               type="number"
-              {...register("participants")}
               onChange={(event) =>
                 setParticipants(parseInt(event.target.value))
               }
@@ -73,7 +69,6 @@ const ParticipantsFormat = ({
       </p>
       <textarea
         className="bg-primary text-base text-text w-1/2 h-60 my-2 py-4 px-5 resize-none rounded-md outline-none placeholder-text"
-        {...register("teams")}
         placeholder="Unesite učesnike, jedan učesnik ispod drugog"
         onChange={(event) => setTeams(event.target.value)}
       />
@@ -81,7 +76,6 @@ const ParticipantsFormat = ({
         <div className="flex align-center justify-start cursor-pointer">
           <input
             type="checkbox"
-            {...register("randomize")}
             className="w-5 mr-3"
             onChange={(event) =>
               setFormData({ ...formData, randomize: event.target.checked })

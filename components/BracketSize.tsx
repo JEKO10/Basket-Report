@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { TournamentProps } from "@/schemas";
 
 import ParticipantsFormat from "./ParticipantsFormat";
-const BracketSize = ({ formData, setFormData, register }: TournamentProps) => {
+const BracketSize = ({ formData, setFormData }: TournamentProps) => {
   const [isBlank, setIsBlank] = useState(false);
 
   const handleSizeSelect = (size: boolean) => {
@@ -39,7 +39,6 @@ const BracketSize = ({ formData, setFormData, register }: TournamentProps) => {
         isBlank={isBlank}
         formData={formData}
         setFormData={setFormData}
-        register={register}
       />
     </section>
   );

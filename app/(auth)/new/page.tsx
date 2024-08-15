@@ -1,17 +1,13 @@
 "use client";
-import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import React, { useEffect, useState, useTransition } from "react";
-import { useForm } from "react-hook-form";
-import * as z from "zod";
+import React, { useEffect, useState } from "react";
 
 import BracketSize from "@/components/BracketSize";
 import ControlButtons from "@/components/ControlButtons";
 import Name from "@/components/Name";
 import Navbar from "@/components/Navbar";
 import TournamentForm from "@/components/TournamentForm";
-import { TournamentSchema } from "@/schemas";
 
 const NewPage = () => {
   const [page, setPage] = useState(1);
@@ -26,52 +22,12 @@ const NewPage = () => {
     thirdPlace: false,
     randomize: false,
   });
-  // eslint-disable-next-line no-unused-vars
-  const [_, startTransition] = useTransition();
   const router = useRouter();
 
-  const form = useForm<z.infer<typeof TournamentSchema>>({
-    resolver: zodResolver(TournamentSchema),
-    defaultValues: {
-      tournamentType: 0,
-      bracketSize: false,
-      tournamentName: "",
-      participants: 2,
-      teams: "",
-      thirdPlace: false,
-      randomize: false,
-    },
-  });
-  const { register, handleSubmit, formState } = form;
-
-  const onSubmit = async (data: z.infer<typeof TournamentSchema>) => {
-    startTransition(async () => {
-      try {
-        const response = await axios.post("/api/tournament", data);
-
-        if (response.data.success) {
-          setSuccess("Uspješno napravljen turnir!");
-          router.push("/profile");
-        } else {
-          setError(response.data.error);
-        }
-      } catch (error) {
-        setError("Došlo je do greške, pokušajte ponovo.");
-      }
-    });
-  };
-
   useEffect(() => {
-    if (error) {
+    if (error || success) {
       const timeout = setTimeout(() => {
         setError("");
-      }, 2000);
-
-      return () => clearTimeout(timeout);
-    }
-
-    if (success) {
-      const timeout = setTimeout(() => {
         setSuccess("");
       }, 2000);
 
@@ -79,30 +35,35 @@ const NewPage = () => {
     }
   }, [error, success]);
 
+  const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    try {
+      const response = await axios.post("/api/tournament", formData);
+
+      if (response.data.success) {
+        setSuccess("Uspješno napravljen turnir!");
+        router.push("/profile");
+      } else {
+        setError(response.data.error);
+      }
+    } catch (error) {
+      setError("Došlo je do greške, pokušajte ponovo.");
+    }
+  };
+
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={onSubmit}>
       <Navbar />
       {page === 1 && (
-        <TournamentForm
-          formData={formData}
-          setFormData={setFormData}
-          register={register}
-        />
+        <TournamentForm formData={formData} setFormData={setFormData} />
       )}
       {page === 2 && (
-        <BracketSize
-          formData={formData}
-          setFormData={setFormData}
-          register={register}
-        />
+        <BracketSize formData={formData} setFormData={setFormData} />
       )}
       {page === 3 && (
         <div>
-          <Name
-            formData={formData}
-            setFormData={setFormData}
-            register={register}
-          />
+          <Name formData={formData} setFormData={setFormData} />
         </div>
       )}
       <div className={`my-5 ${page === 1 && "ml-6"} h-6`}>
@@ -110,15 +71,7 @@ const NewPage = () => {
           <p className="text-xl text-red-600 italic font-medium">{error}</p>
         ) : success ? (
           <p className="text-xl text-green-600 italic font-medium">{success}</p>
-        ) : (
-          page === 3 &&
-          formState.isSubmitted &&
-          formState.errors.tournamentName && (
-            <p className="text-xl text-red-600 italic font-medium">
-              {formState.errors.tournamentName?.message}
-            </p>
-          )
-        )}
+        ) : null}
       </div>
       <ControlButtons
         page={page}
@@ -126,6 +79,7 @@ const NewPage = () => {
         formData={formData}
         setFormData={setFormData}
         setError={setError}
+        setSuccess={setSuccess}
       />
     </form>
   );

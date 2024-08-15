@@ -11,6 +11,7 @@ interface ControlButtonsProps {
     React.SetStateAction<z.infer<typeof TournamentSchema>>
   >;
   setError: React.Dispatch<React.SetStateAction<string>>;
+  setSuccess: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const ControlButtons = ({
@@ -22,6 +23,8 @@ const ControlButtons = ({
 }: ControlButtonsProps) => {
   const handleNextClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
+
+    console.log(formData);
 
     if (page === 1 && formData.tournamentType === 0) {
       setError("Izaberi format!");

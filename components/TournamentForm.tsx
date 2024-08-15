@@ -6,11 +6,7 @@ import robin from "@/public/robin.png";
 import single from "@/public/single.png";
 import { TournamentProps } from "@/schemas";
 
-const TournamentForm = ({
-  formData,
-  setFormData,
-  register,
-}: TournamentProps) => {
+const TournamentForm = ({ formData, setFormData }: TournamentProps) => {
   const handleFormatClick = (index: number) => {
     setFormData({
       ...formData,
@@ -91,7 +87,6 @@ const TournamentForm = ({
           <div className="flex align-center justify-start cursor-pointer">
             <input
               type="checkbox"
-              {...register("thirdPlace")}
               className="w-5 mr-3"
               onChange={(event) =>
                 setFormData({ ...formData, thirdPlace: event.target.checked })
