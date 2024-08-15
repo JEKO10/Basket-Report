@@ -1,33 +1,19 @@
 import Image from "next/image";
 import React, { useState } from "react";
+import * as z from "zod";
 
 import double from "@/public/double.png";
 import robin from "@/public/robin.png";
 import single from "@/public/single.png";
+import { TournamentSchema } from "@/schemas";
 
 const TournamentForm = ({
   formData,
   setFormData,
 }: {
-  formData: {
-    tournamentType: number;
-    bracketSize: boolean;
-    tournamentName: string;
-    participants: number;
-    teams: string;
-    thirdPlace: boolean;
-    randomize: boolean;
-  };
+  formData: z.infer<typeof TournamentSchema>;
   setFormData: React.Dispatch<
-    React.SetStateAction<{
-      tournamentType: number;
-      bracketSize: boolean;
-      tournamentName: string;
-      participants: number;
-      teams: string;
-      thirdPlace: boolean;
-      randomize: boolean;
-    }>
+    React.SetStateAction<z.infer<typeof TournamentSchema>>
   >;
 }) => {
   const [activeFormat, setActiveFormat] = useState<number>(0);

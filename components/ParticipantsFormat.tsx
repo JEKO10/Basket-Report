@@ -2,32 +2,18 @@
 
 import React, { useEffect, useState } from "react";
 import { PiMinus, PiPlus } from "react-icons/pi";
+import * as z from "zod";
 
+import { TournamentSchema } from "@/schemas";
 const ParticipantsFormat = ({
   isBlank,
   formData,
   setFormData,
 }: {
   isBlank: boolean;
-  formData: {
-    tournamentType: number;
-    bracketSize: boolean;
-    tournamentName: string;
-    participants: number;
-    teams: string;
-    thirdPlace: boolean;
-    randomize: boolean;
-  };
+  formData: z.infer<typeof TournamentSchema>;
   setFormData: React.Dispatch<
-    React.SetStateAction<{
-      tournamentType: number;
-      bracketSize: boolean;
-      tournamentName: string;
-      participants: number;
-      teams: string;
-      thirdPlace: boolean;
-      randomize: boolean;
-    }>
+    React.SetStateAction<z.infer<typeof TournamentSchema>>
   >;
 }) => {
   const [participants, setParticipants] = useState(2);

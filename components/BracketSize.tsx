@@ -1,30 +1,16 @@
 import React, { useState } from "react";
+import * as z from "zod";
+
+import { TournamentSchema } from "@/schemas";
 
 import ParticipantsFormat from "./ParticipantsFormat";
-
 const BracketSize = ({
   formData,
   setFormData,
 }: {
-  formData: {
-    tournamentType: number;
-    bracketSize: boolean;
-    tournamentName: string;
-    participants: number;
-    teams: string;
-    thirdPlace: boolean;
-    randomize: boolean;
-  };
+  formData: z.infer<typeof TournamentSchema>;
   setFormData: React.Dispatch<
-    React.SetStateAction<{
-      tournamentType: number;
-      bracketSize: boolean;
-      tournamentName: string;
-      participants: number;
-      teams: string;
-      thirdPlace: boolean;
-      randomize: boolean;
-    }>
+    React.SetStateAction<z.infer<typeof TournamentSchema>>
   >;
 }) => {
   const [isBlank, setIsBlank] = useState(false);

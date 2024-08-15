@@ -1,40 +1,19 @@
 import React from "react";
 import { UseFormRegister } from "react-hook-form";
+import * as z from "zod";
+
+import { TournamentSchema } from "@/schemas";
 
 const Name = ({
   formData,
   setFormData,
   register,
 }: {
-  formData: {
-    tournamentType: number;
-    bracketSize: boolean;
-    tournamentName: string;
-    participants: number;
-    teams: string;
-    thirdPlace: boolean;
-    randomize: boolean;
-  };
+  formData: z.infer<typeof TournamentSchema>;
   setFormData: React.Dispatch<
-    React.SetStateAction<{
-      tournamentType: number;
-      bracketSize: boolean;
-      tournamentName: string;
-      participants: number;
-      teams: string;
-      thirdPlace: boolean;
-      randomize: boolean;
-    }>
+    React.SetStateAction<z.infer<typeof TournamentSchema>>
   >;
-  register: UseFormRegister<{
-    tournamentName: string;
-    tournamentType: number;
-    bracketSize: boolean;
-    participants: number;
-    teams: string;
-    thirdPlace: boolean;
-    randomize: boolean;
-  }>;
+  register: UseFormRegister<z.infer<typeof TournamentSchema>>;
 }) => {
   return (
     <div className="my-6">
