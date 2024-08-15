@@ -1,3 +1,4 @@
+import { UseFormRegister } from "react-hook-form";
 import * as z from "zod";
 
 export const TournamentSchema = z.object({
@@ -15,3 +16,11 @@ export const TournamentSchema = z.object({
   thirdPlace: z.boolean(),
   randomize: z.boolean(),
 });
+
+export interface TournamentProps {
+  formData: z.infer<typeof TournamentSchema>;
+  setFormData: React.Dispatch<
+    React.SetStateAction<z.infer<typeof TournamentSchema>>
+  >;
+  register: UseFormRegister<z.infer<typeof TournamentSchema>>;
+}

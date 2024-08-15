@@ -1,21 +1,26 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
+import { UseFormRegister } from "react-hook-form";
 import { PiMinus, PiPlus } from "react-icons/pi";
 import * as z from "zod";
 
 import { TournamentSchema } from "@/schemas";
-const ParticipantsFormat = ({
-  isBlank,
-  formData,
-  setFormData,
-}: {
+interface ParticipantsFormatProps {
   isBlank: boolean;
   formData: z.infer<typeof TournamentSchema>;
   setFormData: React.Dispatch<
     React.SetStateAction<z.infer<typeof TournamentSchema>>
   >;
-}) => {
+  register: UseFormRegister<z.infer<typeof TournamentSchema>>;
+}
+
+const ParticipantsFormat = ({
+  isBlank,
+  formData,
+  setFormData,
+  register,
+}: ParticipantsFormatProps) => {
   const [participants, setParticipants] = useState(2);
   const [teams, setTeams] = useState("");
 
@@ -64,7 +69,7 @@ const ParticipantsFormat = ({
         <div className="flex align-center justify-start cursor-pointer">
           <input
             type="checkbox"
-            name="thirdPlace"
+            {...register("randomize")}
             className="w-5 mr-3"
             onChange={(event) =>
               setFormData({ ...formData, randomize: event.target.checked })

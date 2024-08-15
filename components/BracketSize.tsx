@@ -1,18 +1,9 @@
 import React, { useState } from "react";
-import * as z from "zod";
 
-import { TournamentSchema } from "@/schemas";
+import { TournamentProps } from "@/schemas";
 
 import ParticipantsFormat from "./ParticipantsFormat";
-const BracketSize = ({
-  formData,
-  setFormData,
-}: {
-  formData: z.infer<typeof TournamentSchema>;
-  setFormData: React.Dispatch<
-    React.SetStateAction<z.infer<typeof TournamentSchema>>
-  >;
-}) => {
+const BracketSize = ({ formData, setFormData, register }: TournamentProps) => {
   const [isBlank, setIsBlank] = useState(false);
 
   const handleSizeSelect = (size: boolean) => {
@@ -48,6 +39,7 @@ const BracketSize = ({
         isBlank={isBlank}
         formData={formData}
         setFormData={setFormData}
+        register={register}
       />
     </section>
   );

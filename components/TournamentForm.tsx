@@ -1,21 +1,16 @@
 import Image from "next/image";
 import React, { useState } from "react";
-import * as z from "zod";
 
 import double from "@/public/double.png";
 import robin from "@/public/robin.png";
 import single from "@/public/single.png";
-import { TournamentSchema } from "@/schemas";
+import { TournamentProps } from "@/schemas";
 
 const TournamentForm = ({
   formData,
   setFormData,
-}: {
-  formData: z.infer<typeof TournamentSchema>;
-  setFormData: React.Dispatch<
-    React.SetStateAction<z.infer<typeof TournamentSchema>>
-  >;
-}) => {
+  register,
+}: TournamentProps) => {
   const [activeFormat, setActiveFormat] = useState<number>(0);
 
   const handleFormatClick = (index: number) => {
@@ -94,7 +89,7 @@ const TournamentForm = ({
           <div className="flex align-center justify-start cursor-pointer">
             <input
               type="checkbox"
-              name="thirdPlace"
+              {...register("thirdPlace")}
               className="w-5 mr-3"
               onChange={(event) =>
                 setFormData({ ...formData, thirdPlace: event.target.checked })

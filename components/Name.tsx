@@ -1,20 +1,8 @@
 import React from "react";
-import { UseFormRegister } from "react-hook-form";
-import * as z from "zod";
 
-import { TournamentSchema } from "@/schemas";
+import { TournamentProps } from "@/schemas/index";
 
-const Name = ({
-  formData,
-  setFormData,
-  register,
-}: {
-  formData: z.infer<typeof TournamentSchema>;
-  setFormData: React.Dispatch<
-    React.SetStateAction<z.infer<typeof TournamentSchema>>
-  >;
-  register: UseFormRegister<z.infer<typeof TournamentSchema>>;
-}) => {
+const Name = ({ formData, setFormData, register }: TournamentProps) => {
   return (
     <div className="my-6">
       <h3 className="text-2xl mb-4 italic font-medium">Unesite ime turnira</h3>

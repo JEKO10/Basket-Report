@@ -70,10 +70,18 @@ const NewPage = () => {
     <form onSubmit={handleSubmit(onSubmit)}>
       <Navbar />
       {page === 1 && (
-        <TournamentForm formData={formData} setFormData={setFormData} />
+        <TournamentForm
+          formData={formData}
+          setFormData={setFormData}
+          register={register}
+        />
       )}
       {page === 2 && (
-        <BracketSize formData={formData} setFormData={setFormData} />
+        <BracketSize
+          formData={formData}
+          setFormData={setFormData}
+          register={register}
+        />
       )}
       {page === 3 && (
         <Name
