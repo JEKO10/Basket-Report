@@ -33,7 +33,13 @@ const ParticipantsFormat = ({
   }, [teams]);
 
   useEffect(() => {
-    setFormData({ ...formData, participants });
+    if (participants < 2) {
+      setFormData({ ...formData, participants: 2 });
+    } else if (participants > 256) {
+      setFormData({ ...formData, participants: 256 });
+    } else {
+      setFormData({ ...formData, participants });
+    }
   }, [participants]);
 
   if (isBlank) {
@@ -51,12 +57,14 @@ const ParticipantsFormat = ({
           </button>
           <div className="bg-accent w-48 p-1 flex items-center justify-center">
             <input
+              className="bg-accent w-full text-center outline-none"
               type="number"
               onChange={(event) =>
                 setParticipants(parseInt(event.target.value))
               }
               value={participants}
               min={2}
+              max={256}
             />
           </div>
           <button
