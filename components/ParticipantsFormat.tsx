@@ -22,7 +22,12 @@ const ParticipantsFormat = ({
   const [teams, setTeams] = useState("");
 
   useEffect(() => {
-    setFormData({ ...formData, teams });
+    const teamArray = teams
+      .split("\n")
+      .map((team) => team.trim())
+      .filter((team) => team.length > 0);
+
+    setFormData({ ...formData, teams: teamArray });
   }, [teams]);
 
   useEffect(() => {
@@ -35,6 +40,7 @@ const ParticipantsFormat = ({
         <p className="text-2xl italic font-medium">Unesite broj učesnika</p>
         <article className="flex items-center justify-start my-5">
           <button
+            type="button"
             className="bg-primary px-5 cursor-pointer rounded-l-md"
             onClick={() => setParticipants(participants - 1)}
             disabled={participants === 2}
@@ -52,6 +58,7 @@ const ParticipantsFormat = ({
             />
           </div>
           <button
+            type="button"
             className="bg-primary px-5 cursor-pointer rounded-r-md"
             onClick={() => setParticipants(participants + 1)}
           >

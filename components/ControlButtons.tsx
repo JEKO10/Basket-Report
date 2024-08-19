@@ -24,15 +24,13 @@ const ControlButtons = ({
   const handleNextClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
 
-    console.log(formData);
-
     if (page === 1 && formData.tournamentType === 0) {
       setError("Izaberi format!");
 
       return;
     }
 
-    if (page === 2 && !formData.bracketSize && !formData.teams.includes("\n")) {
+    if (page === 2 && !formData.bracketSize && formData.teams.length < 2) {
       setError("Unesi bar dva tima!");
       return;
     }
@@ -60,7 +58,7 @@ const ControlButtons = ({
         bracketSize: false,
         thirdPlace: false,
         participants: 2,
-        teams: "",
+        teams: [],
       });
     } else if (page === 4) {
       setFormData({
@@ -96,7 +94,7 @@ const ControlButtons = ({
       ) : (
         <button
           type="submit"
-          className="bg-accent text-xl italic font-medium tracking-wider px-4 py-2 ml-5 rounded-lg hover:bg-primary"
+          className="bg-accent text-xl italic font-medium tracking-wider px-4 py-2 rounded-lg hover:bg-primary"
         >
           Napravi
         </button>

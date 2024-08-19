@@ -13,22 +13,14 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Team {
-  teamId       String     @id @default(uuid())
-  name         String
-  tournamentId String
-  tournament   Tournament @relation(fields: [tournamentId], references: [tournamentId]) // Relation field
-}
-
 model Tournament {
   tournamentId   String   @id @default(uuid())
   tournamentType Int
   bracketSize    Boolean
   tournamentName String   @unique
   participants   Int
-  teams          String
+  teams          String[]
   thirdPlace     Boolean
   randomize      Boolean
   createdAt      DateTime @default(now())
-  Team           Team[]
 }

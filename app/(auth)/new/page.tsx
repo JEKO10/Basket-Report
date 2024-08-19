@@ -18,22 +18,11 @@ const NewPage = () => {
     bracketSize: false,
     tournamentName: "",
     participants: 2,
-    teams: "",
+    teams: [] as string[],
     thirdPlace: false,
     randomize: false,
   });
   const router = useRouter();
-
-  useEffect(() => {
-    if (error || success) {
-      const timeout = setTimeout(() => {
-        setError("");
-        setSuccess("");
-      }, 2000);
-
-      return () => clearTimeout(timeout);
-    }
-  }, [error, success]);
 
   const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -51,6 +40,17 @@ const NewPage = () => {
       setError("Došlo je do greške, pokušajte ponovo.");
     }
   };
+
+  useEffect(() => {
+    if (error || success) {
+      const timeout = setTimeout(() => {
+        setError("");
+        setSuccess("");
+      }, 2000);
+
+      return () => clearTimeout(timeout);
+    }
+  }, [error, success]);
 
   return (
     <form onSubmit={onSubmit}>

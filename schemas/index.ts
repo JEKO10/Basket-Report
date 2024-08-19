@@ -13,7 +13,7 @@ export const TournamentSchema = z.object({
       message: "Ime mora da sadrži najmanje 3 slova!",
     }),
   participants: z.number().min(2),
-  teams: z.string(),
+  teams: z.array(z.string()),
   thirdPlace: z.boolean(),
   randomize: z.boolean(),
 });
