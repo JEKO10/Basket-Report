@@ -27,8 +27,16 @@ const NewPage = () => {
   const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
+    if (formData.tournamentName === "") {
+      setError("Unesi ime turnira!");
+      return;
+    } else if (formData.tournamentName.length < 3) {
+      setError("Ime mora sadržati bar tri slova!");
+      return;
+    }
+
     try {
-      const response = await axios.post("/api/tournament", formData);
+      const response = await axios.post("/api/tournaments", formData);
 
       if (response.data.success) {
         setSuccess("Uspješno napravljen turnir!");
@@ -37,7 +45,11 @@ const NewPage = () => {
         setError(response.data.error);
       }
     } catch (error) {
-      setError("Došlo je do greške, pokušajte ponovo.");
+      if (axios.isAxiosError(error)) {
+        setError(error.response?.data.error);
+      } else {
+        setError("Došlo je do greške, pokušajte ponovo.");
+      }
     }
   };
 

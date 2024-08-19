@@ -10,7 +10,10 @@ const Name = ({ formData, setFormData }: TournamentProps) => {
         type="text"
         placeholder="Ime turnira"
         onChange={(event) =>
-          setFormData({ ...formData, tournamentName: event.target.value })
+          setFormData({
+            ...formData,
+            tournamentName: event.target.value.trim(),
+          })
         }
         className="name bg-primary text-lg text-text w-52 px-3 py-2 border-2 border-transparent rounded-md outline-none focus:border-accent focus:border-2 placeholder-white"
       />

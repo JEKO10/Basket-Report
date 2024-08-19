@@ -35,11 +35,6 @@ const ControlButtons = ({
       return;
     }
 
-    if (page === 3 && formData.tournamentName === "") {
-      setError("Unesi ime turnira!");
-      return;
-    }
-
     setError("");
     setPage(page + 1);
   };

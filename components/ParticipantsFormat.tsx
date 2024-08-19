@@ -27,7 +27,9 @@ const ParticipantsFormat = ({
       .map((team) => team.trim())
       .filter((team) => team.length > 0);
 
-    setFormData({ ...formData, teams: teamArray });
+    const uniqueTeamArray = Array.from(new Set(teamArray));
+
+    setFormData({ ...formData, teams: uniqueTeamArray });
   }, [teams]);
 
   useEffect(() => {

@@ -17,6 +17,19 @@ export const POST = async (request: Request) => {
   }
 
   try {
+    const existingTournament = await db.tournament.findUnique({
+      where: {
+        tournamentName: validateFields.data.tournamentName,
+      },
+    });
+
+    if (existingTournament) {
+      return NextResponse.json(
+        { error: "Ime turnira je već zauzeto!" },
+        { status: 409 },
+      );
+    }
+
     await db.tournament.create({
       data: validateFields.data,
     });
