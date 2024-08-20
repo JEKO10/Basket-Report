@@ -1,6 +1,7 @@
 "use client";
 
 import axios from "axios";
+import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { PiTrashBold } from "react-icons/pi";
 import * as z from "zod";
@@ -42,6 +43,25 @@ const ProfilePage = () => {
     getAllTournaments();
   }, []);
 
+  if (tournaments.length === 0) {
+    return (
+      <div>
+        <Navbar />
+        <article className="my-10">
+          <h2 className="font-lusitana text-3xl my-8">Vaši turniri</h2>
+          <p className="text-xl italic font-medium mb-6">
+            Još uvijek nemate ni jedan turnir!
+          </p>
+          <Link
+            href="/new"
+            className="flex justify-center align-center w-max bg-green-600 text-md italic font-medium p-3 rounded-lg cursor-pointer hover:bg-primary"
+          >
+            Napravite svoj prvi turnir!
+          </Link>
+        </article>
+      </div>
+    );
+  }
   return (
     <div>
       <Navbar />
