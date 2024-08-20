@@ -2,6 +2,7 @@
 
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { PiTrashBold } from "react-icons/pi";
 import * as z from "zod";
 
 import Navbar from "@/components/Navbar";
@@ -27,6 +28,16 @@ const ProfilePage = () => {
     }
   };
 
+  const deleteTournament = async (id: string) => {
+    try {
+      await axios.delete(`/api/tournaments?id=${id}`);
+
+      getAllTournaments();
+    } catch (error) {
+      console.error("Error deleting tournaments:", error);
+    }
+  };
+
   useEffect(() => {
     getAllTournaments();
   }, []);
@@ -35,7 +46,7 @@ const ProfilePage = () => {
     <div>
       <Navbar />
       <article>
-        <h2 className="font-lusitana text-text text-3xl my-10">Vaši turniri</h2>
+        <h2 className="font-lusitana text-3xl my-10">Vaši turniri</h2>
         {tournaments.map((tournament) => (
           <div
             key={tournament.tournamentId}
@@ -51,6 +62,10 @@ const ProfilePage = () => {
             </p>
             <p>Meč za treće mjesto: {tournament.thirdPlace ? "Da" : "Ne"}</p>
             <p>Napravljeno: {tournament.createdAt.slice(5, 10)}</p>
+            <PiTrashBold
+              className="text-3xl text-red-500"
+              onClick={() => deleteTournament(tournament.tournamentId)}
+            />
           </div>
         ))}
       </article>

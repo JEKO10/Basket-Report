@@ -56,3 +56,13 @@ export const GET = async () => {
 
   return NextResponse.json({ data: tournaments }, { status: 201 });
 };
+
+export const DELETE = async (request: Request) => {
+  const { searchParams } = new URL(request.url);
+  const tournamentId = searchParams.get("id");
+
+  if (tournamentId)
+    await db.tournament.delete({
+      where: { tournamentId },
+    });
+};
