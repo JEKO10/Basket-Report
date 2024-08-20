@@ -54,7 +54,7 @@ const ProfilePage = () => {
           </p>
           <Link
             href="/new"
-            className="flex justify-center align-center w-max bg-green-600 text-md italic font-medium p-3 rounded-lg cursor-pointer hover:bg-primary"
+            className="flex justify-center align-center w-max bg-background text-text text-md italic font-medium tracking-wide py-3 px-5 rounded-lg cursor-pointer hover:bg-primary"
           >
             Napravite svoj prvi turnir!
           </Link>
