@@ -12,7 +12,9 @@ const Name = ({ formData, setFormData }: TournamentProps) => {
         onChange={(event) =>
           setFormData({
             ...formData,
-            tournamentName: event.target.value.trim(),
+            tournamentName:
+              event.target.value.charAt(0).toUpperCase().trim() +
+              event.target.value.slice(1),
           })
         }
         className="name bg-primary text-lg text-text w-52 px-3 py-2 border-2 border-transparent rounded-md outline-none focus:border-accent focus:border-2 placeholder-white"

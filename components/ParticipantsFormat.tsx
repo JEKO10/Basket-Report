@@ -71,6 +71,7 @@ const ParticipantsFormat = ({
             type="button"
             className="bg-primary px-5 cursor-pointer rounded-r-md"
             onClick={() => setParticipants(participants + 1)}
+            disabled={participants === 256}
           >
             <PiPlus className="text-text h-8 text-xl" />
           </button>

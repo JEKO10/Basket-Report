@@ -45,3 +45,14 @@ export const POST = async (request: Request) => {
     );
   }
 };
+
+// foreign key da povezem usera sa turnirima koje ima
+export const GET = async () => {
+  const tournaments = await db.tournament.findMany({
+    orderBy: {
+      createdAt: "asc",
+    },
+  });
+
+  return NextResponse.json({ data: tournaments }, { status: 201 });
+};
