@@ -1,19 +1,34 @@
 import Link from "next/link";
 import React from "react";
+import { UseFormHandleSubmit } from "react-hook-form";
 import { LuDoorOpen } from "react-icons/lu";
 
 type FormAuthProps = {
   label: string;
+  handleSubmit: UseFormHandleSubmit<
+    {
+      email: string;
+      password: string;
+    },
+    undefined
+  >;
   children: React.ReactNode;
 };
 
-const FormAuth = ({ label, children }: FormAuthProps) => {
+const FormAuth = ({ label, handleSubmit, children }: FormAuthProps) => {
+  const onSubmit = () => {
+    console.log("a");
+  };
+
   return (
     <div className="max-w-sm mx-auto my-10">
       <header className="flex items-end justify-start font-lusitana bg-primary px-6 py-4 h-36 rounded-lg">
         <p className="text-4xl text-white">{label}</p>
       </header>
-      <form className="flex items-start justify-center flex-col bg-accent mt-2 px-8 pt-7 pb-5 rounded-lg">
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="flex items-start justify-center flex-col bg-accent mt-2 px-8 pt-7 pb-5 rounded-lg"
+      >
         {children}
         <Link
           href={`${label === "Prijavi se" ? "/register" : "/login"}`}
