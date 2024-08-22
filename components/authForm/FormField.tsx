@@ -1,19 +1,20 @@
 import React from "react";
+import { UseFormRegister } from "react-hook-form";
 
 type FormFieldProps = {
   label: string;
   type: string;
-  name: string;
   placeholder: string;
   icon?: React.ReactNode;
+  registration: ReturnType<UseFormRegister<any>>;
 };
 
 const FormField = ({
   label,
   type,
-  name,
   placeholder,
   icon,
+  registration,
 }: FormFieldProps) => {
   return (
     <label className="flex items-start justify-center flex-col w-full mb-3">
@@ -22,10 +23,9 @@ const FormField = ({
         {icon && <span className="text-[#8e8e8e] text-xl">{icon}</span>}
         <input
           type={type}
-          name={name}
-          required
           placeholder={placeholder}
           className="w-full px-2 py-1 bg-transparent rounded-md outline-none"
+          {...registration}
         />
       </div>
     </label>

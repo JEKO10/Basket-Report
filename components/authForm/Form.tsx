@@ -1,7 +1,13 @@
+"use client";
+
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
 import { UseFormHandleSubmit } from "react-hook-form";
 import { LuDoorOpen } from "react-icons/lu";
+import * as z from "zod";
+
+import { logIn } from "@/actions/login";
+import { LoginSchema } from "@/schemas";
 
 type FormAuthProps = {
   label: string;
@@ -16,8 +22,12 @@ type FormAuthProps = {
 };
 
 const FormAuth = ({ label, handleSubmit, children }: FormAuthProps) => {
-  const onSubmit = () => {
-    console.log("a");
+  const [message, setMessage] = useState("");
+
+  const onSubmit = async (values: z.infer<typeof LoginSchema>) => {
+    logIn(values).then((data) => setMessage(data.message));
+
+    console.log(message);
   };
 
   return (
@@ -42,7 +52,9 @@ const FormAuth = ({ label, handleSubmit, children }: FormAuthProps) => {
           type="submit"
           className="flex items-center justify-between bg-primary mt-8 w-full text-text text-lg py-2 px-3 rounded-md transition hover:bg-primary/65"
         >
-          <span className="text-sm font-medium">Prijavi se</span>
+          <span className="text-sm font-medium">
+            {label === "Prijavi se" ? "Prijavi se" : "Napravi nalog"}
+          </span>
           <LuDoorOpen />
         </button>
       </form>

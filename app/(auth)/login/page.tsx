@@ -27,7 +27,7 @@ const LogInPage = () => {
       <FormField
         label="E-mail"
         type="email"
-        {...register("email")}
+        registration={register("email")}
         placeholder="Unesi e-mail adresu"
         icon={<MdAlternateEmail />}
       />
@@ -35,7 +35,7 @@ const LogInPage = () => {
       <FormField
         label="Šifra"
         type="password"
-        {...register("password")}
+        registration={register("password")}
         placeholder="Unesi šifru"
         icon={<LuDoorClosed />}
       />
