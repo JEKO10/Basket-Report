@@ -24,7 +24,7 @@ type FormAuthProps = {
 
 const FormAuth = ({ label, handleSubmit, children }: FormAuthProps) => {
   const [message, setMessage] = useState("");
-  const [_, startTransition] = useTransition();
+  const [isPending, startTransition] = useTransition();
 
   const onSubmit = (values: z.infer<typeof RegisterSchema>) => {
     startTransition(() => {
@@ -56,6 +56,7 @@ const FormAuth = ({ label, handleSubmit, children }: FormAuthProps) => {
         <button
           type="submit"
           className="flex items-center justify-between bg-primary mt-8 w-full text-text text-lg py-2 px-3 rounded-md transition hover:bg-primary/65"
+          disabled={isPending}
         >
           <span className="text-sm font-medium">
             {label === "Prijavi se" ? "Prijavi se" : "Napravi nalog"}
