@@ -6,13 +6,14 @@ import { UseFormHandleSubmit } from "react-hook-form";
 import { LuDoorOpen } from "react-icons/lu";
 import * as z from "zod";
 
-import { logIn } from "@/actions/login";
-import { LoginSchema } from "@/schemas";
+import { register } from "@/actions/register";
+import { RegisterSchema } from "@/schemas";
 
 type FormAuthProps = {
   label: string;
   handleSubmit: UseFormHandleSubmit<
     {
+      username: string;
       email: string;
       password: string;
     },
@@ -24,8 +25,8 @@ type FormAuthProps = {
 const FormAuth = ({ label, handleSubmit, children }: FormAuthProps) => {
   const [message, setMessage] = useState("");
 
-  const onSubmit = async (values: z.infer<typeof LoginSchema>) => {
-    logIn(values).then((data) => setMessage(data.message));
+  const onSubmit = async (values: z.infer<typeof RegisterSchema>) => {
+    register(values).then((data) => setMessage(data.message));
 
     console.log(message);
   };

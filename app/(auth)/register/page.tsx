@@ -29,7 +29,7 @@ const RegisterPage = () => {
       <FormField
         label="Korisničko ime"
         type="text"
-        {...register("username")}
+        registration={register("username")}
         placeholder="Unesi korisničko ime"
         icon={<PiUserLight />}
       />
@@ -37,7 +37,7 @@ const RegisterPage = () => {
       <FormField
         label="E-mail"
         type="email"
-        {...register("email")}
+        registration={register("email")}
         placeholder="Unesi e-mail adresu"
         icon={<MdAlternateEmail />}
       />
@@ -45,7 +45,7 @@ const RegisterPage = () => {
       <FormField
         label="Šifra"
         type="password"
-        {...register("password")}
+        registration={register("password")}
         placeholder="Unesi šifru"
         icon={<LuDoorClosed />}
       />
