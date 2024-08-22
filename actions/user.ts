@@ -4,15 +4,18 @@ import db from "@/prisma/db";
 
 export const getUserByEmail = async (email: string, username: string) => {
   try {
-    const user = await db.user.findUnique({
-      where: {
-        email,
-        username,
-      },
+    const userByEmail = await db.user.findUnique({
+      where: { email },
     });
 
-    return user;
-  } catch {
+    if (userByEmail) return userByEmail;
+
+    const userByUsername = await db.user.findUnique({
+      where: { username },
+    });
+
+    return userByUsername;
+  } catch (error) {
     return null;
   }
 };
