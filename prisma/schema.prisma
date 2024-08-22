@@ -13,8 +13,15 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model User {
+  id       String @id @default(cuid())
+  username String @unique
+  email    String @unique
+  password String
+}
+
 model Tournament {
-  tournamentId   String   @id @default(uuid())
+  tournamentId   String   @id @default(cuid())
   tournamentType Int
   bracketSize    Boolean
   tournamentName String   @unique

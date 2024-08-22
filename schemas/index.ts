@@ -35,8 +35,8 @@ export const LoginSchema = z.object({
 });
 
 export const RegisterSchema = z.object({
-  username: z.string().min(1, {
-    message: "Korisničko ime je obavezno!",
+  username: z.string().min(3, {
+    message: "Minimum 3 slova!",
   }),
   email: z.string().email({
     message: "Email je obavezan!",

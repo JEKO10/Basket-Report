@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useState, useTransition } from "react";
 import { UseFormHandleSubmit } from "react-hook-form";
 import { LuDoorOpen } from "react-icons/lu";
 import * as z from "zod";
@@ -24,11 +24,15 @@ type FormAuthProps = {
 
 const FormAuth = ({ label, handleSubmit, children }: FormAuthProps) => {
   const [message, setMessage] = useState("");
+  const [_, startTransition] = useTransition();
 
-  const onSubmit = async (values: z.infer<typeof RegisterSchema>) => {
-    register(values).then((data) => setMessage(data.message));
-
-    console.log(message);
+  const onSubmit = (values: z.infer<typeof RegisterSchema>) => {
+    startTransition(() => {
+      register(values).then((data) => {
+        if (data.error) setMessage(data.error);
+        if (data.success) setMessage(data.success);
+      });
+    });
   };
 
   return (
@@ -58,6 +62,7 @@ const FormAuth = ({ label, handleSubmit, children }: FormAuthProps) => {
           </span>
           <LuDoorOpen />
         </button>
+        <p>{message && message}</p>
       </form>
     </div>
   );
