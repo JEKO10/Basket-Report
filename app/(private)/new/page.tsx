@@ -4,6 +4,7 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
+import { create } from "@/actions/tournaments";
 import BracketSize from "@/components/BracketSize";
 import ControlButtons from "@/components/ControlButtons";
 import Name from "@/components/Name";
@@ -12,8 +13,8 @@ import TournamentForm from "@/components/TournamentForm";
 
 const NewPage = () => {
   const [page, setPage] = useState(1);
-  const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
+  const [error, setError] = useState<string | undefined>("");
+  const [success, setSuccess] = useState<string | undefined>("");
   const [formData, setFormData] = useState({
     tournamentType: 0,
     bracketSize: false,
@@ -37,18 +38,19 @@ const NewPage = () => {
     }
 
     try {
-      const response = await axios.post("/api/tournaments", formData);
-
-      if (response.data.success) {
-        setSuccess("Uspješno napravljen turnir!");
-        router.push("/profile");
-      } else {
-        setError(response.data.error);
-      }
+      create(formData).then((data) => {
+        if (data.success) {
+          setSuccess(data.success);
+          router.push("/profile");
+        } else {
+          setError(data.error);
+        }
+      });
     } catch (error) {
       if (axios.isAxiosError(error)) {
         setError(error.response?.data.error);
       } else {
+        console.log(error);
         setError("Došlo je do greške, pokušajte ponovo.");
       }
     }

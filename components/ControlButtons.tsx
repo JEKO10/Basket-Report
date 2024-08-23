@@ -10,8 +10,8 @@ interface ControlButtonsProps {
   setFormData: React.Dispatch<
     React.SetStateAction<z.infer<typeof TournamentSchema>>
   >;
-  setError: React.Dispatch<React.SetStateAction<string>>;
-  setSuccess: React.Dispatch<React.SetStateAction<string>>;
+  setError: React.Dispatch<React.SetStateAction<string | undefined>>;
+  setSuccess: React.Dispatch<React.SetStateAction<string | undefined>>;
 }
 
 const ControlButtons = ({
