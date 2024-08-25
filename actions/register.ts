@@ -6,7 +6,7 @@ import * as z from "zod";
 import db from "@/prisma/db";
 import { RegisterSchema } from "@/schemas";
 
-import { getUserByEmail } from "./user";
+import { getUserByEmail, getUserByUsername } from "./user";
 
 export const register = async (formData: z.infer<typeof RegisterSchema>) => {
   const validateFields = RegisterSchema.safeParse(formData);
@@ -17,9 +17,10 @@ export const register = async (formData: z.infer<typeof RegisterSchema>) => {
 
   const { username, email, password } = validateFields.data;
   const hashedPassword = await bcrypt.hash(password, 10);
-  const existingUser = await getUserByEmail(email, username);
+  const existingEmail = await getUserByEmail(email);
+  const existingUsername = await getUserByUsername(username);
 
-  if (existingUser)
+  if (existingEmail || existingUsername)
     return { error: "E-mail ili korisničko ime su već u upotrebi!" };
 
   await db.user.create({

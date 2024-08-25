@@ -14,7 +14,7 @@ import FormField from "@/components/authForm/FormField";
 import { LoginSchema } from "@/schemas";
 
 const LogInPage = () => {
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState<string | undefined>("");
   const [isPending, startTransition] = useTransition();
 
   const form = useForm<z.infer<typeof LoginSchema>>({
@@ -27,11 +27,10 @@ const LogInPage = () => {
   const { register, handleSubmit, formState } = form;
   const { errors } = formState;
 
-  const onSubmit = (values: z.infer<typeof LoginSchema>) => {
+  const onSubmit = async (values: z.infer<typeof LoginSchema>) => {
     startTransition(() => {
       logIn(values).then((data) => {
-        if (data.error) setMessage(data.error);
-        if (data.success) setMessage(data.success);
+        setMessage(data?.error);
       });
     });
   };

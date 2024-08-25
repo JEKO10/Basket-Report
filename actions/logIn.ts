@@ -1,9 +1,10 @@
 "use server";
 
-import bcrypt from "bcryptjs";
+import { AuthError } from "next-auth";
 import * as z from "zod";
 
-import db from "@/prisma/db";
+import { signIn } from "@/auth";
+import { DEFAULT_LOGIN_REDIRECT } from "@/routes";
 import { LoginSchema } from "@/schemas";
 
 export const logIn = async (formData: z.infer<typeof LoginSchema>) => {
@@ -14,13 +15,22 @@ export const logIn = async (formData: z.infer<typeof LoginSchema>) => {
   }
   const { email, password } = validateFields.data;
 
-  const user = await db.user.findUnique({
-    where: { email },
-  });
+  try {
+    await signIn("credentials", {
+      email,
+      password,
+      redirectTo: DEFAULT_LOGIN_REDIRECT,
+    });
+  } catch (error) {
+    if (error instanceof AuthError) {
+      switch (error.type) {
+        case "CredentialsSignin":
+          return { error: "Pogrešni podaci!" };
+        default:
+          return { error: "Nešto je pošlo po zlu!" };
+      }
+    }
 
-  if (!user || !(await bcrypt.compare(password, user.password))) {
-    return { error: "Pogrešni podaci!" };
+    throw error;
   }
-
-  return { success: "Dobrodošli!" };
 };

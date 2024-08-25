@@ -8,6 +8,8 @@ export const publicRoutes = [
   "/register",
 ];
 
-export const authRoutes = ["/new", "/profile"];
+export const authRoutes = ["/register", "/login"];
 
 export const apiAuthPrefix = "/api/auth";
+
+export const DEFAULT_LOGIN_REDIRECT = "/profile";

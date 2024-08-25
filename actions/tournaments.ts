@@ -35,7 +35,6 @@ export const create = async (formData: z.infer<typeof TournamentSchema>) => {
 
     return { success: "Uspješno napravljen turnir!" };
   } catch (error) {
-    console.log(error);
     return { error: "Veza sa bazom podataka je prekinuta, probajte ponovo." };
   }
 };

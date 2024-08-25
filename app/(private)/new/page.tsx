@@ -1,6 +1,5 @@
 "use client";
 
-import axios from "axios";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
@@ -47,12 +46,7 @@ const NewPage = () => {
         }
       });
     } catch (error) {
-      if (axios.isAxiosError(error)) {
-        setError(error.response?.data.error);
-      } else {
-        console.log(error);
-        setError("Došlo je do greške, pokušajte ponovo.");
-      }
+      setError("Došlo je do greške, pokušajte ponovo.");
     }
   };
 
