@@ -2,19 +2,20 @@ import Link from "next/link";
 import React from "react";
 
 import { deleteTournament, getAll } from "@/actions/tournaments";
-import { auth, signOut } from "@/auth/auth";
+import { signOut } from "@/auth/auth";
+import { currentUser } from "@/auth/currentUser";
 import DeleteButton from "@/components/DeleteButton";
 import Navbar from "@/components/Navbar";
 
 const ProfilePage = async () => {
   const { data } = await getAll();
-  const session = await auth();
+  const user = await currentUser();
 
   if (data.length === 0) {
     return (
       <div>
         <Navbar />
-        {JSON.stringify(session)}
+        {user?.username}
         <article className="my-10">
           <h2 className="font-lusitana text-3xl my-8">Vaši turniri</h2>
           <p className="text-xl italic font-medium mb-6">
@@ -42,7 +43,6 @@ const ProfilePage = async () => {
   return (
     <div>
       <Navbar />
-      {JSON.stringify(session)}
       <article>
         <h2 className="font-lusitana text-3xl my-10">Vaši turniri</h2>
         {data.map((tournament) => (
