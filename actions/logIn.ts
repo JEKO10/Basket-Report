@@ -3,7 +3,7 @@
 import { AuthError } from "next-auth";
 import * as z from "zod";
 
-import { signIn } from "@/auth";
+import { signIn } from "@/auth/auth";
 import { DEFAULT_LOGIN_REDIRECT } from "@/routes";
 import { LoginSchema } from "@/schemas";
 

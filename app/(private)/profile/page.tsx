@@ -2,7 +2,7 @@ import Link from "next/link";
 import React from "react";
 
 import { deleteTournament, getAll } from "@/actions/tournaments";
-import { auth } from "@/auth";
+import { auth, signOut } from "@/auth/auth";
 import DeleteButton from "@/components/DeleteButton";
 import Navbar from "@/components/Navbar";
 
@@ -27,6 +27,15 @@ const ProfilePage = async () => {
             Napravite svoj prvi turnir!
           </Link>
         </article>
+        <form
+          action={async () => {
+            "use server";
+
+            await signOut({ redirectTo: "/login" });
+          }}
+        >
+          <button type="submit">Sign out</button>
+        </form>
       </div>
     );
   }

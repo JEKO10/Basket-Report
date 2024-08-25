@@ -3,7 +3,7 @@ import NextAuth from "next-auth";
 
 import db from "@/prisma/db";
 
-import authConfig from "../auth.config";
+import authConfig from "./auth.config";
 
 export const { auth, handlers, signIn, signOut } = NextAuth({
   callbacks: {
@@ -19,6 +19,6 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
     },
   },
   adapter: PrismaAdapter(db),
-  session: { strategy: "jwt", maxAge: 30 * 24 * 60 * 60 },
+  session: { strategy: "jwt", maxAge: 7200 },
   ...authConfig,
 });
