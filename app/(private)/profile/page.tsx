@@ -3,19 +3,16 @@ import React from "react";
 
 import { deleteTournament, getAll } from "@/actions/tournaments";
 import { signOut } from "@/auth/auth";
-import { currentUser } from "@/auth/currentUser";
 import DeleteButton from "@/components/DeleteButton";
 import Navbar from "@/components/Navbar";
 
 const ProfilePage = async () => {
   const { data } = await getAll();
-  const user = await currentUser();
 
   if (data.length === 0) {
     return (
       <div>
         <Navbar />
-        {user?.username}
         <article className="my-10">
           <h2 className="font-lusitana text-3xl my-8">Vaši turniri</h2>
           <p className="text-xl italic font-medium mb-6">
@@ -46,7 +43,8 @@ const ProfilePage = async () => {
       <article>
         <h2 className="font-lusitana text-3xl my-10">Vaši turniri</h2>
         {data.map((tournament) => (
-          <div
+          <Link
+            href={`/tournaments/${tournament.tournamentId}`}
             key={tournament.tournamentId}
             className="flex justify-between align-center bg-background text-text text-xl italic font-medium my-10 px-10 py-4 rounded-lg cursor-pointer hover:bg-primary"
           >
@@ -66,7 +64,7 @@ const ProfilePage = async () => {
               tournamentId={tournament.tournamentId}
               onDelete={deleteTournament}
             />
-          </div>
+          </Link>
         ))}
       </article>
     </div>
