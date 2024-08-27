@@ -1,26 +1,34 @@
 import Link from "next/link";
 import React from "react";
+import { BiLayerPlus } from "react-icons/bi";
 import {
-  PiHouseLineLight,
+  // PiHouseLineLight,
   PiInfoLight,
   PiMailboxLight,
+  PiPowerLight,
   PiQuestionLight,
   PiUserCheckLight,
   PiUserLight,
-  // PiUsersLight,
+  PiUserPlusLight,
+  PiUsersLight,
 } from "react-icons/pi";
 import { TbTournament } from "react-icons/tb";
 
-const Sidebar = () => {
+import { auth, signOut } from "@/auth/auth";
+
+const Sidebar = async () => {
+  const session = await auth();
+  const isLoggedIn = !!session;
+
   return (
     <aside className="flex-shrink-0 my-4 h-56 w-64 rounded-lg">
       <ul className="text-text text-2xl">
-        <li>
+        {/* <li>
           <Link href="/" className="sidebar-link">
             <PiHouseLineLight strokeWidth={10} />
             <p className="text-base">Početna</p>
           </Link>
-        </li>
+        </li> */}
         <li>
           <Link href="/about" className="sidebar-link">
             <PiInfoLight strokeWidth={10} />
@@ -39,30 +47,64 @@ const Sidebar = () => {
             <p className="text-base">FaQ</p>
           </Link>
         </li>
-        {/* <li>
-          <Link href="/users" className="sidebar-link">
-            <PiUsersLight strokeWidth={10} />
-            <p className="text-base">Korisnici</p>
-          </Link>
-        </li> */}
         <li>
           <Link href="/new" className="sidebar-link">
-            <TbTournament strokeWidth={1.5} />
+            <BiLayerPlus />
             <p className="text-base">Napravi turnir</p>
           </Link>
         </li>
         <li>
-          <Link href="/login" className="sidebar-link">
-            <PiUserCheckLight strokeWidth={10} />
-            <p className="text-base">Prijavi se</p>
+          <Link href="/tournaments" className="sidebar-link">
+            <TbTournament strokeWidth={1.5} />
+            <p className="text-base">Turniri</p>
           </Link>
         </li>
-        <li>
-          <Link href="/register" className="sidebar-link mb-0">
-            <PiUserLight strokeWidth={10} />
-            <p className="text-base">Napravi nalog</p>
-          </Link>
-        </li>
+        {isLoggedIn && (
+          <>
+            <li>
+              <Link href="/users" className="sidebar-link">
+                <PiUsersLight strokeWidth={10} />
+                <p className="text-base">Korisnici</p>
+              </Link>
+            </li>
+            <li>
+              <Link href="/profile" className="sidebar-link">
+                <PiUserLight strokeWidth={10} />
+                <p className="text-base">{session.user.username}</p>
+              </Link>
+            </li>
+            <li className="sidebar-link">
+              <form
+                action={async () => {
+                  "use server";
+
+                  await signOut();
+                }}
+              >
+                <button type="submit" className="flex">
+                  <PiPowerLight strokeWidth={10} />
+                  <p className="text-base">Odjavi se</p>
+                </button>
+              </form>
+            </li>
+          </>
+        )}
+        {!isLoggedIn && (
+          <>
+            <li>
+              <Link href="/login" className="sidebar-link">
+                <PiUserCheckLight strokeWidth={10} />
+                <p className="text-base">Prijavi se</p>
+              </Link>
+            </li>
+            <li>
+              <Link href="/register" className="sidebar-link mb-0">
+                <PiUserPlusLight strokeWidth={10} />
+                <p className="text-base">Napravi nalog</p>
+              </Link>
+            </li>
+          </>
+        )}
       </ul>
     </aside>
   );
