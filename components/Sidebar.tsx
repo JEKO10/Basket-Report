@@ -78,7 +78,7 @@ const Sidebar = async () => {
                 action={async () => {
                   "use server";
 
-                  await signOut();
+                  await signOut({ redirectTo: "/" });
                 }}
               >
                 <button type="submit" className="flex">

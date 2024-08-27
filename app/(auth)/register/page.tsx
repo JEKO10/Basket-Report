@@ -10,9 +10,10 @@ import { PiUserLight } from "react-icons/pi";
 import * as z from "zod";
 
 import { register as registerAction } from "@/actions/register";
-import Form from "@/components/authForm/Form";
-import FormField from "@/components/authForm/FormField";
 import { RegisterSchema } from "@/schemas";
+
+import Form from "../components/Form";
+import FormField from "../components/FormField";
 
 const RegisterPage = () => {
   const [message, setMessage] = useState("");

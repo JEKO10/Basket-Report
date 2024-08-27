@@ -9,9 +9,10 @@ import { MdAlternateEmail } from "react-icons/md";
 import * as z from "zod";
 
 import { logIn } from "@/actions/logIn";
-import Form from "@/components/authForm/Form";
-import FormField from "@/components/authForm/FormField";
 import { LoginSchema } from "@/schemas";
+
+import Form from "../components/Form";
+import FormField from "../components/FormField";
 
 const LogInPage = () => {
   const [message, setMessage] = useState<string | undefined>("");

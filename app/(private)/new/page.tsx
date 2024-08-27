@@ -4,10 +4,11 @@ import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
 import { create } from "@/actions/tournaments";
-import BracketSize from "@/components/BracketSize";
-import ControlButtons from "@/components/ControlButtons";
-import Name from "@/components/Name";
-import TournamentForm from "@/components/TournamentForm";
+
+import BracketSize from "./components/BracketSize";
+import ControlButtons from "./components/ControlButtons";
+import Name from "./components/Name";
+import TournamentForm from "./components/TournamentForm";
 
 const NewPage = () => {
   const [page, setPage] = useState(1);
