@@ -11,7 +11,7 @@ export default function PublicLayout({
       <Navbar />
       <div className="flex flex-grow">
         <Sidebar />
-        <main className="flex-grow p-4">{children}</main>
+        <main className="flex-grow p-5 px-10">{children}</main>
       </div>
     </div>
   );

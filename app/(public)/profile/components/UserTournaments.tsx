@@ -2,34 +2,27 @@ import Link from "next/link";
 import React from "react";
 
 import { deleteTournament, getAll } from "@/actions/tournaments";
-import DeleteButton from "@/components/DeleteButton";
 
-const ProfilePage = async () => {
+import DeleteButton from "./DeleteButton";
+
+const UserTournaments = async () => {
   const { data } = await getAll();
 
   return (
-    <div>
-      <article>
-        <h2 className="font-lusitana text-3xl my-5">Vaši turniri</h2>
+    <section>
+      <h2 className="font-lusitana text-3xl mt-5 mb-1">Vaši turniri</h2>
+      <article className="mt-5 mb-10">
         {data.length === 0 && (
-          <article className="my-10">
-            <p className="text-xl italic font-medium mb-6">
-              Još uvijek nemate ni jedan turnir!
-            </p>
-            <Link
-              href="/new"
-              className="flex justify-center align-center w-max bg-background text-text text-md italic font-medium tracking-wide py-3 px-5 rounded-lg cursor-pointer hover:bg-primary"
-            >
-              Napravite svoj prvi turnir!
-            </Link>
-          </article>
+          <p className="text-xl italic font-medium mb-6">
+            Nemate ni jedan turnir!
+          </p>
         )}
         {data &&
           data.map((tournament) => (
             <Link
               href={`/tournaments/${tournament.tournamentId}`}
               key={tournament.tournamentId}
-              className="flex justify-between align-center bg-background text-text text-xl italic font-medium my-10 px-10 py-4 rounded-lg cursor-default transition hover:bg-primary"
+              className="flex justify-between align-center bg-background text-text text-xl italic font-medium my-5 px-10 py-4 rounded-lg cursor-default transition hover:bg-primary"
             >
               <p>Ime: {tournament.tournamentName}</p>
               <p>Format: {tournament.tournamentType}</p>
@@ -50,8 +43,16 @@ const ProfilePage = async () => {
             </Link>
           ))}
       </article>
-    </div>
+      <Link
+        href="/new"
+        className="flex justify-center align-center w-max bg-background text-text text-md italic font-medium tracking-wide py-3 px-5 rounded-lg cursor-pointer hover:bg-primary"
+      >
+        {data.length === 0
+          ? "Napravite prvi turnir!"
+          : "Napravite novi turnir!"}
+      </Link>
+    </section>
   );
 };
 
-export default ProfilePage;
+export default UserTournaments;
