@@ -7,7 +7,6 @@ import { create } from "@/actions/tournaments";
 import BracketSize from "@/components/BracketSize";
 import ControlButtons from "@/components/ControlButtons";
 import Name from "@/components/Name";
-import Navbar from "@/components/Navbar";
 import TournamentForm from "@/components/TournamentForm";
 
 const NewPage = () => {
@@ -63,7 +62,6 @@ const NewPage = () => {
 
   return (
     <form onSubmit={onSubmit}>
-      <Navbar />
       {page === 1 && (
         <TournamentForm formData={formData} setFormData={setFormData} />
       )}

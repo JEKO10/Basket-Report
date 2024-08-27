@@ -13,7 +13,11 @@ const DeleteButton = ({ tournamentId, onDelete }: DeleteButtonProps) => {
   return (
     <PiTrashBold
       className="text-3xl text-red-500 cursor-pointer"
-      onClick={() => onDelete(tournamentId)}
+      onClick={(e) => {
+        e.stopPropagation();
+        e.nativeEvent.preventDefault();
+        onDelete(tournamentId);
+      }}
     />
   );
 };
