@@ -59,14 +59,14 @@ const Sidebar = async () => {
             <p className="text-base">Turniri</p>
           </Link>
         </li>
+        <li>
+          <Link href="/users" className="sidebar-link">
+            <PiUsersLight strokeWidth={10} />
+            <p className="text-base">Korisnici</p>
+          </Link>
+        </li>
         {isLoggedIn && (
           <>
-            <li>
-              <Link href="/users" className="sidebar-link">
-                <PiUsersLight strokeWidth={10} />
-                <p className="text-base">Korisnici</p>
-              </Link>
-            </li>
             <li>
               <Link href="/profile" className="sidebar-link">
                 <PiUserLight strokeWidth={10} />
