@@ -6,7 +6,9 @@ import * as z from "zod";
 import db from "@/prisma/db";
 import { TournamentSchema } from "@/schemas";
 
-export const create = async (formData: z.infer<typeof TournamentSchema>) => {
+export const createTournament = async (
+  formData: z.infer<typeof TournamentSchema>,
+) => {
   const validateFields = TournamentSchema.safeParse(formData);
 
   if (!validateFields.success) {
@@ -39,7 +41,7 @@ export const create = async (formData: z.infer<typeof TournamentSchema>) => {
   }
 };
 
-export const getAll = async () => {
+export const getAllTournaments = async () => {
   const tournaments = await db.tournament.findMany({
     orderBy: {
       createdAt: "asc",
