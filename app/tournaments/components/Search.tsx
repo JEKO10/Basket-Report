@@ -1,31 +1,51 @@
 "use client";
 
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import React from "react";
+import React, { useCallback } from "react";
 
 const Search = () => {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const { replace } = useRouter();
 
-  const handleSearch = (query: string) => {
-    const params = new URLSearchParams(searchParams);
+  const handleSearch = useCallback(
+    (query: string) => {
+      const params = new URLSearchParams(searchParams);
 
-    if (query) {
-      params.set("query", query);
-    } else {
-      params.delete("query");
-    }
+      if (query) {
+        params.set("query", query);
+      } else {
+        params.delete("query");
+      }
 
-    replace(`${pathname}?${params.toString()}`);
+      replace(`${pathname}?${params.toString()}`);
+    },
+    [searchParams, pathname, replace],
+  );
+
+  const debounce = <T extends (...args: Parameters<T>) => void>(
+    fn: T,
+    delay: number,
+  ) => {
+    let timeoutId: ReturnType<typeof setTimeout>;
+
+    return (...args: Parameters<T>) => {
+      clearTimeout(timeoutId);
+
+      timeoutId = setTimeout(() => {
+        fn(...args);
+      }, delay);
+    };
   };
+
+  const debouncedSearch = debounce(handleSearch, 300);
 
   return (
     <input
       type="text"
       placeholder="Unesi ime turnira..."
       className="bg-accent w-full my-5 py-2 px-3 rounded-md outline-none placeholder-[#2f6feb]"
-      onChange={(e) => handleSearch(e.target.value)}
+      onChange={(e) => debouncedSearch(e.target.value)}
       defaultValue={searchParams.get("query")?.toString()}
     />
   );
