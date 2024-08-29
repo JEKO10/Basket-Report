@@ -1,11 +1,23 @@
 import Link from "next/link";
 import React from "react";
+import * as z from "zod";
 
-import { getTournamentsByName } from "@/actions/tournaments";
+import { deleteTournament } from "@/actions/tournaments";
+import DeleteButton from "@/app/(public)/profile/components/DeleteButton";
+import { TournamentSchema } from "@/schemas";
 
-const Table = async ({ query }: { query: string }) => {
-  const { data } = await getTournamentsByName(query);
+const ExtendedTournamentSchema = TournamentSchema.extend({
+  tournamentId: z.string(),
+  createdAt: z.date(),
+});
 
+const TournamentsList = ({
+  data,
+  page,
+}: {
+  data: z.infer<typeof ExtendedTournamentSchema>[];
+  page: "profile" | "tournaments";
+}) => {
   return (
     <article className="mt-5 mb-10">
       {data.length === 0 && (
@@ -32,10 +44,16 @@ const Table = async ({ query }: { query: string }) => {
             <p>
               Napravljeno: {tournament.createdAt.toISOString().slice(5, 10)}
             </p>
+            {page === "profile" && (
+              <DeleteButton
+                onDelete={deleteTournament}
+                tournamentId={tournament.tournamentId}
+              />
+            )}
           </Link>
         ))}
     </article>
   );
 };
 
-export default Table;
+export default TournamentsList;

@@ -1,22 +1,23 @@
 import React from "react";
 
+import { getTournamentsByName } from "@/actions/tournaments";
 import Navbar from "@/components/Navbar";
+import TournamentsList from "@/components/TournamentsList";
 
 import Search from "./components/Search";
-import Table from "./components/Table";
 
 const TournamentsPage = async ({
   searchParams,
 }: {
   searchParams: { query: string; page: string };
 }) => {
-  const query = searchParams.query || "";
+  const { data } = await getTournamentsByName(searchParams.query || "");
 
   return (
     <section>
       <Navbar />
       <Search />
-      <Table query={query} />
+      <TournamentsList data={data} page="tournaments" />
     </section>
   );
 };
