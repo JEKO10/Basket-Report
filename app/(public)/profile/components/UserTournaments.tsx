@@ -1,12 +1,12 @@
 import Link from "next/link";
 import React from "react";
 
-import { deleteTournament, getAll } from "@/actions/tournaments";
+import { deleteTournament, getAllTournaments } from "@/actions/tournaments";
 
 import DeleteButton from "./DeleteButton";
 
 const UserTournaments = async () => {
-  const { data } = await getAll();
+  const { data } = await getAllTournaments();
 
   return (
     <section>

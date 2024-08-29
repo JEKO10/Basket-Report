@@ -51,6 +51,29 @@ export const getAllTournaments = async () => {
   return { data: tournaments };
 };
 
+export const getTournamentsByName = async (query: string) => {
+  const { data } = await getAllTournaments();
+
+  if (!query || query.trim() === "") {
+    return { data };
+  }
+
+  try {
+    const tournaments = await db.tournament.findMany({
+      where: {
+        tournamentName: {
+          startsWith: query,
+          mode: "insensitive",
+        },
+      },
+    });
+
+    return { data: tournaments };
+  } catch (error) {
+    return { data: [] };
+  }
+};
+
 export const deleteTournament = async (tournamentId: string) => {
   try {
     await db.tournament.delete({

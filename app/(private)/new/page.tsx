@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
-import { create } from "@/actions/tournaments";
+import { createTournament } from "@/actions/tournaments";
 
 import BracketSize from "./components/BracketSize";
 import ControlButtons from "./components/ControlButtons";
@@ -37,7 +37,7 @@ const NewPage = () => {
     }
 
     try {
-      create(formData).then((data) => {
+      createTournament(formData).then((data) => {
         if (data.success) {
           setSuccess(data.success);
           router.push("/profile");
