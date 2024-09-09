@@ -20,12 +20,13 @@ const Search = () => {
 
       replace(`${pathname}?${params.toString()}`);
     },
-    [searchParams, pathname, replace],
+    [searchParams, pathname, replace]
   );
 
+  // eslint-disable-next-line no-unused-vars
   const debounce = <T extends (...args: Parameters<T>) => void>(
     fn: T,
-    delay: number,
+    delay: number
   ) => {
     let timeoutId: ReturnType<typeof setTimeout>;
 
@@ -44,7 +45,7 @@ const Search = () => {
     <input
       type="text"
       placeholder="Unesi ime turnira..."
-      className="bg-accent w-full my-5 py-2 px-3 rounded-md outline-none placeholder-[#2f6feb]"
+      className="bg-accent w-full my-5 py-2 px-3 rounded-md outline-none"
       onChange={(e) => debouncedSearch(e.target.value)}
       defaultValue={searchParams.get("query")?.toString()}
     />

@@ -22,7 +22,9 @@ const TournamentsList = ({
     <article className="mt-5 mb-10">
       {data.length === 0 && (
         <p className="text-xl italic font-medium mb-6">
-          Nemate ni jedan turnir!
+          {page === "profile"
+            ? "Nemate ni jedan turnir!"
+            : "Nema turnira koji se poklapa sa Vašom pretragom!"}
         </p>
       )}
       {data &&
