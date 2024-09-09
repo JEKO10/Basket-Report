@@ -2,6 +2,7 @@
 
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import React, { useCallback } from "react";
+import { TbSearch } from "react-icons/tb";
 
 const Search = () => {
   const searchParams = useSearchParams();
@@ -42,13 +43,16 @@ const Search = () => {
   const debouncedSearch = debounce(handleSearch, 300);
 
   return (
-    <input
-      type="text"
-      placeholder="Unesi ime turnira..."
-      className="bg-accent w-full my-5 py-2 px-3 rounded-md outline-none"
-      onChange={(e) => debouncedSearch(e.target.value)}
-      defaultValue={searchParams.get("query")?.toString()}
-    />
+    <label className="flex items-center justify-center w-full bg-body my-5 px-3 border-2 border-accent rounded">
+      <TbSearch className="text-[#8e8e8e] text-lg" />
+      <input
+        type="text"
+        placeholder="Unesi ime turnira..."
+        className="bg-body w-full p-2 rounded outline-none"
+        onChange={(e) => debouncedSearch(e.target.value)}
+        defaultValue={searchParams.get("query")?.toString()}
+      />
+    </label>
   );
 };
 

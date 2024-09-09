@@ -5,7 +5,7 @@ import db from "@/prisma/db";
 export const getAllUsers = async () => {
   const users = await db.user.findMany({
     orderBy: {
-      username: "asc",
+      username: "desc",
     },
   });
 

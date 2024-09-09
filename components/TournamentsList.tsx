@@ -32,7 +32,7 @@ const TournamentsList = ({
           <Link
             href={`/tournaments/${tournament.tournamentId}`}
             key={tournament.tournamentId}
-            className="flex justify-between align-center bg-background text-text text-xl italic font-medium my-5 px-10 py-4 rounded-lg cursor-default transition hover:bg-primary"
+            className="flex justify-between align-center bg-background text-text text-xl italic font-medium my-5 px-10 py-4 rounded cursor-default transition hover:bg-primary"
           >
             <p>Ime: {tournament.tournamentName}</p>
             <p>Format: {tournament.tournamentType}</p>
