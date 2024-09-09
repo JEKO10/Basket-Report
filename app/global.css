@@ -57,6 +57,7 @@ input:-webkit-autofill:active {
   --text: 110, 171, 218;
   --background: 21, 52, 72;
   --accent: 21, 52, 72;
+  --secondary: 110, 171, 218;
 }
 
 .light {
@@ -65,4 +66,5 @@ input:-webkit-autofill:active {
   --text: 238, 238, 238;
   --background: 110, 171, 218;
   --accent: 238, 238, 238;
+  --secondary: 0, 0, 0;
 }

@@ -15,6 +15,7 @@ const config: Config = {
         text: "rgba(var(--text))",
         background: "rgba(var(--background))",
         accent: "rgba(var(--accent))",
+        secondary: "rgba(var(--secondary))",
       },
       fontFamily: {
         inter: ["var(--font-inter)", "sans-serif"],
