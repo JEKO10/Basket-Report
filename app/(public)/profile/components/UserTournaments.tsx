@@ -1,11 +1,13 @@
 import Link from "next/link";
 import React from "react";
 
-import { getAllTournaments } from "@/actions/tournaments";
+import { getUserTournaments } from "@/actions/tournaments";
+import { currentUser } from "@/auth/currentUser";
 import TournamentsList from "@/components/TournamentsList";
 
 const UserTournaments = async () => {
-  const { data } = await getAllTournaments();
+  const user = await currentUser();
+  const data = await getUserTournaments(user?.id);
 
   return (
     <section>

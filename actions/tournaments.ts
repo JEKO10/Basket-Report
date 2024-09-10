@@ -98,3 +98,11 @@ export const deleteTournament = async (tournamentId: string) => {
     return { error: "Greška pri brisanju turnira." };
   }
 };
+
+export const getUserTournaments = async (creatorId: string | undefined) => {
+  return await db.tournament.findMany({
+    where: {
+      creatorId,
+    },
+  });
+};
