@@ -18,6 +18,7 @@ model User {
   username String @unique
   email    String @unique
   password String
+  tournaments Tournament[] 
 }
 
 model Tournament {
@@ -30,4 +31,6 @@ model Tournament {
   thirdPlace     Boolean
   randomize      Boolean
   createdAt      DateTime @default(now())
+  creator        User     @relation(fields: [creatorId], references: [id]) 
+  creatorId      String   
 }

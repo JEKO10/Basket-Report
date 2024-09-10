@@ -1,6 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
 import React, { useEffect, useState } from "react";
 
 import { createTournament } from "@/actions/tournaments";
@@ -24,9 +25,11 @@ const NewPage = () => {
     randomize: false,
   });
   const router = useRouter();
+  const { data } = useSession();
 
   const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    const userId = data?.user.id;
 
     if (formData.tournamentName === "") {
       setError("Unesi ime turnira!");
@@ -37,7 +40,7 @@ const NewPage = () => {
     }
 
     try {
-      createTournament(formData).then((data) => {
+      createTournament(formData, userId).then((data) => {
         if (data.success) {
           setSuccess(data.success);
           router.push("/profile");

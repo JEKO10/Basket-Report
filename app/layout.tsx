@@ -2,6 +2,7 @@ import "./global.css";
 
 import type { Metadata } from "next";
 import { Inter, Lusitana } from "next/font/google";
+import { SessionProvider } from "next-auth/react";
 
 import { ThemeProvider } from "@/components/ThemeProvider";
 
@@ -35,7 +36,9 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <main>{children}</main>
+          <SessionProvider>
+            <main>{children}</main>
+          </SessionProvider>
         </ThemeProvider>
       </body>
     </html>

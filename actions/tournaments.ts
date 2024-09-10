@@ -7,7 +7,8 @@ import db from "@/prisma/db";
 import { TournamentSchema } from "@/schemas";
 
 export const createTournament = async (
-  formData: z.infer<typeof TournamentSchema>
+  formData: z.infer<typeof TournamentSchema>,
+  userId: string | undefined
 ) => {
   const validateFields = TournamentSchema.safeParse(formData);
 
@@ -30,7 +31,12 @@ export const createTournament = async (
     }
 
     await db.tournament.create({
-      data: validateFields.data,
+      data: {
+        ...validateFields.data,
+        creator: {
+          connect: { id: userId },
+        },
+      },
     });
 
     revalidatePath("/profile");

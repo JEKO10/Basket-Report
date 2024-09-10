@@ -30,10 +30,10 @@ const TournamentsList = ({
         </div>
       )}
       {data.length === 0 && (
-        <p className="text-xl italic font-medium mb-6">
+        <p className="text-xl italic font-medium">
           {page === "profile"
-            ? "Nemate ni jedan turnir!"
-            : "Nema turnira koji se poklapa sa Vašom pretragom!"}
+            ? "Nemate nijedan turnir!"
+            : "Ne možemo pronaći nijedan turnir!"}
         </p>
       )}
       {data &&
