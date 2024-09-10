@@ -1,11 +1,11 @@
 import Link from "next/link";
 import React from "react";
 import { BiLayerPlus } from "react-icons/bi";
+import { CiPower } from "react-icons/ci";
 import {
   // PiHouseLineLight,
   PiInfoLight,
   PiMailboxLight,
-  PiPowerLight,
   PiQuestionLight,
   PiUserCheckLight,
   PiUserLight,
@@ -82,7 +82,7 @@ const Sidebar = async () => {
                 }}
               >
                 <button type="submit" className="flex">
-                  <PiPowerLight strokeWidth={10} />
+                  <CiPower strokeWidth={1} />
                   <p className="text-base">Odjavi se</p>
                 </button>
               </form>

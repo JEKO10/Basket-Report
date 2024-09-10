@@ -41,7 +41,7 @@ const TournamentsList = ({
           <Link
             href={`/tournaments/${tournament.tournamentId}`}
             key={tournament.tournamentId}
-            className={`flex ${page === "tournaments" && "justify-start"} justify-between align-center bg-body text-secondary text-xl italic font-medium px-10 py-4 border-b-2 border-accent cursor-default transition hover:bg-primary`}
+            className={`flex ${page === "tournaments" && "justify-start"} justify-between align-center bg-body text-secondary text-xl italic font-medium px-10 py-4 border-b-2 border-accent cursor-default transition hover:bg-primary hover:text-[#fff]`}
           >
             {page === "tournaments" && (
               <>

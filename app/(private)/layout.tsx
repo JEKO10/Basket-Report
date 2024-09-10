@@ -8,8 +8,8 @@ export default function PublicLayout({
   return (
     <div className="flex flex-col h-screen">
       <Navbar />
-      <div className="flex flex-grow">
-        <main className="flex-grow p-4">{children}</main>
+      <div>
+        <main className="flex-grow">{children}</main>
       </div>
     </div>
   );

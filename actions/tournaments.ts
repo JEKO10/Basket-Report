@@ -7,7 +7,7 @@ import db from "@/prisma/db";
 import { TournamentSchema } from "@/schemas";
 
 export const createTournament = async (
-  formData: z.infer<typeof TournamentSchema>,
+  formData: z.infer<typeof TournamentSchema>
 ) => {
   const validateFields = TournamentSchema.safeParse(formData);
 
@@ -49,6 +49,12 @@ export const getAllTournaments = async () => {
   });
 
   return { data: tournaments };
+};
+
+export const getTournamentsById = async (tournamentId: string) => {
+  return await db.tournament.findUnique({
+    where: { tournamentId },
+  });
 };
 
 export const getTournamentsByName = async (query: string) => {
