@@ -1,17 +1,23 @@
 import React from "react";
 
-import { getAllUsers } from "@/actions/user";
-import Navbar from "@/components/Navbar";
+import { getUsersByName } from "@/actions/user";
+import Search from "@/components/Search";
 
-import Search from "../tournaments/components/Search";
-
-const UsersPage = async () => {
-  const { data } = await getAllUsers();
+const UsersPage = async ({
+  searchParams,
+}: {
+  searchParams: { query: string; page: string };
+}) => {
+  const { data } = await getUsersByName(searchParams.query || "");
 
   return (
     <section>
-      <Navbar />
-      <Search />
+      <Search page="users" />
+      {data.length === 0 && (
+        <p className="text-xl italic font-medium mb-6">
+          Nije pronađen nijedan korisnik!
+        </p>
+      )}
       {data.map((user) => (
         <div
           key={user.id}

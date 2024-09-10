@@ -12,6 +12,29 @@ export const getAllUsers = async () => {
   return { data: users };
 };
 
+export const getUsersByName = async (query: string) => {
+  const { data } = await getAllUsers();
+
+  if (!query || query.trim() === "") {
+    return { data };
+  }
+
+  try {
+    const users = await db.user.findMany({
+      where: {
+        username: {
+          startsWith: query,
+          mode: "insensitive",
+        },
+      },
+    });
+
+    return { data: users };
+  } catch (error) {
+    return { data: [] };
+  }
+};
+
 export const getUserByEmail = async (email: string) => {
   try {
     const user = await db.user.findUnique({

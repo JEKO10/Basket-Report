@@ -4,7 +4,7 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import React, { useCallback } from "react";
 import { TbSearch } from "react-icons/tb";
 
-const Search = () => {
+const Search = ({ page }: { page: "users" | "tournaments" }) => {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const { replace } = useRouter();
@@ -47,7 +47,7 @@ const Search = () => {
       <TbSearch className="text-[#8e8e8e] text-lg" />
       <input
         type="text"
-        placeholder="Unesi ime turnira..."
+        placeholder={`${page === "tournaments" ? " Unesite ime turnira..." : "Unesite korisničko ime..."}`}
         className="bg-body w-full p-2 rounded outline-none"
         onChange={(e) => debouncedSearch(e.target.value)}
         defaultValue={searchParams.get("query")?.toString()}
