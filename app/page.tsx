@@ -1,5 +1,6 @@
 import React from "react";
 
+import HomeImage from "@/components/HomeImage";
 import Navbar from "@/components/Navbar";
 import Sidebar from "@/components/Sidebar";
 
@@ -8,6 +9,7 @@ const HomePage = () => {
     <div>
       <Navbar />
       <Sidebar />
+      <HomeImage />
     </div>
   );
 };

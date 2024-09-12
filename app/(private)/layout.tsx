@@ -6,11 +6,9 @@ export default function PublicLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="flex flex-col h-screen">
+    <div>
       <Navbar />
-      <div>
-        <main className="flex-grow">{children}</main>
-      </div>
+      <main>{children}</main>
     </div>
   );
 }

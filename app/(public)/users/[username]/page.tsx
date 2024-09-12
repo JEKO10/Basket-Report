@@ -34,7 +34,7 @@ const SingleUserPage = async ({ params }: { params: { username: string } }) => {
                 <p>Ime: {tournament.tournamentName}</p>
                 <p>Format: {tournament.tournamentType}</p>
                 <p>
-                  Učesnici:
+                  Učesnici:{" "}
                   {tournament.teams.length === 0
                     ? tournament.participants
                     : tournament.teams.length}
