@@ -24,7 +24,7 @@ const HomeImage = () => {
         alt="homeImg"
         height={525}
         width={800}
-        className="absolute top-52 right-60 my-12 rounded-md"
+        className="absolute top-52 right-12 my-12 rounded-md"
       />
     </section>
   );

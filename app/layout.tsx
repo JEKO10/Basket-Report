@@ -19,7 +19,8 @@ const lusitana = Lusitana({
 
 export const metadata: Metadata = {
   title: "Turniri",
-  description: "Napravi kostur za turnir u samo dva koraka",
+  description:
+    " Kreiraj, takmiči se, pobedi! Napravi svoj savršeni turnir brzo i lako.",
 };
 
 export default function RootLayout({
