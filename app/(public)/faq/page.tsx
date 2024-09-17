@@ -6,7 +6,7 @@ const FaqPage = () => {
       <h2 className="font-lusitana text-4xl mt-5 mb-1">
         Često postavljana pitanja
       </h2>
-      <article>
+      <article className="[&>div]:my-10 [&>div>h3]:text-xl [&>>div>h3]:italic [&>>div>h3]:font-normal [&>div>h3]:text-[#6eabda] [&>div>h3]:my-1 [&>div>p]:text-lg [&>div>p]:italic">
         <div>
           <h3>1. Kako kreirati turnir na vašoj platformi?</h3>
           <p>
