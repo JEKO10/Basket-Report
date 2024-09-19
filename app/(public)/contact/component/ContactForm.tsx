@@ -5,7 +5,7 @@ import { useRef, useState } from "react";
 
 const ContactForm = () => {
   const [hasValue, setHasValue] = useState({ name: false, email: false });
-  const [userInfo, setUserInfo] = useState({
+  const [formData, setFormData] = useState({
     name: "",
     email: "",
     message: "",
@@ -15,33 +15,32 @@ const ContactForm = () => {
   const sendEmail = (e: React.FormEvent) => {
     e.preventDefault();
 
-    const serviceId = process.env.SERVICE_ID;
-    const templateId = process.env.TEMPLATE_ID;
-    const publicKey = process.env.PUBLIC_KEY;
+    const serviceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID;
+    const templateId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID;
+    const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY;
 
     if (
       form.current &&
       serviceId &&
       templateId &&
       publicKey &&
-      userInfo.name &&
-      userInfo.email &&
-      userInfo.message
+      formData.name &&
+      formData.email &&
+      formData.message
     ) {
-      console.log("a");
-
       emailjs.sendForm(serviceId, templateId, form.current, publicKey).then(
         () => {
-          setUserInfo({ ...userInfo, name: "" });
-          setUserInfo({ ...userInfo, email: "" });
-          setUserInfo({
-            ...userInfo,
-            message: "Hvala Vam! :) \n\nOdgovorićemo Vam što prije!",
+          setFormData({ ...formData, name: "" });
+          setFormData({ ...formData, email: "" });
+          setFormData({
+            ...formData,
+            message:
+              "Thank you so much for reaching out! :) \n\nI'll get back to you as soon as possible! :)",
           });
 
           setTimeout(() => {
-            setUserInfo({
-              ...userInfo,
+            setFormData({
+              ...formData,
               message: "",
             });
           }, 2000);
@@ -50,10 +49,11 @@ const ContactForm = () => {
           console.log(error.text);
         }
       );
+      console.log("a");
     } else {
-      setUserInfo({
-        ...userInfo,
-        message: "Sva polja su obavezna!",
+      setFormData({
+        ...formData,
+        message: "All fields are required!",
       });
     }
   };
@@ -65,11 +65,15 @@ const ContactForm = () => {
           type="text"
           id="name"
           name="from_name"
+          value={formData.name}
           placeholder=" "
           className={`input-base ${hasValue.name ? "pt-5" : ""}`}
           onChange={(e) => {
             setHasValue({ ...hasValue, name: e.target.value !== "" });
-            setUserInfo({ ...userInfo, name: e.currentTarget.value });
+            setFormData({
+              ...formData,
+              name: e.currentTarget.value,
+            });
           }}
         />
         <label htmlFor="name" className="label-base">
@@ -80,12 +84,16 @@ const ContactForm = () => {
         <input
           type="email"
           id="email"
-          placeholder=" "
           name="email_id"
+          value={formData.email}
+          placeholder=" "
           className={`input-base ${hasValue.email ? "pt-5" : ""}`}
           onChange={(e) => {
             setHasValue({ ...hasValue, email: e.target.value !== "" });
-            setUserInfo({ ...userInfo, email: e.currentTarget.value });
+            setFormData({
+              ...formData,
+              email: e.currentTarget.value,
+            });
           }}
         />
         <label htmlFor="email" className="label-base">
@@ -98,9 +106,13 @@ const ContactForm = () => {
           placeholder="Poruka..."
           className="leading-loose w-full px-4 py-3 rounded-md outline-none resize-none"
           name="message"
+          value={formData.message}
           rows={7}
           onChange={(e) => {
-            setUserInfo({ ...userInfo, message: e.currentTarget.value });
+            setFormData({
+              ...formData,
+              message: e.currentTarget.value,
+            });
           }}
         />
       </label>
