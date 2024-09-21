@@ -10,6 +10,7 @@ const ContactForm = () => {
     email: "",
     message: "",
   });
+  const [loading, setLoading] = useState(false);
   const form = useRef<HTMLFormElement>(null);
 
   const sendEmail = (e: React.FormEvent) => {
@@ -28,15 +29,18 @@ const ContactForm = () => {
       formData.email &&
       formData.message
     ) {
+      setLoading(true);
+
       emailjs.sendForm(serviceId, templateId, form.current, publicKey).then(
         () => {
           setFormData({ ...formData, name: "" });
           setFormData({ ...formData, email: "" });
           setFormData({
             ...formData,
-            message:
-              "Thank you so much for reaching out! :) \n\nI'll get back to you as soon as possible! :)",
+            message: "Hvala Vam na poruci! :) \n\nOdgovorićemo Vam što prije!",
           });
+
+          setLoading(false);
 
           setTimeout(() => {
             setFormData({
@@ -49,11 +53,10 @@ const ContactForm = () => {
           console.log(error.text);
         }
       );
-      console.log("a");
     } else {
       setFormData({
         ...formData,
-        message: "All fields are required!",
+        message: "Sva polja su obavezna!",
       });
     }
   };
@@ -117,7 +120,7 @@ const ContactForm = () => {
         />
       </label>
       <button type="submit" className="button-base">
-        Pošalji
+        {loading ? "Sačekajte..." : "Pošalji"}
       </button>
     </form>
   );

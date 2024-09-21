@@ -78,6 +78,9 @@ export const getTournamentsByName = async (query: string) => {
           mode: "insensitive",
         },
       },
+      include: {
+        creator: true,
+      },
     });
 
     return { data: tournaments };

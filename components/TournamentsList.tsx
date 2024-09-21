@@ -1,14 +1,18 @@
+"use client";
+
 import Link from "next/link";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import * as z from "zod";
 
 import { deleteTournament } from "@/actions/tournaments";
+import { getUserByid } from "@/actions/user";
 import DeleteButton from "@/app/(public)/profile/components/DeleteButton";
 import { TournamentSchema } from "@/schemas";
 
 const ExtendedTournamentSchema = TournamentSchema.extend({
   tournamentId: z.string(),
   createdAt: z.date(),
+  creatorId: z.string(),
 });
 
 const TournamentsList = ({
@@ -18,6 +22,35 @@ const TournamentsList = ({
   data: z.infer<typeof ExtendedTournamentSchema>[];
   page: "profile" | "tournaments";
 }) => {
+  const [creator, setCreator] = useState<{
+    id: string;
+    username: string;
+    email: string;
+    password: string;
+  } | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchCreators = async () => {
+      setIsLoading(true);
+
+      for (const tournament of data) {
+        setCreator(await getUserByid(tournament.creatorId));
+      }
+
+      setIsLoading(false);
+    };
+
+    fetchCreators();
+  }, [data]);
+
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center">
+        <div className="animate-spin h-24 w-24 border-4 border-t-transparent border-blue-500 rounded-full"></div>
+      </div>
+    );
+  }
   return (
     <article className="bg-accent mt-5 mb-10 p-5 rounded">
       {page === "tournaments" && (
@@ -25,8 +58,8 @@ const TournamentsList = ({
           <p className="px-10 min-w-[300px]">Ime</p>
           <p className="px-10 min-w-[300px]">Format</p>
           <p className="px-10 min-w-[300px]">Učesnici</p>
-          <p className="px-10 min-w-[300px]">Meč za treće mjesto</p>
-          <p className="px-10 min-w-[300px]">Napravljeno</p>
+          <p className="px-10 min-w-[300px]">Osnivač</p>
+          <p className="px-10">Napravljeno</p>
         </div>
       )}
       {data.length === 0 && (
@@ -52,10 +85,8 @@ const TournamentsList = ({
                     ? tournament.participants
                     : tournament.teams.length}
                 </p>
-                <p className="min-w-[300px]">
-                  {tournament.thirdPlace ? "Da" : "Ne"}
-                </p>
-                <p className="min-w-[300px]">
+                <p className="min-w-[300px]">{creator?.username}</p>
+                <p className="min-w-[200px]">
                   {tournament.createdAt.toISOString().slice(5, 10)}
                 </p>
               </>
@@ -70,9 +101,7 @@ const TournamentsList = ({
                     ? tournament.participants
                     : tournament.teams.length}
                 </p>
-                <p>
-                  Meč za treće mjesto: {tournament.thirdPlace ? "Da" : "Ne"}
-                </p>
+                <p>Treće mjesto: {tournament.thirdPlace ? "Da" : "Ne"}</p>
                 <p>
                   Napravljeno: {tournament.createdAt.toISOString().slice(5, 10)}
                 </p>
