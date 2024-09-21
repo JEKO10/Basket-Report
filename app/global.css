@@ -96,6 +96,7 @@ input:-webkit-autofill:active {
   --background: 110, 171, 218;
   --accent: 238, 238, 238;
   --secondary: 0, 0, 0;
+  --column: 98, 147, 179;
 }
 
 .dark {
@@ -105,4 +106,5 @@ input:-webkit-autofill:active {
   --background: 21, 52, 72;
   --accent: 21, 52, 72;
   --secondary: 110, 171, 218;
+  --column: 15, 81, 209;
 }
