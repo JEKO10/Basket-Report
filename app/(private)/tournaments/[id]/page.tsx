@@ -10,6 +10,17 @@ const SingleTournamentPage = async ({ params }: { params: { id: string } }) => {
   const data = await getTournamentsById(params.id);
   const user = await getUserByid(data?.creatorId);
 
+  const tournamentIndices = [];
+  const participants = data?.participants || 0;
+
+  for (let i = 0; i < Math.ceil(participants / 2); i++) {
+    tournamentIndices.push(i + 1);
+
+    if (participants - i > i + 1) {
+      tournamentIndices.push(participants - i);
+    }
+  }
+
   return (
     <section className="p-8">
       <header className="flex justify-between items-center mb-20">
@@ -38,8 +49,12 @@ const SingleTournamentPage = async ({ params }: { params: { id: string } }) => {
           ))
         ) : (
           <>
-            {Array.from({ length: data.participants }, (_, index) => (
-              <BracketField key={index} index={index + 1} />
+            {tournamentIndices.map((index, idx) => (
+              <BracketField
+                key={index}
+                index={index}
+                isEvenPair={idx % 2 === 1}
+              />
             ))}
           </>
         )}
