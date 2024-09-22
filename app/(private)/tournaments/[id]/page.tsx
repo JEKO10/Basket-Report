@@ -41,11 +41,8 @@ const SingleTournamentPage = async ({ params }: { params: { id: string } }) => {
       </header>
       <article>
         {!data?.bracketSize ? (
-          data?.teams.map((team) => (
-            <div key={team}>
-              <p>{team}</p>
-              {}
-            </div>
+          data?.teams.map((team, index) => (
+            <BracketField key={team} index={index} teamName={team} />
           ))
         ) : (
           <>

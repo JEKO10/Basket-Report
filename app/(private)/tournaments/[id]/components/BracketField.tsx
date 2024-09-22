@@ -3,19 +3,26 @@ import React from "react";
 const BracketField = ({
   index,
   isEvenPair,
+  teamName,
 }: {
   index: number;
-  isEvenPair: boolean;
+  isEvenPair?: boolean;
+  teamName?: string;
 }) => {
   return (
     <article
-      className={`bg-[#6EABDA] h-7 w-36 p-1 ${isEvenPair ? "mb-5" : "mb-0.5"}`}
+      className={`bg-[#6EABDA] h-7 w-36 p-1 relative ${isEvenPair ? "mb-5" : "mb-0.5"}`}
     >
-      <div className="flex justify-start items-center bg-column h-full w-full">
-        <div className="bg-primary h-full w-5 flex justify-center items-center">
-          <p className="text-sm text-white">{index}</p>
+      <div className="flex justify-start items-center bg-column h-full w-full overflow-hidden">
+        {teamName && teamName?.length > 15 && (
+          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-[#6EABDA] to-[120%]" />
+        )}
+        <div className="bg-primary h-full min-w-5 flex justify-center items-center">
+          <p className="text-sm text-white select-none">{index}</p>
         </div>
-        <p className="text-white pl-1 pb-0.5 tracking-wider [text-shadow:_2px_2px_1px_#222]"></p>
+        <p className="text-white pl-1 pb-0.5 tracking-wider [text-shadow:_2px_2px_1px_#222]">
+          {teamName}
+        </p>
       </div>
     </article>
   );
