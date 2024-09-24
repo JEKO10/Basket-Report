@@ -43,7 +43,10 @@ const SingleTournamentPage = async ({ params }: { params: { id: string } }) => {
   const data = await getTournamentsById(params.id);
   const user = await getUserByid(data?.creatorId);
 
-  const bracket = handleBracket(data?.participants || 0);
+  const participantsCount = data?.teams
+    ? data.teams.length
+    : data?.participants || 0;
+  const bracket = handleBracket(participantsCount);
 
   return (
     <section className="p-8">
@@ -65,7 +68,23 @@ const SingleTournamentPage = async ({ params }: { params: { id: string } }) => {
       </header>
       <article>
         {!data?.bracketSize ? (
-          ""
+          <>
+            {bracket.map((match, index) => {
+              const teamA = data?.teams[match[0] - 1];
+              const teamB = data?.teams[match[1] - 1];
+
+              return (
+                <section key={index}>
+                  <BracketField match={match[0]} teamName={teamA} />
+                  <BracketField
+                    index={index + 1}
+                    match={match[1]}
+                    teamName={teamB}
+                  />
+                </section>
+              );
+            })}
+          </>
         ) : (
           <>
             {bracket.map((match, index) => (
