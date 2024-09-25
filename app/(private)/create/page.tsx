@@ -8,10 +8,10 @@ import { createTournament } from "@/actions/tournaments";
 
 import BracketSize from "./components/BracketSize";
 import ControlButtons from "./components/ControlButtons";
-import Name from "./components/Name";
+import LastPage from "./components/LastPage";
 import TournamentForm from "./components/TournamentForm";
 
-const NewPage = () => {
+const CreatePage = () => {
   const [page, setPage] = useState(1);
   const [error, setError] = useState<string | undefined>("");
   const [success, setSuccess] = useState<string | undefined>("");
@@ -74,7 +74,7 @@ const NewPage = () => {
       )}
       {page === 3 && (
         <div>
-          <Name formData={formData} setFormData={setFormData} />
+          <LastPage formData={formData} setFormData={setFormData} />
         </div>
       )}
       <div className={`my-5 ${page === 1 && "ml-6"} h-6`}>
@@ -96,4 +96,4 @@ const NewPage = () => {
   );
 };
 
-export default NewPage;
+export default CreatePage;

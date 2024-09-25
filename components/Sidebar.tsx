@@ -48,7 +48,7 @@ const Sidebar = async () => {
           </Link>
         </li>
         <li>
-          <Link href="/new" className="sidebar-link">
+          <Link href="/create" className="sidebar-link">
             <BiLayerPlus />
             <p className="text-base">Napravi turnir</p>
           </Link>
