@@ -46,7 +46,18 @@ const SingleTournamentPage = async ({ params }: { params: { id: string } }) => {
     ? data.teams.length
     : data?.participants || 0;
 
-  const bracket = handleBracket(participantsCount);
+  const rounds = Math.ceil(Math.log(participantsCount) / Math.log(2));
+
+  let participants = participantsCount;
+  let bracketRounds = [];
+
+  for (let i = 0; i < rounds; i++) {
+    const bracket = handleBracket(participants);
+
+    participants = Math.floor(participants / 2);
+
+    bracketRounds.push(bracket);
+  }
 
   return (
     <section className="p-8">
@@ -66,22 +77,33 @@ const SingleTournamentPage = async ({ params }: { params: { id: string } }) => {
           {data?.createdAt.toISOString().slice(0, 10)}
         </p>
       </header>
-      <div>
+      <div className="flex justify-start items-center">
         {!data?.bracketSize ? (
           <>
-            {bracket.map((match, index) => (
-              <BracketRound
-                key={index}
-                match={match}
-                index={index}
-                teams={data?.teams}
-              />
+            {bracketRounds.map((round, roundIndex) => (
+              <div key={roundIndex} className="mr-10">
+                {round.map((match, matchIndex) => (
+                  <BracketRound
+                    key={matchIndex}
+                    match={match}
+                    teams={data?.teams}
+                  />
+                ))}
+              </div>
             ))}
           </>
         ) : (
           <>
-            {bracket.map((match, index) => (
-              <BracketRound key={index} match={match} index={index} />
+            {bracketRounds.map((round, roundIndex) => (
+              <div key={roundIndex} className="mr-10">
+                {round.map((match, matchIndex) => (
+                  <BracketRound
+                    key={matchIndex}
+                    match={match}
+                    teams={data?.teams}
+                  />
+                ))}
+              </div>
             ))}
           </>
         )}

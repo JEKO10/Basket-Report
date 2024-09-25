@@ -4,7 +4,6 @@ const BracketField = ({
   match,
   teamName,
 }: {
-  index?: number;
   match: number;
   teamName?: string;
 }) => {
