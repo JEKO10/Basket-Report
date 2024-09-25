@@ -4,7 +4,7 @@ import React from "react";
 import { getTournamentsById } from "@/actions/tournaments";
 import { getUserByid } from "@/actions/user";
 
-import BracketField from "./components/BracketField";
+import BracketRound from "./components/BracketRound";
 
 const nextRound = (seed: number, participantsCount: number) => {
   return seed <= participantsCount ? seed : 0;
@@ -42,10 +42,10 @@ const handleBracket = (participants: number) => {
 const SingleTournamentPage = async ({ params }: { params: { id: string } }) => {
   const data = await getTournamentsById(params.id);
   const user = await getUserByid(data?.creatorId);
-
-  const participantsCount = data?.teams
+  const participantsCount = data?.teams.length
     ? data.teams.length
     : data?.participants || 0;
+
   const bracket = handleBracket(participantsCount);
 
   return (
@@ -66,36 +66,26 @@ const SingleTournamentPage = async ({ params }: { params: { id: string } }) => {
           {data?.createdAt.toISOString().slice(0, 10)}
         </p>
       </header>
-      <article>
+      <div>
         {!data?.bracketSize ? (
           <>
-            {bracket.map((match, index) => {
-              const teamA = data?.teams[match[0] - 1];
-              const teamB = data?.teams[match[1] - 1];
-
-              return (
-                <section key={index}>
-                  <BracketField match={match[0]} teamName={teamA} />
-                  <BracketField
-                    index={index + 1}
-                    match={match[1]}
-                    teamName={teamB}
-                  />
-                </section>
-              );
-            })}
+            {bracket.map((match, index) => (
+              <BracketRound
+                key={index}
+                match={match}
+                index={index}
+                teams={data?.teams}
+              />
+            ))}
           </>
         ) : (
           <>
             {bracket.map((match, index) => (
-              <section key={index}>
-                <BracketField match={match[0]} />
-                <BracketField index={index + 1} match={match[1]} />
-              </section>
+              <BracketRound key={index} match={match} index={index} />
             ))}
           </>
         )}
-      </article>
+      </div>
     </section>
   );
 };
