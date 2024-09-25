@@ -87,6 +87,7 @@ const SingleTournamentPage = async ({ params }: { params: { id: string } }) => {
                     key={matchIndex}
                     match={match}
                     teams={data?.teams}
+                    roundIndex={roundIndex}
                   />
                 ))}
               </div>
@@ -101,6 +102,7 @@ const SingleTournamentPage = async ({ params }: { params: { id: string } }) => {
                     key={matchIndex}
                     match={match}
                     teams={data?.teams}
+                    roundIndex={roundIndex}
                   />
                 ))}
               </div>
