@@ -23,6 +23,10 @@ export const TournamentSchema = z.object({
   teams: z.array(z.string()),
   thirdPlace: z.boolean(),
   randomize: z.boolean(),
+  tournamentSport: z.string({
+    message: "Sport je obavezan!",
+  }),
+  tournamentDate: z.coerce.date(),
 });
 
 export const LoginSchema = z.object({

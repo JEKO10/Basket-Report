@@ -27,7 +27,7 @@ export const createTournament = async (
     });
 
     if (existingTournament) {
-      return { error: "Ime turnira je već zauzeto!" };
+      return { error: "Ime turnira je zauzeto!" };
     }
 
     await db.tournament.create({

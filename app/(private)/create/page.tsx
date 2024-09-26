@@ -23,6 +23,8 @@ const CreatePage = () => {
     teams: [] as string[],
     thirdPlace: false,
     randomize: false,
+    tournamentSport: "",
+    tournamentDate: new Date(),
   });
   const router = useRouter();
   const { data } = useSession();
@@ -31,8 +33,8 @@ const CreatePage = () => {
     event.preventDefault();
     const userId = data?.user.id;
 
-    if (formData.tournamentName === "") {
-      setError("Unesi ime turnira!");
+    if (formData.tournamentName === "" || formData.tournamentSport === "") {
+      setError("Sva polja su obavezna!");
       return;
     } else if (formData.tournamentName.length < 3) {
       setError("Ime mora sadržati bar tri slova!");

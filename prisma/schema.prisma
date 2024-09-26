@@ -30,6 +30,8 @@ model Tournament {
   teams          String[]
   thirdPlace     Boolean
   randomize      Boolean
+  tournamentSport   String 
+  tournamentDate    DateTime @default(now())
   createdAt      DateTime @default(now())
   creator        User     @relation(fields: [creatorId], references: [id]) 
   creatorId      String   

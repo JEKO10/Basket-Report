@@ -59,6 +59,8 @@ const ControlButtons = ({
       setFormData({
         ...formData,
         tournamentName: "",
+        tournamentSport: "",
+        tournamentDate: new Date(),
       });
     }
 
