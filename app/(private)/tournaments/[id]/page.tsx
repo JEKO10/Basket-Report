@@ -29,7 +29,7 @@ const SingleTournamentPage = async ({ params }: { params: { id: string } }) => {
 
   return (
     <section className="p-8">
-      <header className="flex justify-between items-center mb-20">
+      <header className="flex justify-between items-start mb-20">
         <div>
           <h3 className="font-lusitana text-3xl mt-5 font-medium">
             {data?.tournamentName}
@@ -41,9 +41,24 @@ const SingleTournamentPage = async ({ params }: { params: { id: string } }) => {
             </p>
           </Link>
         </div>
-        <p className="italic font-medium text-[#6EABDA]">
-          {data?.createdAt.toISOString().slice(0, 10)}
-        </p>
+        <div className="flex justify-end items-end flex-col">
+          <p className="italic font-medium text-[#6EABDA]">
+            {data?.tournamentSport} - Sport
+          </p>
+          <p className="italic font-medium text-[#6EABDA]">
+            {data?.tournamentType} - Format
+          </p>
+          <p className="italic font-medium text-[#6EABDA]">
+            {data?.teams.length === 0 ? data?.participants : data?.teams.length}{" "}
+            - Učesnici
+          </p>
+          <p className="italic font-medium text-[#6EABDA]">
+            {data?.tournamentDate.toISOString().slice(0, 10)} - Početak
+          </p>
+          <p className="italic font-medium text-[#6EABDA]">
+            {data?.createdAt.toISOString().slice(0, 10)} - Napravljen
+          </p>
+        </div>
       </header>
       <div className="flex justify-start items-center">
         {!data?.bracketSize ? (

@@ -56,10 +56,10 @@ const TournamentsList = ({
       {page === "tournaments" && (
         <div className="flex justify-start items-center mb-5 text-lg">
           <p className="px-10 min-w-[300px]">Ime</p>
-          <p className="px-10 min-w-[300px]">Format</p>
+          <p className="px-10 min-w-[300px]">Organizator</p>
+          <p className="px-10 min-w-[300px]">Sport</p>
           <p className="px-10 min-w-[300px]">Učesnici</p>
-          <p className="px-10 min-w-[300px]">Osnivač</p>
-          <p className="px-10">Napravljeno</p>
+          <p className="px-10">Početak</p>
         </div>
       )}
       {data.length === 0 && (
@@ -79,31 +79,26 @@ const TournamentsList = ({
             {page === "tournaments" && (
               <>
                 <p className="min-w-[300px]">{tournament.tournamentName}</p>
-                <p className="min-w-[300px]">{tournament.tournamentType}</p>
+                <p className="min-w-[300px]">{creator?.username}</p>
+                <p className="min-w-[300px]">{tournament.tournamentSport}</p>
                 <p className="min-w-[300px]">
                   {tournament.teams.length === 0
                     ? tournament.participants
                     : tournament.teams.length}
                 </p>
-                <p className="min-w-[300px]">{creator?.username}</p>
                 <p className="min-w-[200px]">
-                  {tournament.createdAt.toISOString().slice(5, 10)}
+                  {tournament.tournamentDate.toISOString().slice(5, 10)}
                 </p>
               </>
             )}
             {page === "profile" && (
               <>
                 <p>Ime: {tournament.tournamentName}</p>
-                <p>Format: {tournament.tournamentType}</p>
+                <p>Organizator: {creator?.username}</p>
+                <p>Sport: {tournament.tournamentSport}</p>
                 <p>
-                  Učesnici:{" "}
-                  {tournament.teams.length === 0
-                    ? tournament.participants
-                    : tournament.teams.length}
-                </p>
-                <p>Treće mjesto: {tournament.thirdPlace ? "Da" : "Ne"}</p>
-                <p>
-                  Napravljeno: {tournament.createdAt.toISOString().slice(5, 10)}
+                  Početak:{" "}
+                  {tournament.tournamentDate.toISOString().slice(5, 10)}
                 </p>
               </>
             )}

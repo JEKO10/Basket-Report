@@ -32,7 +32,7 @@ const SingleUserPage = async ({ params }: { params: { username: string } }) => {
                 className="flex justify-between align-center bg-body text-secondary text-xl italic font-medium px-10 py-4 border-b-2 border-accent cursor-default transition hover:bg-primary hover:text-[#fff]"
               >
                 <p>Ime: {tournament.tournamentName}</p>
-                <p>Format: {tournament.tournamentType}</p>
+                <p>Sport: {tournament.tournamentSport}</p>
                 <p>
                   Učesnici:{" "}
                   {tournament.teams.length === 0
@@ -40,10 +40,8 @@ const SingleUserPage = async ({ params }: { params: { username: string } }) => {
                     : tournament.teams.length}
                 </p>
                 <p>
-                  Meč za treće mjesto: {tournament.thirdPlace ? "Da" : "Ne"}
-                </p>
-                <p>
-                  Napravljeno: {tournament.createdAt.toISOString().slice(5, 10)}
+                  Početak:{" "}
+                  {tournament.tournamentDate.toISOString().slice(5, 10)}
                 </p>
               </Link>
             ))}
