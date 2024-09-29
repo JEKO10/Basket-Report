@@ -17,6 +17,12 @@ const BracketRound = ({
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  if (isModalOpen) {
+    document.body.style.overflow = "hidden";
+  } else {
+    document.body.style.overflow = "auto";
+  }
+
   return (
     <section className="w-fit mb-5 relative">
       {teams && roundIndex === 0 ? (
@@ -36,7 +42,8 @@ const BracketRound = ({
       >
         <TbEdit className="text-2xl" title="Dodaj rezultat" />
       </div>
-      {isModalOpen && <ScoreModal />}
+      {isModalOpen && <ScoreModal match={match} />}
+      {/* <ScoreModal match={match} /> */}
     </section>
   );
 };
