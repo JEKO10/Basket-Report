@@ -18,7 +18,7 @@ const ToggleTheme = () => {
   return (
     <button
       onClick={() => setTheme(`${dark ? "light" : "dark"}`)}
-      className="z-50 text-4xl text-text absolute top-4 right-6 hover:text-background"
+      className="text-4xl text-text absolute top-4 right-6 hover:text-background"
     >
       {dark ? (
         <PiMoonLight strokeWidth={10} />

@@ -1,9 +1,43 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 
-const ScoreModal = ({ match }: { match: number[] }) => {
+const ScoreModal = ({
+  match,
+  setIsModalOpen,
+}: {
+  match: number[];
+  setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}) => {
+  const [isVisible, setIsVisible] = useState(true);
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const clickOutside = (e: MouseEvent) => {
+      if (!ref.current?.contains(e.target as Node)) {
+        setIsVisible(false);
+
+        setTimeout(() => {
+          setIsModalOpen(false);
+        }, 500);
+      }
+    };
+
+    document.addEventListener("mousedown", clickOutside, true);
+
+    return () => {
+      document.removeEventListener("mousedown", clickOutside, true);
+    };
+  }, [setIsModalOpen]);
+
   return (
-    <section className="flex justify-center items-center bg-black/70 fixed top-0 left-0 h-full w-full z-10">
-      <article className="flex justify-center items-start flex-col bg-primary h-96 w-1/2 p-10 rounded [&>div]:flex [&>div]:justify-between [&>div]:items-center [&>div]:w-full">
+    <section
+      className={`fixed top-0 left-0 flex justify-center items-center h-full w-full z-10 transition-opacity duration-500 ${
+        isVisible ? "opacity-100" : "opacity-0"
+      } bg-black/70`}
+    >
+      <article
+        ref={ref}
+        className="flex justify-center items-start flex-col bg-primary h-96 w-1/2 p-10 rounded [&>div]:flex [&>div]:justify-between [&>div]:items-center [&>div]:w-full"
+      >
         <div className="bg-black px-5 py-3 rounded-t [&>p]:font-medium [&>p]:text-white">
           <p>Učesnici</p>
           <p>Rezultat</p>
