@@ -2,22 +2,28 @@ import React, { useEffect, useRef, useState } from "react";
 
 const ScoreModal = ({
   match,
+  teams,
   setIsModalOpen,
 }: {
   match: number[];
+  teams?: string[];
   setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
   const [isVisible, setIsVisible] = useState(true);
   const ref = useRef<HTMLDivElement>(null);
 
+  const handleClosing = () => {
+    setIsVisible(false);
+
+    setTimeout(() => {
+      setIsModalOpen(false);
+    }, 500);
+  };
+
   useEffect(() => {
     const clickOutside = (e: MouseEvent) => {
       if (!ref.current?.contains(e.target as Node)) {
-        setIsVisible(false);
-
-        setTimeout(() => {
-          setIsModalOpen(false);
-        }, 500);
+        handleClosing();
       }
     };
 
@@ -43,19 +49,25 @@ const ScoreModal = ({
           <p>Rezultat</p>
         </div>
         <div className="bg-accent p-5">
-          <p>{match[0]}</p>
+          <p>{teams ? teams[match[0] - 1] : match[0]}</p>
           <input
             type="number"
             className="bg-black text-white h-8 w-14 px-2 text-sm rounded-sm"
           />
         </div>
         <div className="bg-accent/50 p-5 rounded-b">
-          <p>{match[1]}</p>
+          <p>{teams ? teams[match[1] - 1] : match[1]}</p>
           <input
             type="number"
             className="bg-black text-white h-8 w-14 px-2 text-sm rounded-sm"
           />
         </div>
+        <button
+          onClick={handleClosing}
+          className="bg-background text-text text-lg font-medium italic tracking-wider mt-5 py-2 px-5 rounded-lg transition hover:bg-background/65"
+        >
+          Dodaj rezultat
+        </button>
       </article>
     </section>
   );

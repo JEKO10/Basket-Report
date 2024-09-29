@@ -36,14 +36,20 @@ const BracketRound = ({
           <BracketField match={roundIndex === 0 ? match[1] : null} />
         </>
       )}
-      <div
-        onClick={() => setIsModalOpen(true)}
-        className="flex justify-center items-center bg-[#6EABDA] text-white h-full absolute top-0 right-0 px-1 transition-colors cursor-pointer hover:text-black"
-      >
-        <TbEdit className="text-2xl" title="Dodaj rezultat" />
-      </div>
+      {roundIndex === 0 && (
+        <div
+          onClick={() => setIsModalOpen(true)}
+          className="flex justify-center items-center bg-[#6EABDA] text-white h-full absolute top-0 right-0 px-1 transition-colors cursor-pointer hover:text-black"
+        >
+          <TbEdit className="text-2xl" title="Dodaj rezultat" />
+        </div>
+      )}
       {isModalOpen && (
-        <ScoreModal match={match} setIsModalOpen={setIsModalOpen} />
+        <ScoreModal
+          match={match}
+          teams={teams}
+          setIsModalOpen={setIsModalOpen}
+        />
       )}
     </section>
   );
