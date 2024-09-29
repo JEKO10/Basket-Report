@@ -54,12 +54,12 @@ const TournamentsList = ({
   return (
     <article className="bg-accent mt-5 mb-10 p-5 rounded">
       {page === "tournaments" && (
-        <div className="flex justify-start items-center mb-5 text-lg">
-          <p className="px-10 min-w-[300px]">Ime</p>
-          <p className="px-10 min-w-[300px]">Organizator</p>
-          <p className="px-10 min-w-[300px]">Sport</p>
-          <p className="px-10 min-w-[300px]">Učesnici</p>
-          <p className="px-10">Početak</p>
+        <div className="flex justify-start items-center mb-5 text-lg [&>p]:px-10 [&>p:not(:last-child)]:min-w-[300px] ">
+          <p>Ime</p>
+          <p>Organizator</p>
+          <p>Sport</p>
+          <p>Učesnici</p>
+          <p>Početak</p>
         </div>
       )}
       {data.length === 0 && (

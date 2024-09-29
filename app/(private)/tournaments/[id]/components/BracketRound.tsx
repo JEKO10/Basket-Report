@@ -1,6 +1,10 @@
-import React from "react";
+"use client";
+
+import React, { useState } from "react";
+import { TbEdit } from "react-icons/tb";
 
 import BracketField from "./BracketField";
+import ScoreModal from "./ScoreModal";
 
 const BracketRound = ({
   match,
@@ -11,6 +15,8 @@ const BracketRound = ({
   teams?: string[];
   roundIndex: number;
 }) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   return (
     <section className="w-fit mb-5 relative">
       {teams && roundIndex === 0 ? (
@@ -24,13 +30,13 @@ const BracketRound = ({
           <BracketField match={roundIndex === 0 ? match[1] : null} />
         </>
       )}
-      {/* <div className="bg-white h-1 w-2 absolute top-[1.7rem] -right-3" />
-      {index % 2 === 0 && (
-        <>
-          <div className="bg-white h-[5.13rem] w-1 absolute top-[1.7rem] -right-4" />
-          <div className="bg-white h-1 w-3 absolute top-16 -right-7" />
-        </>
-      )} */}
+      <div
+        onClick={() => setIsModalOpen(!isModalOpen)}
+        className="flex justify-center items-center bg-[#6EABDA] text-white h-full absolute top-0 right-0 px-1 transition-colors cursor-pointer hover:text-black"
+      >
+        <TbEdit className="text-2xl" title="Dodaj rezultat" />
+      </div>
+      {isModalOpen && <ScoreModal />}
     </section>
   );
 };
