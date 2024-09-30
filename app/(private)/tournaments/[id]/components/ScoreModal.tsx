@@ -4,12 +4,23 @@ const ScoreModal = ({
   match,
   teams,
   setIsModalOpen,
+  setScore,
 }: {
   match: number[];
   teams?: string[];
   setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  setScore: React.Dispatch<
+    React.SetStateAction<{
+      teamA: number;
+      teamB: number;
+    }>
+  >;
 }) => {
   const [isVisible, setIsVisible] = useState(true);
+  const [tempScore, setTempScore] = useState({
+    teamA: 0,
+    teamB: 0,
+  });
   const ref = useRef<HTMLDivElement>(null);
 
   const handleClosing = () => {
@@ -18,6 +29,14 @@ const ScoreModal = ({
     setTimeout(() => {
       setIsModalOpen(false);
     }, 500);
+  };
+
+  const handleSubmit = () => {
+    setScore({
+      teamA: tempScore.teamA,
+      teamB: tempScore.teamB,
+    });
+    handleClosing();
   };
 
   useEffect(() => {
@@ -44,6 +63,9 @@ const ScoreModal = ({
         ref={ref}
         className="flex justify-center items-start flex-col bg-primary h-96 w-1/2 p-10 rounded [&>div]:flex [&>div]:justify-between [&>div]:items-center [&>div]:w-full"
       >
+        <h2 className="font-lusitana text-3xl mb-5 font-medium">
+          Dodavanje rezultata
+        </h2>
         <div className="bg-black px-5 py-3 rounded-t [&>p]:font-medium [&>p]:text-white">
           <p>Učesnici</p>
           <p>Rezultat</p>
@@ -52,21 +74,27 @@ const ScoreModal = ({
           <p>{teams ? teams[match[0] - 1] : match[0]}</p>
           <input
             type="number"
-            className="bg-black text-white h-8 w-14 px-2 text-sm rounded-sm"
+            className="bg-black text-white h-8 w-14 px-2 text-sm rounded-sm outline-none"
+            onChange={(e) =>
+              setTempScore({ ...tempScore, teamA: parseInt(e.target.value) })
+            }
           />
         </div>
         <div className="bg-accent/50 p-5 rounded-b">
           <p>{teams ? teams[match[1] - 1] : match[1]}</p>
           <input
             type="number"
-            className="bg-black text-white h-8 w-14 px-2 text-sm rounded-sm"
+            className="bg-black text-white h-8 w-14 px-2 text-sm rounded-sm outline-none"
+            onChange={(e) =>
+              setTempScore({ ...tempScore, teamB: parseInt(e.target.value) })
+            }
           />
         </div>
         <button
-          onClick={handleClosing}
+          onClick={handleSubmit}
           className="bg-background text-text text-lg font-medium italic tracking-wider mt-5 py-2 px-5 rounded-lg transition hover:bg-background/65"
         >
-          Dodaj rezultat
+          Potvrdi rezultat
         </button>
       </article>
     </section>
