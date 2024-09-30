@@ -11,15 +11,18 @@ const ScoreModal = ({
   setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
   setScore: React.Dispatch<
     React.SetStateAction<{
-      teamA: number;
-      teamB: number;
+      teamA: number | null;
+      teamB: number | null;
     }>
   >;
 }) => {
   const [isVisible, setIsVisible] = useState(true);
-  const [tempScore, setTempScore] = useState({
-    teamA: 0,
-    teamB: 0,
+  const [tempScore, setTempScore] = useState<{
+    teamA: number | null;
+    teamB: number | null;
+  }>({
+    teamA: null,
+    teamB: null,
   });
   const ref = useRef<HTMLDivElement>(null);
 
@@ -32,10 +35,16 @@ const ScoreModal = ({
   };
 
   const handleSubmit = () => {
+    if (tempScore.teamA === null || tempScore.teamB === null) {
+      handleClosing();
+      return;
+    }
+
     setScore({
       teamA: tempScore.teamA,
       teamB: tempScore.teamB,
     });
+
     handleClosing();
   };
 

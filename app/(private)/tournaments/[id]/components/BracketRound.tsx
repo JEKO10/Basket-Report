@@ -16,7 +16,10 @@ const BracketRound = ({
   roundIndex: number;
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [score, setScore] = useState({
+  const [score, setScore] = useState<{
+    teamA: number | null;
+    teamB: number | null;
+  }>({
     teamA: 0,
     teamB: 0,
   });
@@ -52,21 +55,21 @@ const BracketRound = ({
         score.teamB !== 0 && (
           <div
             onClick={() => setIsModalOpen(true)}
-            className="flex justify-center items-center flex-col bg-[#6EABDA] text-white h-full w-7 absolute top-0 right-0 overflow-hidden"
+            className="flex justify-center items-start flex-col bg-[#6EABDA] text-white h-full w-7 absolute top-0 right-0 overflow-hidden"
           >
             <p
-              className={`${score.teamA.toString().length > 3 ? "text-start" : "text-center"} pr-0.5`}
+              className={`${score.teamA && score.teamA.toString().length > 2 ? "text-start" : "text-center"} pl-1`}
             >
               {score.teamA}
             </p>
-            <div className="h-0.5 w-7 my-0.5 bg-black z-10" />
+            <div className="h-0.5 w-7 my-0.5 bg-body z-10" />
             <p
-              className={`${score.teamB.toString().length > 3 ? "text-start" : "text-center"} pr-0.5`}
+              className={`${score.teamB && score.teamB.toString().length > 2 ? "text-start" : "text-center"} pl-1`}
             >
               {score.teamB}
             </p>
-            {(score.teamA.toString().length > 3 ||
-              score.teamB.toString().length > 3) && (
+            {((score.teamA && score.teamA.toString().length > 2) ||
+              (score.teamB && score.teamB.toString().length > 2)) && (
               <div className="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-[#6EABDA] to-[120%]" />
             )}
           </div>
