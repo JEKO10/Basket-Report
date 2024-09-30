@@ -52,12 +52,15 @@ export const getAllTournaments = async () => {
     orderBy: {
       createdAt: "asc",
     },
+    include: {
+      creator: true,
+    },
   });
 
   return { data: tournaments };
 };
 
-export const getTournamentsById = async (tournamentId: string) => {
+export const getTournamentById = async (tournamentId: string) => {
   return await db.tournament.findUnique({
     where: { tournamentId },
   });
@@ -106,6 +109,9 @@ export const getUserTournaments = async (creatorId: string | undefined) => {
   return await db.tournament.findMany({
     where: {
       creatorId,
+    },
+    include: {
+      creator: true,
     },
   });
 };

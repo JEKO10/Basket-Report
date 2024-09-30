@@ -1,18 +1,19 @@
 "use client";
 
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import * as z from "zod";
 
 import { deleteTournament } from "@/actions/tournaments";
-import { getUserByid } from "@/actions/user";
 import DeleteButton from "@/app/(public)/profile/components/DeleteButton";
 import { TournamentSchema } from "@/schemas";
 
 const ExtendedTournamentSchema = TournamentSchema.extend({
   tournamentId: z.string(),
   createdAt: z.date(),
-  creatorId: z.string(),
+  creator: z.object({
+    username: z.string(),
+  }),
 });
 
 const TournamentsList = ({
@@ -22,35 +23,6 @@ const TournamentsList = ({
   data: z.infer<typeof ExtendedTournamentSchema>[];
   page: "profile" | "tournaments";
 }) => {
-  const [creator, setCreator] = useState<{
-    id: string;
-    username: string;
-    email: string;
-    password: string;
-  } | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    const fetchCreators = async () => {
-      setIsLoading(true);
-
-      for (const tournament of data) {
-        setCreator(await getUserByid(tournament.creatorId));
-      }
-
-      setIsLoading(false);
-    };
-
-    fetchCreators();
-  }, [data]);
-
-  if (isLoading) {
-    return (
-      <div className="flex justify-center items-center">
-        <div className="animate-spin h-24 w-24 border-4 border-t-transparent border-blue-500 rounded-full"></div>
-      </div>
-    );
-  }
   return (
     <article className="bg-accent mt-5 mb-10 p-5 rounded">
       {page === "tournaments" && (
@@ -79,7 +51,7 @@ const TournamentsList = ({
             {page === "tournaments" && (
               <>
                 <p className="min-w-[300px]">{tournament.tournamentName}</p>
-                <p className="min-w-[300px]">{creator?.username}</p>
+                <p className="min-w-[300px]">{tournament.creator.username}</p>
                 <p className="min-w-[300px]">{tournament.tournamentSport}</p>
                 <p className="min-w-[300px]">
                   {tournament.teams.length === 0
@@ -94,7 +66,7 @@ const TournamentsList = ({
             {page === "profile" && (
               <>
                 <p>Ime: {tournament.tournamentName}</p>
-                <p>Organizator: {creator?.username}</p>
+                <p>Organizator: {tournament.creator.username}</p>
                 <p>Sport: {tournament.tournamentSport}</p>
                 <p>
                   Početak:{" "}
