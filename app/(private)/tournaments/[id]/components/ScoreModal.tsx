@@ -80,7 +80,7 @@ const ScoreModal = ({
           <p>Rezultat</p>
         </div>
         <div className="bg-accent p-5">
-          <p>{teams ? teams[match[0] - 1] : match[0]}</p>
+          <p>{teams && teams?.length !== 0 ? teams[match[0] - 1] : match[0]}</p>
           <input
             type="number"
             className="bg-black text-white h-8 w-14 px-2 text-sm rounded-sm outline-none"
@@ -90,7 +90,7 @@ const ScoreModal = ({
           />
         </div>
         <div className="bg-accent/50 p-5 rounded-b">
-          <p>{teams ? teams[match[1] - 1] : match[1]}</p>
+          <p>{teams && teams?.length !== 0 ? teams[match[1] - 1] : match[1]}</p>
           <input
             type="number"
             className="bg-black text-white h-8 w-14 px-2 text-sm rounded-sm outline-none"

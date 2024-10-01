@@ -27,12 +27,32 @@ model Tournament {
   bracketSize    Boolean
   tournamentName String   @unique
   participants   Int
-  teams          String[]
+  teams          String[] 
   thirdPlace     Boolean
   randomize      Boolean
   tournamentSport   String 
   tournamentDate    DateTime @default(now())
   createdAt      DateTime @default(now())
   creator        User     @relation(fields: [creatorId], references: [id]) 
-  creatorId      String   
+  creatorId      String
+  rounds         Round[]  
+}
+
+model Round {
+  id            String   @id @default(cuid())
+  roundIndex    Int      
+  matches       Match[]  
+  tournament    Tournament @relation(fields: [tournamentId], references: [tournamentId])
+  tournamentId  String
+}
+
+model Match {
+  id            String   @id @default(cuid())
+  teamA         String   
+  teamB         String   
+  scoreA        Int      
+  scoreB        Int      
+  winner        String?  
+  round         Round    @relation(fields: [roundId], references: [id])
+  roundId       String
 }

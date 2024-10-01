@@ -58,13 +58,13 @@ const BracketRound = ({
             className="flex justify-center items-start flex-col bg-[#6EABDA] text-white h-full w-7 absolute top-0 right-0 overflow-hidden"
           >
             <p
-              className={`${score.teamA && score.teamA.toString().length > 2 ? "text-start" : "text-center"} pl-1`}
+              className={`${score.teamA && score.teamA.toString().length > 2 ? "text-start pl-1" : "text-center pl-0"} w-full`}
             >
               {score.teamA}
             </p>
             <div className="h-0.5 w-7 my-0.5 bg-body z-10" />
             <p
-              className={`${score.teamB && score.teamB.toString().length > 2 ? "text-start" : "text-center"} pl-1`}
+              className={`${score.teamB && score.teamB.toString().length > 2 ? "text-start pl-1" : "text-center pl-0"} w-full`}
             >
               {score.teamB}
             </p>

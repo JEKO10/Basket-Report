@@ -6,7 +6,7 @@ import { getUserByid } from "@/actions/user";
 import { currentUser } from "@/auth/currentUser";
 import { handleBracket } from "@/utils/brackets";
 
-import BracketRound from "./components/BracketRound";
+import Match from "./components/Match";
 
 const SingleTournamentPage = async ({ params }: { params: { id: string } }) => {
   const data = await getTournamentById(params.id);
@@ -18,18 +18,7 @@ const SingleTournamentPage = async ({ params }: { params: { id: string } }) => {
     ? data.teams.length
     : data?.participants || 0;
 
-  const rounds = Math.ceil(Math.log(participantsCount) / Math.log(2));
-
-  let participants = participantsCount;
-  let bracketRounds = [];
-
-  for (let i = 0; i < rounds; i++) {
-    const bracket = handleBracket(participants);
-
-    participants = Math.floor(participants / 2);
-
-    bracketRounds.push(bracket);
-  }
+  const bracket = handleBracket(participantsCount);
 
   return (
     <section className="p-8">
@@ -61,38 +50,10 @@ const SingleTournamentPage = async ({ params }: { params: { id: string } }) => {
           <p>{data?.createdAt.toISOString().slice(0, 10)} - Napravljen</p>
         </div>
       </header>
-      <div className="flex justify-start items-center">
-        {!data?.bracketSize ? (
-          <>
-            {bracketRounds.map((round, roundIndex) => (
-              <div key={roundIndex} className="mr-10">
-                {round.map((match, matchIndex) => (
-                  <BracketRound
-                    key={matchIndex}
-                    match={match}
-                    teams={data?.teams}
-                    roundIndex={roundIndex}
-                  />
-                ))}
-              </div>
-            ))}
-          </>
-        ) : (
-          <>
-            {bracketRounds.map((round, roundIndex) => (
-              <div key={roundIndex} className="mr-10">
-                {round.map((match, matchIndex) => (
-                  <BracketRound
-                    key={matchIndex}
-                    match={match}
-                    teams={data?.teams}
-                    roundIndex={roundIndex}
-                  />
-                ))}
-              </div>
-            ))}
-          </>
-        )}
+      <div className="flex justify-start items-start flex-col">
+        {bracket.map((match) => (
+          <Match key={match[0]} match={match} teams={data?.teams} />
+        ))}
       </div>
     </section>
   );
