@@ -30,3 +30,20 @@ export const handleBracket = (participantsCount: number) => {
 
   return matches;
 };
+
+export const handleRounds = (participantsCount: number) => {
+  const rounds = Math.ceil(Math.log(participantsCount) / Math.log(2));
+
+  const bracketRounds: number[][][] = [];
+  let participants = participantsCount;
+
+  for (let roundIndex = 0; roundIndex < rounds; roundIndex++) {
+    const bracket = handleBracket(participants);
+
+    bracketRounds.push(bracket);
+
+    participants = Math.ceil(participants / 2);
+  }
+
+  return bracketRounds;
+};

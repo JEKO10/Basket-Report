@@ -4,7 +4,7 @@ import React from "react";
 import { getTournamentById } from "@/actions/tournaments";
 import { getUserByid } from "@/actions/user";
 import { currentUser } from "@/auth/currentUser";
-import { handleBracket } from "@/utils/brackets";
+import { handleRounds } from "@/utils/brackets";
 
 import Match from "./components/Match";
 
@@ -18,7 +18,7 @@ const SingleTournamentPage = async ({ params }: { params: { id: string } }) => {
     ? data.teams.length
     : data?.participants || 0;
 
-  const bracket = handleBracket(participantsCount);
+  const bracketRounds = handleRounds(participantsCount);
 
   return (
     <section className="p-8">
@@ -50,9 +50,18 @@ const SingleTournamentPage = async ({ params }: { params: { id: string } }) => {
           <p>{data?.createdAt.toISOString().slice(0, 10)} - Napravljen</p>
         </div>
       </header>
-      <div className="flex justify-start items-start flex-col">
-        {bracket.map((match) => (
-          <Match key={match[0]} match={match} teams={data?.teams} />
+      <div className="flex justify-start items-center">
+        {bracketRounds.map((round, roundIndex) => (
+          <section key={roundIndex} className="mr-14">
+            {round.map((match, index) => (
+              <Match
+                key={index}
+                match={match}
+                teams={data?.teams}
+                roundIndex={roundIndex}
+              />
+            ))}
+          </section>
         ))}
       </div>
     </section>
