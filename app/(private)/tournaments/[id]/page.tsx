@@ -13,11 +13,9 @@ const SingleTournamentPage = async ({ params }: { params: { id: string } }) => {
   const user = await getUserByid(data?.creatorId);
   const loggedUser = await currentUser();
   const isOwner = loggedUser?.id === data?.creatorId;
-
   const participantsCount = data?.teams.length
     ? data.teams.length
     : data?.participants || 0;
-
   const bracketRounds = handleRounds(participantsCount);
 
   return (
@@ -53,12 +51,13 @@ const SingleTournamentPage = async ({ params }: { params: { id: string } }) => {
       <div className="flex justify-start items-center">
         {bracketRounds.map((round, roundIndex) => (
           <section key={roundIndex} className="mr-14">
-            {round.map((match, index) => (
+            {round.map((match, matchIndex) => (
               <Match
-                key={index}
+                key={matchIndex}
                 match={match}
                 teams={data?.teams}
                 roundIndex={roundIndex}
+                matchIndex={matchIndex}
               />
             ))}
           </section>

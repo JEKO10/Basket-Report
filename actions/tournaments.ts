@@ -5,6 +5,7 @@ import * as z from "zod";
 
 import db from "@/prisma/db";
 import { TournamentSchema } from "@/schemas";
+import { handleRounds } from "@/utils/brackets";
 
 // ovjde dodas nekako da izracuna rounds... samo novo polje u db modelu
 export const createTournament = async (
@@ -31,9 +32,15 @@ export const createTournament = async (
       return { error: "Ime turnira je zauzeto!" };
     }
 
+    const participantsCount = formData.teams.length
+      ? formData.teams.length
+      : formData.participants;
+    const bracket = handleRounds(participantsCount);
+
     await db.tournament.create({
       data: {
         ...validateFields.data,
+        bracket,
         creator: {
           connect: { id: userId },
         },

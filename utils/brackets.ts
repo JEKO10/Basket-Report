@@ -40,9 +40,36 @@ export const handleRounds = (participantsCount: number) => {
   for (let roundIndex = 0; roundIndex < rounds; roundIndex++) {
     const bracket = handleBracket(participants);
 
-    bracketRounds.push(bracket);
+    if (roundIndex === 0) {
+      bracketRounds.push(bracket);
+    } else {
+      const nullBracket = bracket.map(() => [null, null]);
+
+      bracketRounds.push(nullBracket);
+    }
 
     participants = Math.ceil(participants / 2);
+  }
+
+  return bracketRounds;
+};
+
+export const advancePlayers = (
+  bracketRounds: number[][][],
+  roundIndex: number,
+  matchIndex: number,
+  winner: number
+) => {
+  if (roundIndex >= bracketRounds.length - 1) {
+    return bracketRounds;
+  }
+
+  const nextMatchIndex = Math.floor(matchIndex / 2);
+
+  if (matchIndex % 2 === 0) {
+    bracketRounds[roundIndex + 1][nextMatchIndex][0] = winner;
+  } else {
+    bracketRounds[roundIndex + 1][nextMatchIndex][1] = winner;
   }
 
   return bracketRounds;

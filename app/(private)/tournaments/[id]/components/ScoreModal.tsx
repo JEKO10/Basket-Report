@@ -40,6 +40,17 @@ const ScoreModal = ({
       return;
     }
 
+    // const winnerTemp = tempScore.teamA > tempScore.teamB ? match[0] : match[1];
+
+    // bracketRounds = advancePlayers(
+    //   bracketRounds,
+    //   roundIndex,
+    //   matchIndex,
+    //   winnerTemp
+    // );
+
+    // console.log(bracketRounds);
+
     setScore({
       teamA: tempScore.teamA,
       teamB: tempScore.teamB,
