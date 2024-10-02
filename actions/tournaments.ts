@@ -7,7 +7,6 @@ import db from "@/prisma/db";
 import { TournamentSchema } from "@/schemas";
 import { handleRounds } from "@/utils/brackets";
 
-// ovjde dodas nekako da izracuna rounds... samo novo polje u db modelu
 export const createTournament = async (
   formData: z.infer<typeof TournamentSchema>,
   userId: string | undefined
@@ -122,4 +121,20 @@ export const getUserTournaments = async (creatorId: string | undefined) => {
       creator: true,
     },
   });
+};
+
+export const updateBracket = async (
+  tournamentId: string,
+  updatedBracket: any
+) => {
+  try {
+    await db.tournament.update({
+      where: { tournamentId },
+      data: { bracket: updatedBracket },
+    });
+
+    revalidatePath(`/tournaments/${tournamentId}`);
+  } catch (error) {
+    return { error: "Error updating the bracket" };
+  }
 };

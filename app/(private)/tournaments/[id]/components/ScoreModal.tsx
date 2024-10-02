@@ -1,10 +1,18 @@
+import { JsonValue } from "next-auth/adapters";
 import React, { useEffect, useRef, useState } from "react";
+
+import { updateBracket } from "@/actions/tournaments";
+import { advancePlayers } from "@/utils/brackets";
 
 const ScoreModal = ({
   match,
   teams,
   setIsModalOpen,
   setScore,
+  roundIndex,
+  matchIndex,
+  tournamentId,
+  bracketRounds,
 }: {
   match: number[];
   teams?: string[];
@@ -15,6 +23,10 @@ const ScoreModal = ({
       teamB: number | null;
     }>
   >;
+  roundIndex: number;
+  matchIndex: number;
+  tournamentId: string;
+  bracketRounds: JsonValue;
 }) => {
   const [isVisible, setIsVisible] = useState(true);
   const [tempScore, setTempScore] = useState<{
@@ -34,22 +46,22 @@ const ScoreModal = ({
     }, 500);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (tempScore.teamA === null || tempScore.teamB === null) {
       handleClosing();
       return;
     }
 
-    // const winnerTemp = tempScore.teamA > tempScore.teamB ? match[0] : match[1];
+    const winnerTemp = tempScore.teamA > tempScore.teamB ? match[0] : match[1];
 
-    // bracketRounds = advancePlayers(
-    //   bracketRounds,
-    //   roundIndex,
-    //   matchIndex,
-    //   winnerTemp
-    // );
+    const updatedBracket = advancePlayers(
+      bracketRounds as number[][][],
+      roundIndex,
+      matchIndex,
+      winnerTemp
+    );
 
-    // console.log(bracketRounds);
+    await updateBracket(tournamentId, updatedBracket);
 
     setScore({
       teamA: tempScore.teamA,

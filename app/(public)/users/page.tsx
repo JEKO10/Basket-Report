@@ -14,7 +14,7 @@ const UsersPage = async ({
   return (
     <section>
       <Search page="users" />
-      <article>
+      <article className="flex flex-wrap">
         {data.length === 0 && (
           <p className="text-xl italic font-medium mb-6">
             Nije pronađen nijedan korisnik!
@@ -22,9 +22,9 @@ const UsersPage = async ({
         )}
         {data.map((user) => (
           <Link
-            href={`/users/${user.username}`}
             key={user.id}
-            className="block bg-background text-text w-[300px] my-5 px-5 py-4 rounded-lg transition hover:bg-text hover:text-background"
+            href={`/users/${user.username}`}
+            className="bg-background text-text w-[300px] my-5 mr-5 px-5 py-4 rounded-lg transition hover:bg-text hover:text-background"
           >
             <h3 className="text-xl font-medium leading-none">
               {user.username}
