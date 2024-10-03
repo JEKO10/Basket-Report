@@ -29,6 +29,7 @@ const ScoreModal = ({
     teamA: null,
     teamB: null,
   });
+  const [message, setMessage] = useState("");
   const ref = useRef<HTMLDivElement>(null);
 
   const handleClosing = () => {
@@ -41,11 +42,18 @@ const ScoreModal = ({
 
   const handleSubmit = async () => {
     if (tempScore.teamA === null || tempScore.teamB === null) {
-      handleClosing();
+      setMessage("Oba tima moraju imati rezultat!");
+      return;
+    } else if (tempScore.teamA === tempScore.teamB) {
+      setMessage("Rezultat ne može biti neriješen!");
       return;
     }
+    setMessage("");
 
-    const winnerTemp = tempScore.teamA > tempScore.teamB ? match[0] : match[1];
+    const winnerTemp =
+      tempScore.teamA && tempScore.teamB && tempScore.teamA > tempScore.teamB
+        ? match[0]
+        : match[1];
 
     const updatedBracket = advancePlayers(
       bracketRounds as number[][][],
@@ -118,9 +126,10 @@ const ScoreModal = ({
             }
           />
         </div>
+        <p className="text-red-600 my-2">{message}</p>
         <button
           onClick={handleSubmit}
-          className="bg-background text-text text-lg font-medium italic tracking-wider mt-5 py-2 px-5 rounded-lg transition hover:bg-background/65"
+          className="bg-background text-text text-lg font-medium italic tracking-wider py-2 px-5 rounded-lg transition hover:bg-background/65"
         >
           Potvrdi rezultat
         </button>
