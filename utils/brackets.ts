@@ -83,28 +83,29 @@ export const getWinner = async (tournamentId: string | undefined) => {
     data = await getTournamentById(tournamentId);
   }
 
-  if (!data?.bracket && !data) {
+  if (!data || !data.bracket || data.scores.length === 0) {
     return { winner: "", secondPlace: "" };
   }
 
   const { bracket } = data;
 
-  const finalScore = data?.scores.find(
-    (score) =>
-      score.roundIndex === bracket?.length - 1 && score.matchIndex === 0
+  const finalScore = data.scores.find(
+    (score) => score.roundIndex === bracket.length - 1 && score.matchIndex === 0
   );
+
+  if (!finalScore) {
+    return { winner: "", secondPlace: "" };
+  }
 
   const finalMatch = bracket[bracket.length - 1][0];
 
-  if (finalScore) {
-    const [winnerIndex, secondIndex] =
-      finalScore.teamA > finalScore.teamB
-        ? [finalMatch[0], finalMatch[1]]
-        : [finalMatch[1], finalMatch[0]];
+  const [winnerIndex, secondIndex] =
+    finalScore.teamA > finalScore.teamB
+      ? [finalMatch[0], finalMatch[1]]
+      : [finalMatch[1], finalMatch[0]];
 
-    const winner = data.teams[winnerIndex - 1];
-    const secondPlace = data.teams[secondIndex - 1];
+  const winner = data.teams[winnerIndex - 1];
+  const secondPlace = data.teams[secondIndex - 1];
 
-    return { winner, secondPlace };
-  }
+  return { winner, secondPlace };
 };
