@@ -4,6 +4,7 @@ import React from "react";
 import { getTournamentById } from "@/actions/tournaments";
 import { getUserByid } from "@/actions/user";
 import { currentUser } from "@/auth/currentUser";
+import { getWinner } from "@/utils/brackets";
 
 import Match from "./components/Match";
 
@@ -11,6 +12,7 @@ const SingleTournamentPage = async ({ params }: { params: { id: string } }) => {
   const data = await getTournamentById(params.id);
   const user = await getUserByid(data?.creatorId);
   const loggedUser = await currentUser();
+  const { winner, secondPlace } = await getWinner(data?.tournamentId);
   const isOwner = loggedUser?.id === data?.creatorId;
 
   return (
@@ -43,25 +45,34 @@ const SingleTournamentPage = async ({ params }: { params: { id: string } }) => {
           <p>{data?.createdAt.toISOString().slice(0, 10)} - Napravljen</p>
         </div>
       </header>
-      <div className="flex justify-start items-center">
-        {data?.bracket &&
-          (data?.bracket as number[][][]).map((round, roundIndex) => (
-            <div key={roundIndex} className="mr-14">
-              {round.map((match, matchIndex) => (
-                <Match
-                  key={matchIndex}
-                  match={match}
-                  teams={data?.teams}
-                  roundIndex={roundIndex}
-                  matchIndex={matchIndex}
-                  id={data.tournamentId}
-                  bracketRounds={data.bracket}
-                  scores={data.scores}
-                />
-              ))}
-            </div>
-          ))}
-      </div>
+      <section className="flex justify-between items-start">
+        <article className="flex justify-start items-center">
+          {data?.bracket &&
+            (data?.bracket as number[][][]).map((round, roundIndex) => (
+              <div key={roundIndex} className="mr-14">
+                {round.map((match, matchIndex) => (
+                  <Match
+                    key={matchIndex}
+                    match={match}
+                    teams={data?.teams}
+                    roundIndex={roundIndex}
+                    matchIndex={matchIndex}
+                    id={data.tournamentId}
+                    bracketRounds={data.bracket}
+                    scores={data.scores}
+                  />
+                ))}
+              </div>
+            ))}
+        </article>
+        <article className="text-center flex-1">
+          <h3 className="text-2xl">Finalni rezultati</h3>
+          <div>
+            <p className="my-5 text-2xl text-yellow-400">🏅 {winner}</p>
+            <p className="my-5 text-2xl text-gray-500">🥈 {secondPlace}</p>
+          </div>
+        </article>
+      </section>
     </section>
   );
 };

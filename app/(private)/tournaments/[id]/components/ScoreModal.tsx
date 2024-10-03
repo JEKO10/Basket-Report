@@ -2,7 +2,7 @@ import { JsonValue } from "next-auth/adapters";
 import React, { useEffect, useRef, useState } from "react";
 
 import { updateBracket } from "@/actions/tournaments";
-import { advancePlayers } from "@/utils/brackets";
+import { advancePlayers, getWinner } from "@/utils/brackets";
 
 const ScoreModal = ({
   match,
@@ -72,6 +72,10 @@ const ScoreModal = ({
 
     await updateBracket(tournamentId, updatedBracket, newScore);
 
+    if (roundIndex === (bracketRounds as number[][][]).length - 1) {
+      await getWinner(tournamentId);
+    }
+
     handleClosing();
   };
 
@@ -93,7 +97,7 @@ const ScoreModal = ({
     <section
       className={`fixed top-0 left-0 flex justify-center items-center h-full w-full z-10 transition-opacity duration-500 ${
         isVisible ? "opacity-100" : "opacity-0"
-      } bg-black/70`}
+      } bg-black/70 z-20`}
     >
       <article
         ref={ref}

@@ -62,7 +62,7 @@ const Match = ({
             >
               {score.teamA}
             </p>
-            <div className="h-0.5 w-full my-0.5 bg-body" />
+            <div className="h-0.5 w-full my-0.5 bg-body z-10" />
             <p
               className={`${score.teamB && score.teamB.toString().length > 2 ? "text-start pl-1" : "text-center pl-0"} w-full select-none`}
             >
