@@ -36,4 +36,15 @@ model Tournament {
   creator        User     @relation(fields: [creatorId], references: [id]) 
   creatorId      String
   bracket        Json
+  scores         Score[]  
+}
+
+model Score {
+  id            String    @id @default(cuid())
+  tournamentId  String
+  roundIndex    Int
+  matchIndex    Int
+  teamA         Int
+  teamB         Int
+  tournament    Tournament @relation(fields: [tournamentId], references: [tournamentId], onDelete: Cascade)
 }

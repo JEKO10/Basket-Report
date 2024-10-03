@@ -70,6 +70,9 @@ export const getAllTournaments = async () => {
 export const getTournamentById = async (tournamentId: string) => {
   return await db.tournament.findUnique({
     where: { tournamentId },
+    include: {
+      scores: true,
+    },
   });
 };
 
@@ -125,12 +128,58 @@ export const getUserTournaments = async (creatorId: string | undefined) => {
 
 export const updateBracket = async (
   tournamentId: string,
-  updatedBracket: any
+  updatedBracket: any,
+  newScore: {
+    teamA: number;
+    teamB: number;
+    roundIndex: number;
+    matchIndex: number;
+  }
 ) => {
   try {
+    const existingScores = await db.score.findMany({
+      where: {
+        tournamentId,
+        roundIndex: newScore.roundIndex,
+        matchIndex: newScore.matchIndex,
+      },
+    });
+
+    if (existingScores.length > 0) {
+      await Promise.all(
+        existingScores.map((score) =>
+          db.score.update({
+            where: { id: score.id },
+            data: {
+              teamA: newScore.teamA,
+              teamB: newScore.teamB,
+            },
+          })
+        )
+      );
+    } else {
+      await db.tournament.update({
+        where: { tournamentId },
+        data: {
+          scores: {
+            create: [
+              {
+                teamA: newScore.teamA,
+                teamB: newScore.teamB,
+                roundIndex: newScore.roundIndex,
+                matchIndex: newScore.matchIndex,
+              },
+            ],
+          },
+        },
+      });
+    }
+
     await db.tournament.update({
       where: { tournamentId },
-      data: { bracket: updatedBracket },
+      data: {
+        bracket: updatedBracket,
+      },
     });
 
     revalidatePath(`/tournaments/${tournamentId}`);

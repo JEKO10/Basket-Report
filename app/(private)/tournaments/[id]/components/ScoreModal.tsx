@@ -8,7 +8,6 @@ const ScoreModal = ({
   match,
   teams,
   setIsModalOpen,
-  setScore,
   roundIndex,
   matchIndex,
   tournamentId,
@@ -17,12 +16,6 @@ const ScoreModal = ({
   match: number[];
   teams?: string[];
   setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  setScore: React.Dispatch<
-    React.SetStateAction<{
-      teamA: number | null;
-      teamB: number | null;
-    }>
-  >;
   roundIndex: number;
   matchIndex: number;
   tournamentId: string;
@@ -61,12 +54,15 @@ const ScoreModal = ({
       winnerTemp
     );
 
-    await updateBracket(tournamentId, updatedBracket);
-
-    setScore({
+    const newScore = {
       teamA: tempScore.teamA,
       teamB: tempScore.teamB,
-    });
+      roundIndex,
+      matchIndex,
+      tournamentId,
+    };
+
+    await updateBracket(tournamentId, updatedBracket, newScore);
 
     handleClosing();
   };

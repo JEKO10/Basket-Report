@@ -14,6 +14,7 @@ const Match = ({
   roundIndex,
   id,
   bracketRounds,
+  scores,
 }: {
   match: number[];
   teams: string[] | undefined;
@@ -21,17 +22,22 @@ const Match = ({
   roundIndex: number;
   id: string;
   bracketRounds: JsonValue;
+  scores: {
+    matchIndex: number;
+    roundIndex: number;
+    id: string;
+    teamA: number;
+    teamB: number;
+    tournamentId: string;
+  }[];
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [score, setScore] = useState<{
-    teamA: number | null;
-    teamB: number | null;
-  }>({
-    teamA: 0,
-    teamB: 0,
-  });
 
   const bothTeamsExist = match[0] !== null && match[1] !== null;
+
+  const score = scores.find(
+    (s) => s.matchIndex === matchIndex && s.roundIndex === roundIndex
+  ) || { teamA: 0, teamB: 0 };
 
   return (
     <>
@@ -74,7 +80,6 @@ const Match = ({
           match={match}
           teams={teams}
           setIsModalOpen={setIsModalOpen}
-          setScore={setScore}
           roundIndex={roundIndex}
           matchIndex={matchIndex}
           tournamentId={id}

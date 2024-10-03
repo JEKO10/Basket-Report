@@ -13,6 +13,8 @@ const SingleTournamentPage = async ({ params }: { params: { id: string } }) => {
   const loggedUser = await currentUser();
   const isOwner = loggedUser?.id === data?.creatorId;
 
+  console.log(data?.scores);
+
   return (
     <section className="p-8">
       <header className="flex justify-between items-start mb-20">
@@ -56,6 +58,7 @@ const SingleTournamentPage = async ({ params }: { params: { id: string } }) => {
                   matchIndex={matchIndex}
                   id={data.tournamentId}
                   bracketRounds={data.bracket}
+                  scores={data.scores}
                 />
               ))}
             </div>
