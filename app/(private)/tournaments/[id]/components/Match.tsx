@@ -39,6 +39,11 @@ const Match = ({
     (s) => s.matchIndex === matchIndex && s.roundIndex === roundIndex
   ) || { teamA: null, teamB: null };
 
+  const teamAWon =
+    score.teamA !== null && score.teamB !== null && score.teamA > score.teamB;
+  const teamBWon =
+    score.teamA !== null && score.teamB !== null && score.teamB > score.teamA;
+
   return (
     <>
       <section className="mb-10 relative">
@@ -58,13 +63,21 @@ const Match = ({
             className="flex justify-center items-start flex-col bg-[#6EABDA] text-white h-full w-7 absolute top-0 right-0 overflow-hidden"
           >
             <p
-              className={`${score.teamA && score.teamA.toString().length > 2 ? "text-start pl-1" : "text-center pl-0"} w-full select-none`}
+              className={`${
+                score.teamA && score.teamA.toString().length > 2
+                  ? "text-start pl-1"
+                  : "text-center pl-0"
+              } w-full select-none ${teamAWon ? "text-yellow-400 font-bold" : ""}`}
             >
               {score.teamA}
             </p>
-            <div className="h-0.5 w-full my-0.5 bg-body z-10" />
+            <div className="h-0.5 w-full my-0.5 bg-accent z-10" />
             <p
-              className={`${score.teamB && score.teamB.toString().length > 2 ? "text-start pl-1" : "text-center pl-0"} w-full select-none`}
+              className={`${
+                score.teamB && score.teamB.toString().length > 2
+                  ? "text-start pl-1"
+                  : "text-center pl-0"
+              } w-full select-none ${teamBWon ? "text-yellow-400  font-bold" : ""}`}
             >
               {score.teamB}
             </p>
