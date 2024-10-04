@@ -1,7 +1,7 @@
 import { getTournamentById } from "@/actions/tournaments";
 
 export const nextRound = (seed: number, participantsCount: number) => {
-  return seed <= participantsCount ? seed : 0;
+  return seed <= participantsCount ? seed : null;
 };
 
 export const handleBracket = (participantsCount: number) => {
@@ -52,6 +52,22 @@ export const handleRounds = (participantsCount: number) => {
 
     participants = Math.ceil(participants / 2);
   }
+
+  bracketRounds[0].forEach((match, index) => {
+    const [teamA, teamB] = match;
+
+    if (teamA === null || teamB === null) {
+      const autoWinner = teamA !== null ? teamA : teamB;
+
+      const nextMatchIndex = Math.floor(index / 2);
+
+      if (index % 2 === 0) {
+        bracketRounds[1][nextMatchIndex][0] = autoWinner;
+      } else {
+        bracketRounds[1][nextMatchIndex][1] = autoWinner;
+      }
+    }
+  });
 
   return bracketRounds;
 };
