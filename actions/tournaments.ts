@@ -128,7 +128,7 @@ export const getUserTournaments = async (creatorId: string | undefined) => {
 
 export const updateBracket = async (
   tournamentId: string,
-  updatedBracket: any,
+  updatedBracket: number[][][],
   newScore: {
     teamA: number;
     teamB: number;
@@ -184,6 +184,6 @@ export const updateBracket = async (
 
     revalidatePath(`/tournaments/${tournamentId}`);
   } catch (error) {
-    return { error: "Error updating the bracket" };
+    return { error: "Greška pri promjeni kostura!" };
   }
 };

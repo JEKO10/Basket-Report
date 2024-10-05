@@ -7,12 +7,13 @@ import { currentUser } from "@/auth/currentUser";
 import { getWinner } from "@/utils/brackets";
 
 import Match from "./components/Match";
+import TournamentStart from "./components/TournamentStart";
 
 const SingleTournamentPage = async ({ params }: { params: { id: string } }) => {
   const data = await getTournamentById(params.id);
   const user = await getUserByid(data?.creatorId);
   const loggedUser = await currentUser();
-  const { winner, secondPlace } = await getWinner(data?.tournamentId); // This will no longer throw an error
+  const { winner, secondPlace } = await getWinner(data?.tournamentId);
   const isOwner = loggedUser?.id === data?.creatorId;
 
   return (
@@ -28,11 +29,7 @@ const SingleTournamentPage = async ({ params }: { params: { id: string } }) => {
               <span className="text-secondary underline">{user?.username}</span>
             </p>
           </Link>
-          {isOwner && (
-            <button className="bg-background text-text text-lg font-medium italic tracking-wider mt-3 py-2 px-5 rounded-lg transition hover:bg-background/65">
-              Počni turnir
-            </button>
-          )}
+          <TournamentStart isOwner={isOwner} />
         </div>
         <div className="flex justify-end items-end flex-col [&>p]:italic [&>p]:font-medium [&>p]:text-[#6EABDA]">
           <p>{data?.tournamentSport} - Sport</p>
@@ -46,7 +43,7 @@ const SingleTournamentPage = async ({ params }: { params: { id: string } }) => {
         </div>
       </header>
       <section className="flex justify-between items-start">
-        <article className="bg-accent flex justify-start items-center max-w-[80%] overflow-x-scroll p-10 rounded-md">
+        <article className="bg-accent flex justify-start items-center max-w-[50%] overflow-hidden p-10 rounded-md">
           {data?.bracket &&
             (data?.bracket as number[][][]).map((round, roundIndex) => (
               <div key={roundIndex} className="mr-14">
