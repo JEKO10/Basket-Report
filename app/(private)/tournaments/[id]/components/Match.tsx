@@ -15,6 +15,8 @@ const Match = ({
   id,
   bracketRounds,
   scores,
+  hasStarted,
+  // hasEnded,
 }: {
   match: number[];
   teams: string[] | undefined;
@@ -30,6 +32,8 @@ const Match = ({
     teamB: number;
     tournamentId: string;
   }[];
+  hasStarted: boolean;
+  // hasEnded: boolean;
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -49,14 +53,17 @@ const Match = ({
       <section className="mb-10 relative">
         <BracketField match={match[0]} team={teams && teams[match[0] - 1]} />
         <BracketField match={match[1]} team={teams && teams[match[1] - 1]} />
-        {bothTeamsExist && score.teamA === null && score.teamB === null && (
-          <div
-            onClick={() => setIsModalOpen(true)}
-            className="flex justify-center items-center bg-[#6EABDA] text-white h-full absolute top-0 right-0 px-1 transition-colors cursor-pointer hover:text-black"
-          >
-            <TbEdit className="text-2xl" title="Dodaj rezultat" />
-          </div>
-        )}
+        {bothTeamsExist &&
+          score.teamA === null &&
+          score.teamB === null &&
+          hasStarted && (
+            <div
+              onClick={() => setIsModalOpen(true)}
+              className="flex justify-center items-center bg-[#6EABDA] text-white h-full absolute top-0 right-0 px-1 transition-colors cursor-pointer hover:text-black"
+            >
+              <TbEdit className="text-2xl" title="Dodaj rezultat" />
+            </div>
+          )}
         {score.teamA !== null && score.teamB !== null && (
           <div
             onClick={() => setIsModalOpen(true)}

@@ -7,7 +7,7 @@ import { currentUser } from "@/auth/currentUser";
 import { getWinner } from "@/utils/brackets";
 
 import Match from "./components/Match";
-import TournamentStart from "./components/TournamentStart";
+import TournamentStatus from "./components/TournamentStatus";
 
 const SingleTournamentPage = async ({ params }: { params: { id: string } }) => {
   const data = await getTournamentById(params.id);
@@ -29,7 +29,7 @@ const SingleTournamentPage = async ({ params }: { params: { id: string } }) => {
               <span className="text-secondary underline">{user?.username}</span>
             </p>
           </Link>
-          <TournamentStart isOwner={isOwner} />
+          <TournamentStatus id={data?.tournamentId} isOwner={isOwner} />
         </div>
         <div className="flex justify-end items-end flex-col [&>p]:italic [&>p]:font-medium [&>p]:text-[#6EABDA]">
           <p>{data?.tournamentSport} - Sport</p>
@@ -57,6 +57,8 @@ const SingleTournamentPage = async ({ params }: { params: { id: string } }) => {
                     id={data.tournamentId}
                     bracketRounds={data.bracket}
                     scores={data.scores}
+                    hasStarted={data.hasStarted}
+                    // hasEnded={data.hasEnded}
                   />
                 ))}
               </div>

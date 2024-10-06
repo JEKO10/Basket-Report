@@ -187,3 +187,21 @@ export const updateBracket = async (
     return { error: "Greška pri promjeni kostura!" };
   }
 };
+
+export const changeTournamentStatus = async (
+  id: string | undefined,
+  hasStarted?: boolean,
+  hasEnded?: boolean
+) => {
+  await db.tournament.update({
+    where: {
+      tournamentId: id,
+    },
+    data: {
+      hasStarted: hasStarted,
+      hasEnded: hasEnded,
+    },
+  });
+
+  revalidatePath(`/tournaments/${id}`);
+};

@@ -36,7 +36,9 @@ model Tournament {
   creator        User     @relation(fields: [creatorId], references: [id]) 
   creatorId      String
   bracket        Json
-  scores         Score[]  
+  scores         Score[]
+  hasStarted     Boolean     @default(false)
+  hasEnded       Boolean     @default(false)
 }
 
 model Score {
