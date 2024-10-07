@@ -52,7 +52,7 @@ const SingleTournamentPage = async ({ params }: { params: { id: string } }) => {
         </div>
       </header>
       <section className="flex justify-between items-start">
-        <article className="bg-accent flex justify-start items-center max-w-[50%] overflow-hidden p-10 rounded-md">
+        <article className="bg-accent flex justify-start items-center max-w-[80%] overflow-hidden p-10 rounded-md">
           {data?.bracket &&
             (data?.bracket as number[][][]).map((round, roundIndex) => (
               <div key={roundIndex} className="mr-14">

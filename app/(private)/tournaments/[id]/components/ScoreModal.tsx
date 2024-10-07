@@ -1,5 +1,5 @@
 import { JsonValue } from "next-auth/adapters";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useTransition } from "react";
 
 import { updateBracket } from "@/actions/tournaments";
 import { advancePlayers, getWinner } from "@/utils/brackets";
@@ -33,6 +33,7 @@ const ScoreModal = ({
   });
   const [message, setMessage] = useState("");
   const ref = useRef<HTMLDivElement>(null);
+  const [isPending, startTransition] = useTransition();
 
   const handleClosing = () => {
     setIsVisible(false);
@@ -43,42 +44,44 @@ const ScoreModal = ({
   };
 
   const handleSubmit = async () => {
-    if (tempScore.teamA === null || tempScore.teamB === null) {
-      setMessage("Oba tima moraju imati rezultat!");
-      return;
-    } else if (tempScore.teamA === tempScore.teamB) {
-      setMessage("Rezultat ne može biti neriješen!");
-      return;
-    }
-    setMessage("");
+    startTransition(async () => {
+      if (tempScore.teamA === null || tempScore.teamB === null) {
+        setMessage("Oba tima moraju imati rezultat!");
+        return;
+      } else if (tempScore.teamA === tempScore.teamB) {
+        setMessage("Rezultat ne može biti neriješen!");
+        return;
+      }
+      setMessage("");
 
-    const winnerTemp =
-      tempScore.teamA && tempScore.teamB && tempScore.teamA > tempScore.teamB
-        ? match[0]
-        : match[1];
+      const winnerTemp =
+        tempScore.teamA && tempScore.teamB && tempScore.teamA > tempScore.teamB
+          ? match[0]
+          : match[1];
 
-    const updatedBracket = advancePlayers(
-      bracketRounds as number[][][],
-      roundIndex,
-      matchIndex,
-      winnerTemp
-    );
+      const updatedBracket = advancePlayers(
+        bracketRounds as number[][][],
+        roundIndex,
+        matchIndex,
+        winnerTemp
+      );
 
-    const newScore = {
-      teamA: tempScore.teamA,
-      teamB: tempScore.teamB,
-      roundIndex,
-      matchIndex,
-      tournamentId,
-    };
+      const newScore = {
+        teamA: tempScore.teamA,
+        teamB: tempScore.teamB,
+        roundIndex,
+        matchIndex,
+        tournamentId,
+      };
 
-    await updateBracket(tournamentId, updatedBracket, newScore);
+      await updateBracket(tournamentId, updatedBracket, newScore);
 
-    if (roundIndex === (bracketRounds as number[][][]).length - 1) {
-      await getWinner(tournamentId);
-    }
+      if (roundIndex === (bracketRounds as number[][][]).length - 1) {
+        await getWinner(tournamentId);
+      }
 
-    handleClosing();
+      handleClosing();
+    });
   };
 
   useEffect(() => {
@@ -137,7 +140,7 @@ const ScoreModal = ({
           onClick={handleSubmit}
           className="bg-background text-text text-lg font-medium italic tracking-wider py-2 px-5 rounded-lg transition hover:bg-background/65"
         >
-          Potvrdi rezultat
+          {isPending ? "Čuvanje..." : "Potvrdi rezultat"}
         </button>
       </article>
     </section>
