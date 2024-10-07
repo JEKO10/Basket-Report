@@ -9,6 +9,17 @@ import { Scores } from "@/schemas";
 import BracketField from "./BracketField";
 import ScoreModal from "./ScoreModal";
 
+interface MatchProps {
+  match: number[];
+  teams: string[];
+  matchIndex: number;
+  roundIndex: number;
+  id: string;
+  bracketRounds: JsonValue;
+  scores: Scores;
+  hasStarted: boolean;
+}
+
 const Match = ({
   match,
   teams,
@@ -18,16 +29,7 @@ const Match = ({
   bracketRounds,
   scores,
   hasStarted,
-}: {
-  match: number[];
-  teams: string[];
-  matchIndex: number;
-  roundIndex: number;
-  id: string;
-  bracketRounds: JsonValue;
-  scores: Scores;
-  hasStarted: boolean;
-}) => {
+}: MatchProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const bothTeamsExist = match[0] !== null && match[1] !== null;
@@ -93,8 +95,8 @@ const Match = ({
           match={match}
           teams={teams}
           setIsModalOpen={setIsModalOpen}
-          roundIndex={roundIndex}
           matchIndex={matchIndex}
+          roundIndex={roundIndex}
           tournamentId={id}
           bracketRounds={bracketRounds}
         />

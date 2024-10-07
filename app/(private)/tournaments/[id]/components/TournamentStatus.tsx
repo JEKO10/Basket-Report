@@ -3,6 +3,15 @@ import { JsonValue } from "next-auth/adapters";
 import { changeTournamentStatus } from "@/actions/tournaments";
 import { Scores } from "@/schemas";
 
+interface TournamentStart {
+  id: string;
+  isOwner: boolean;
+  hasStarted: boolean;
+  hasEnded: boolean;
+  scores: Scores;
+  bracket: JsonValue;
+}
+
 const TournamentStart = async ({
   id,
   isOwner,
@@ -10,14 +19,7 @@ const TournamentStart = async ({
   hasEnded,
   scores,
   bracket,
-}: {
-  id: string;
-  isOwner: boolean;
-  hasStarted: boolean;
-  hasEnded: boolean;
-  scores: Scores;
-  bracket: JsonValue;
-}) => {
+}: TournamentStart) => {
   const finalScore = scores.find(
     (score) =>
       score.roundIndex === bracket?.length - 1 && score.matchIndex === 0

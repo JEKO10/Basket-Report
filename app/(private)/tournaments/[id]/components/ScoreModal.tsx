@@ -4,23 +4,25 @@ import React, { useEffect, useRef, useState } from "react";
 import { updateBracket } from "@/actions/tournaments";
 import { advancePlayers, getWinner } from "@/utils/brackets";
 
+interface ScoreModalProps {
+  match: number[];
+  teams: string[];
+  setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  matchIndex: number;
+  roundIndex: number;
+  tournamentId: string;
+  bracketRounds: JsonValue;
+}
+
 const ScoreModal = ({
   match,
   teams,
   setIsModalOpen,
-  roundIndex,
   matchIndex,
+  roundIndex,
   tournamentId,
   bracketRounds,
-}: {
-  match: number[];
-  teams?: string[];
-  setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  roundIndex: number;
-  matchIndex: number;
-  tournamentId: string;
-  bracketRounds: JsonValue;
-}) => {
+}: ScoreModalProps) => {
   const [isVisible, setIsVisible] = useState(true);
   const [tempScore, setTempScore] = useState<{
     teamA: number | null;
