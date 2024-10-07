@@ -18,6 +18,7 @@ interface MatchProps {
   bracketRounds: JsonValue;
   scores: Scores;
   hasStarted: boolean;
+  hasEnded: boolean;
 }
 
 const Match = ({
@@ -29,6 +30,7 @@ const Match = ({
   bracketRounds,
   scores,
   hasStarted,
+  hasEnded,
 }: MatchProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -51,7 +53,8 @@ const Match = ({
         {bothTeamsExist &&
           score.teamA === null &&
           score.teamB === null &&
-          hasStarted && (
+          hasStarted &&
+          !hasEnded && (
             <div
               onClick={() => setIsModalOpen(true)}
               className="flex justify-center items-center bg-[#6EABDA] text-white h-full absolute top-0 right-0 px-1 transition-colors cursor-pointer hover:text-black"
@@ -61,7 +64,7 @@ const Match = ({
           )}
         {score.teamA !== null && score.teamB !== null && (
           <div
-            onClick={() => setIsModalOpen(true)}
+            onClick={() => !hasEnded && setIsModalOpen(true)}
             className="flex justify-center items-start flex-col bg-[#6EABDA] text-white h-full w-7 absolute top-0 right-0 overflow-hidden"
           >
             <p

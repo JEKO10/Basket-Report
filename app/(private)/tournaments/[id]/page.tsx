@@ -67,7 +67,7 @@ const SingleTournamentPage = async ({ params }: { params: { id: string } }) => {
                     bracketRounds={data.bracket}
                     scores={data.scores}
                     hasStarted={data.hasStarted}
-                    // hasEnded={data.hasEnded}
+                    hasEnded={data.hasEnded}
                   />
                 ))}
               </div>
