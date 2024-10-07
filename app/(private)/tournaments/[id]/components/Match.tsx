@@ -4,6 +4,8 @@ import { JsonValue } from "next-auth/adapters";
 import React, { useState } from "react";
 import { TbEdit } from "react-icons/tb";
 
+import { Scores } from "@/schemas";
+
 import BracketField from "./BracketField";
 import ScoreModal from "./ScoreModal";
 
@@ -16,24 +18,15 @@ const Match = ({
   bracketRounds,
   scores,
   hasStarted,
-  // hasEnded,
 }: {
   match: number[];
-  teams: string[] | undefined;
+  teams: string[];
   matchIndex: number;
   roundIndex: number;
   id: string;
   bracketRounds: JsonValue;
-  scores: {
-    matchIndex: number;
-    roundIndex: number;
-    id: string;
-    teamA: number;
-    teamB: number;
-    tournamentId: string;
-  }[];
+  scores: Scores;
   hasStarted: boolean;
-  // hasEnded: boolean;
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 

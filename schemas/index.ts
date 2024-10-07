@@ -7,6 +7,15 @@ export interface TournamentProps {
   >;
 }
 
+export type Scores = {
+  matchIndex: number;
+  roundIndex: number;
+  id: string;
+  teamA: number;
+  teamB: number;
+  tournamentId: string;
+}[];
+
 export const TournamentSchema = z.object({
   tournamentType: z.number({
     message: "Format je obavezan!",

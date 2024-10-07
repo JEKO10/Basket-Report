@@ -29,7 +29,16 @@ const SingleTournamentPage = async ({ params }: { params: { id: string } }) => {
               <span className="text-secondary underline">{user?.username}</span>
             </p>
           </Link>
-          <TournamentStatus id={data?.tournamentId} isOwner={isOwner} />
+          {data && (
+            <TournamentStatus
+              id={data.tournamentId}
+              isOwner={isOwner}
+              hasStarted={data.hasStarted}
+              hasEnded={data.hasEnded}
+              scores={data.scores}
+              bracket={data.bracket}
+            />
+          )}
         </div>
         <div className="flex justify-end items-end flex-col [&>p]:italic [&>p]:font-medium [&>p]:text-[#6EABDA]">
           <p>{data?.tournamentSport} - Sport</p>
@@ -51,7 +60,7 @@ const SingleTournamentPage = async ({ params }: { params: { id: string } }) => {
                   <Match
                     key={matchIndex}
                     match={match}
-                    teams={data?.teams}
+                    teams={data.teams}
                     roundIndex={roundIndex}
                     matchIndex={matchIndex}
                     id={data.tournamentId}
@@ -64,9 +73,9 @@ const SingleTournamentPage = async ({ params }: { params: { id: string } }) => {
               </div>
             ))}
         </article>
-        {winner && (
+        {winner && data?.hasEnded && (
           <article className="text-center flex-1">
-            <h3 className="text-2xl">Finalni rezultati</h3>
+            <h3 className="text-2xl">Konačni rezultati</h3>
             <div>
               <p className="my-5 text-2xl text-yellow-400">
                 🏅 {winner && winner}

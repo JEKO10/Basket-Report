@@ -95,6 +95,7 @@ export const advancePlayers = (
 
 export const getWinner = async (tournamentId: string | undefined) => {
   let data;
+
   if (tournamentId) {
     data = await getTournamentById(tournamentId);
   }
@@ -123,5 +124,9 @@ export const getWinner = async (tournamentId: string | undefined) => {
   const winner = data.teams[winnerIndex - 1];
   const secondPlace = data.teams[secondIndex - 1];
 
-  return { winner, secondPlace };
+  if (data.teams.length !== 0) {
+    return { winner, secondPlace };
+  } else {
+    return { winner: winnerIndex, secondPlace: secondIndex };
+  }
 };

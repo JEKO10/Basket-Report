@@ -37,7 +37,7 @@ const ScoreModal = ({
 
     setTimeout(() => {
       setIsModalOpen(false);
-    }, 500);
+    }, 300);
   };
 
   const handleSubmit = async () => {
@@ -95,7 +95,7 @@ const ScoreModal = ({
 
   return (
     <section
-      className={`fixed top-0 left-0 flex justify-center items-center h-full w-full z-10 transition-opacity duration-500 ${
+      className={`fixed top-0 left-0 flex justify-center items-center h-full w-full z-10 transition-opacity duration-300 ${
         isVisible ? "opacity-100" : "opacity-0"
       } bg-black/70 z-20`}
     >

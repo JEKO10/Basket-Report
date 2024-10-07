@@ -127,7 +127,7 @@ export const getUserTournaments = async (creatorId: string | undefined) => {
 };
 
 export const updateBracket = async (
-  tournamentId: string,
+  tournamentId: string | undefined,
   updatedBracket: number[][][],
   newScore: {
     teamA: number;
@@ -190,8 +190,8 @@ export const updateBracket = async (
 
 export const changeTournamentStatus = async (
   id: string | undefined,
-  hasStarted?: boolean,
-  hasEnded?: boolean
+  hasStarted: boolean,
+  hasEnded: boolean
 ) => {
   await db.tournament.update({
     where: {

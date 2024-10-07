@@ -1,26 +1,59 @@
+import { JsonValue } from "next-auth/adapters";
+
 import { changeTournamentStatus } from "@/actions/tournaments";
+import { Scores } from "@/schemas";
 
 const TournamentStart = async ({
-  isOwner,
   id,
+  isOwner,
+  hasStarted,
+  hasEnded,
+  scores,
+  bracket,
 }: {
+  id: string;
   isOwner: boolean;
-  id: string | undefined;
+  hasStarted: boolean;
+  hasEnded: boolean;
+  scores: Scores;
+  bracket: JsonValue;
 }) => {
+  const finalScore = scores.find(
+    (score) =>
+      score.roundIndex === bracket?.length - 1 && score.matchIndex === 0
+  );
+
+  if (isOwner && !hasStarted) {
+    return (
+      <form
+        action={async () => {
+          "use server";
+          await changeTournamentStatus(id, true, false);
+        }}
+      >
+        <button
+          type="submit"
+          className="bg-background text-text text-lg font-medium italic tracking-wider mt-3 py-2 px-5 rounded-lg transition hover:bg-background/65"
+        >
+          Počni turnir
+        </button>
+      </form>
+    );
+  }
   return (
     <>
-      {isOwner && (
+      {isOwner && finalScore?.teamA && finalScore.teamB && !hasEnded && (
         <form
           action={async () => {
             "use server";
-            await changeTournamentStatus(id, true);
+            await changeTournamentStatus(id, true, true);
           }}
         >
           <button
             type="submit"
             className="bg-background text-text text-lg font-medium italic tracking-wider mt-3 py-2 px-5 rounded-lg transition hover:bg-background/65"
           >
-            Počni turnir
+            Završi turnir
           </button>
         </form>
       )}
