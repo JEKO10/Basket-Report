@@ -4,8 +4,8 @@ const BracketField = ({
   match,
   team,
 }: {
-  match: number | false;
-  team: string | undefined;
+  match: number | null;
+  team?: string | undefined;
 }) => {
   return (
     <article className="bg-[#6EABDA] h-7 w-44 p-1 relative mb-0.5">

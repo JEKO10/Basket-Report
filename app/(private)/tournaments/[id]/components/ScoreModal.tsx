@@ -6,7 +6,7 @@ import { advancePlayers, getWinner } from "@/utils/brackets";
 
 interface ScoreModalProps {
   match: number[];
-  teams: string[];
+  teams: string[] | undefined;
   setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
   matchIndex: number;
   roundIndex: number;

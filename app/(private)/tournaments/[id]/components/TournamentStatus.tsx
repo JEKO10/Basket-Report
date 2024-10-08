@@ -3,7 +3,7 @@ import { JsonValue } from "next-auth/adapters";
 import { changeTournamentStatus } from "@/actions/tournaments";
 import { Scores } from "@/schemas";
 
-interface TournamentStart {
+interface TournamentStartProps {
   id: string;
   isOwner: boolean;
   hasStarted: boolean;
@@ -19,50 +19,33 @@ const TournamentStart = async ({
   hasEnded,
   scores,
   bracket,
-}: TournamentStart) => {
+}: TournamentStartProps) => {
   const finalScore = scores.find(
     (score) =>
       score.roundIndex === bracket?.length - 1 && score.matchIndex === 0
   );
 
-  if (isOwner && !hasStarted) {
-    return (
-      <form
-        action={async () => {
-          "use server";
-          await changeTournamentStatus(id, true, false);
-        }}
-      >
-        <button
-          type="submit"
-          className="bg-background text-text text-lg font-medium italic tracking-wider mt-3 py-2 px-5 rounded-lg transition hover:bg-background/65"
-        >
-          Počni turnir
-        </button>
-      </form>
-    );
-  }
+  const handleSubmit = async () => {
+    "use server";
+
+    if (!hasStarted) {
+      await changeTournamentStatus(id, true, false);
+    } else if (finalScore !== undefined && !hasEnded) {
+      await changeTournamentStatus(id, true, true);
+    }
+  };
+
+  if (!isOwner || hasEnded || (hasStarted && !finalScore)) return null;
+
   return (
-    <>
-      {isOwner &&
-        finalScore?.teamA !== null &&
-        finalScore?.teamB !== null &&
-        !hasEnded && (
-          <form
-            action={async () => {
-              "use server";
-              await changeTournamentStatus(id, true, true);
-            }}
-          >
-            <button
-              type="submit"
-              className="bg-background text-text text-lg font-medium italic tracking-wider mt-3 py-2 px-5 rounded-lg transition hover:bg-background/65"
-            >
-              Završi turnir
-            </button>
-          </form>
-        )}
-    </>
+    <form action={handleSubmit}>
+      <button
+        type="submit"
+        className="bg-background text-text text-lg font-medium italic tracking-wider mt-3 py-2 px-5 rounded-lg transition hover:bg-background/65"
+      >
+        {!hasStarted ? "Počni turnir" : finalScore ? "Završi turnir" : ""}
+      </button>
+    </form>
   );
 };
 
