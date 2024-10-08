@@ -6,7 +6,7 @@ import { getUserByid } from "@/actions/user";
 import { currentUser } from "@/auth/currentUser";
 import { getWinner } from "@/utils/brackets";
 
-import Match from "./components/Match";
+import DraggableBracket from "./components/DraggableBracket";
 import TournamentStatus from "./components/TournamentStatus";
 
 const SingleTournamentPage = async ({ params }: { params: { id: string } }) => {
@@ -52,27 +52,16 @@ const SingleTournamentPage = async ({ params }: { params: { id: string } }) => {
         </div>
       </header>
       <section className="flex justify-between items-start">
-        <article className="bg-accent flex justify-start items-center max-w-[50%] overflow-hidden p-10 rounded-md">
-          {data?.bracket &&
-            (data?.bracket as number[][][]).map((round, roundIndex) => (
-              <div key={roundIndex} className="mr-14">
-                {round.map((match, matchIndex) => (
-                  <Match
-                    key={matchIndex}
-                    match={match}
-                    teams={data.teams}
-                    roundIndex={roundIndex}
-                    matchIndex={matchIndex}
-                    id={data.tournamentId}
-                    bracketRounds={data.bracket}
-                    scores={data.scores}
-                    hasStarted={data.hasStarted}
-                    hasEnded={data.hasEnded}
-                  />
-                ))}
-              </div>
-            ))}
-        </article>
+        {data?.bracket && (
+          <DraggableBracket
+            bracket={data.bracket as number[][][]}
+            teams={data.teams}
+            tournamentId={data.tournamentId}
+            scores={data.scores}
+            hasStarted={data.hasStarted}
+            hasEnded={data.hasEnded}
+          />
+        )}
         {winner && data?.hasEnded && (
           <article className="text-center flex-1">
             <h3 className="text-2xl">Konačni rezultati</h3>

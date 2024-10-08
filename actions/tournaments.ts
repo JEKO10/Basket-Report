@@ -57,7 +57,7 @@ export const createTournament = async (
 export const getAllTournaments = async () => {
   const tournaments = await db.tournament.findMany({
     orderBy: {
-      createdAt: "asc",
+      createdAt: "desc",
     },
     include: {
       creator: true,
@@ -119,6 +119,9 @@ export const getUserTournaments = async (creatorId: string | undefined) => {
   return await db.tournament.findMany({
     where: {
       creatorId,
+    },
+    orderBy: {
+      createdAt: "desc",
     },
     include: {
       creator: true,

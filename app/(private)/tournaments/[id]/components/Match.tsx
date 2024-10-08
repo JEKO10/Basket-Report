@@ -47,7 +47,7 @@ const Match = ({
 
   return (
     <>
-      <section className="mb-10 relative">
+      <section className="relative">
         <BracketField match={match[0]} team={teams && teams[match[0] - 1]} />
         <BracketField match={match[1]} team={teams && teams[match[1] - 1]} />
         {bothTeamsExist &&
