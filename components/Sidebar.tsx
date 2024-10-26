@@ -21,14 +21,8 @@ const Sidebar = async () => {
   const isLoggedIn = !!session;
 
   return (
-    <aside className="flex-shrink-0 my-4 h-56 w-64 rounded-lg">
+    <aside className="flex-shrink-0 my-4 h-56 rounded-lg md:w-48 lg:w-64">
       <ul className="text-text text-2xl">
-        {/* <li>
-          <Link href="/" className="sidebar-link">
-            <PiHouseLineLight strokeWidth={10} />
-            <p className="text-base">Početna</p>
-          </Link>
-        </li> */}
         <li>
           <Link href="/about" className="sidebar-link">
             <PiInfoLight strokeWidth={10} />
