@@ -21,7 +21,7 @@ const Sidebar = async () => {
   const isLoggedIn = !!session;
 
   return (
-    <aside className="flex-shrink-0 my-4 h-56 rounded-lg md:w-48 lg:w-64">
+    <aside className="hidden sm:block flex-shrink-0 my-4 h-56 rounded-lg w-36 sm:w-44 md:w-48 lg:w-52">
       <ul className="text-text text-2xl">
         <li>
           <Link href="/about" className="sidebar-link">
