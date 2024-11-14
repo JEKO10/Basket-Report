@@ -1,4 +1,4 @@
-import { JsonValue } from "next-auth/adapters";
+import { JsonArray, JsonValue } from "next-auth/adapters";
 
 import { changeTournamentStatus } from "@/actions/tournaments";
 import { Scores } from "@/schemas";
@@ -20,9 +20,10 @@ const TournamentStart = async ({
   scores,
   bracket,
 }: TournamentStartProps) => {
+  const bracketArray = bracket as JsonArray;
   const finalScore = scores.find(
     (score) =>
-      score.roundIndex === bracket?.length - 1 && score.matchIndex === 0
+      score.roundIndex === bracketArray.length - 1 && score.matchIndex === 0
   );
 
   const handleSubmit = async () => {

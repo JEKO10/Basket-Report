@@ -73,6 +73,7 @@ const Match = ({
                   ? "text-start pl-1"
                   : "text-center pl-0"
               } w-full select-none ${teamAWon ? "text-yellow-400 font-bold" : ""}`}
+              title={score.teamA.toString()}
             >
               {score.teamA}
             </p>
@@ -83,12 +84,16 @@ const Match = ({
                   ? "text-start pl-1"
                   : "text-center pl-0"
               } w-full select-none ${teamBWon ? "text-yellow-400  font-bold" : ""}`}
+              title={score.teamB.toString()}
             >
               {score.teamB}
             </p>
             {((score.teamA !== null && score.teamA.toString().length > 2) ||
               (score.teamB !== null && score.teamB.toString().length > 2)) && (
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-[#6EABDA] to-[120%]" />
+              <div
+                className="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-[#6EABDA] to-[120%]"
+                title={`${score.teamA.toString()} - ${score.teamB.toString()}`}
+              />
             )}
           </div>
         )}
