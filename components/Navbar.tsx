@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useSession } from "next-auth/react";
 import React, { useEffect, useState } from "react";
 import { IoMdClose } from "react-icons/io";
 import { PiBasketballLight } from "react-icons/pi";
@@ -11,6 +12,8 @@ import ToggleTheme from "./ToggleTheme";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { data: session } = useSession();
+  const isLoggedIn = !!session;
 
   useEffect(() => {
     if (isMenuOpen) {
@@ -27,7 +30,7 @@ const Navbar = () => {
           onClick={() => {
             setIsMenuOpen(!isMenuOpen);
           }}
-          className="text-4xl text-text absolute top-4 left-5 transition rotate-180 z-10 hover:text-text/50 sm:hidden"
+          className="text-4xl text-text absolute top-4 left-5 transition rotate-180 z-20 hover:text-text/50 sm:hidden"
         >
           {isMenuOpen ? <IoMdClose /> : <TbMenuDeep />}
         </button>
@@ -38,10 +41,14 @@ const Navbar = () => {
           </div>
         </Link>
         <ToggleTheme />
-        {/* HIDDEN */}
       </nav>
       {isMenuOpen && (
-        <SidebarList isLoggedIn={false} username="" isNav={true} />
+        <SidebarList
+          isLoggedIn={isLoggedIn}
+          username={session?.user.username}
+          isNav={true}
+          setIsMenuOpen={setIsMenuOpen}
+        />
       )}
     </>
   );
