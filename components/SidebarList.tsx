@@ -19,13 +19,17 @@ import { TbTournament } from "react-icons/tb";
 const SidebarList = ({
   isLoggedIn,
   username,
+  isNav,
 }: {
   isLoggedIn?: boolean;
   username?: string;
+  isNav: boolean;
 }) => {
   return (
-    <aside className="hidden sm:block flex-shrink-0 my-4 h-56 rounded-lg w-36 sm:w-44 md:w-48 lg:w-52">
-      <ul className="text-text text-2xl">
+    <aside
+      className={`flex justify-center items-end absolute -mt-[1.2rem] -ml-[1.2rem] bg-black/70 w-full h-full sm:static sm:mt-5 sm:ml-0 sm:bg-transparent sm:block sm:flex-shrink-0 my-4 md:rounded-lg sm:w-44 md:w-48 lg:w-52 ${!isNav && "hidden"}`}
+    >
+      <ul className="text-text text-2xl w-4/5 sm:w-auto [&_li]:mb-5 [&_li]:sm:mb-0">
         <li>
           <Link href="/about" className="sidebar-link">
             <PiInfoLight strokeWidth={10} />

@@ -9,7 +9,11 @@ const Sidebar = async () => {
   const isLoggedIn = !!session;
 
   return (
-    <SidebarList isLoggedIn={isLoggedIn} username={session?.user.username} />
+    <SidebarList
+      isLoggedIn={isLoggedIn}
+      username={session?.user.username}
+      isNav={false}
+    />
   );
 };
 
