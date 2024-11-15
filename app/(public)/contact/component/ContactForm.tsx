@@ -107,10 +107,9 @@ const ContactForm = () => {
         <span className="mb-1.5 text-md select-none">Poruka</span>
         <textarea
           placeholder="Poruka..."
-          className="leading-loose w-full px-4 py-3 rounded-md outline-none resize-none"
+          className="leading-loose w-full px-3 py-2 sm:h-32 md:h-44 lg:h-64 rounded-md outline-none resize-none"
           name="message"
           value={formData.message}
-          rows={7}
           onChange={(e) => {
             setFormData({
               ...formData,
