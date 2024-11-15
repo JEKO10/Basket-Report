@@ -9,12 +9,14 @@ import SidebarList from "./SidebarList";
 import ToggleTheme from "./ToggleTheme";
 
 const Navbar = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
     <nav className="font-lusitana relative flex items-end justify-start flex-shrink-0 bg-primary px-5 py-5 h-52 rounded-lg">
       <button
-        onClick={() => setIsModalOpen(!isModalOpen)}
+        onClick={() => {
+          setIsMenuOpen(!isMenuOpen);
+        }}
         className="text-4xl text-text absolute top-4 left-5 transition rotate-180 hover:text-text/50 sm:hidden"
       >
         <TbMenuDeep />
@@ -26,7 +28,8 @@ const Navbar = () => {
         </div>
       </Link>
       <ToggleTheme />
-      {isModalOpen && <SidebarList />}
+      {/* HIDDEN */}
+      {isMenuOpen && <SidebarList isLoggedIn={false} username="" />}
     </nav>
   );
 };

@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { signOut } from "next-auth/react";
 import React from "react";
 import { BiLayerPlus } from "react-icons/bi";
 import { CiPower } from "react-icons/ci";
@@ -14,8 +15,6 @@ import {
   PiUsersLight,
 } from "react-icons/pi";
 import { TbTournament } from "react-icons/tb";
-
-import { signOut } from "@/auth/auth";
 
 const SidebarList = ({
   isLoggedIn,
@@ -74,7 +73,7 @@ const SidebarList = ({
             <li className="sidebar-link">
               <button
                 type="button"
-                onClick={async () => await signOut({ redirectTo: "/" })}
+                onClick={async () => await signOut({ callbackUrl: "/" })}
                 className="flex"
               >
                 <CiPower strokeWidth={1} />
