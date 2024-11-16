@@ -2,7 +2,7 @@ import React from "react";
 
 const AboutPage = () => {
   return (
-    <article className="[&>p]:text-xl [&>p]:text-md [&>p]:italic [&>p]:font-normal [&>p]:text-[#6eabda] [&>p]:my-5">
+    <article className="p-5 sm:px-10 [&>p]:text-lg leading-normal [&>p]:lg:text-xl [&>p]:text-md [&>p]:italic [&>p]:font-normal [&>p]:text-[#6eabda] [&>p]:my-5">
       <h2 className="font-lusitana text-4xl sm:mt-5 sm:mb-1">O nama</h2>
       <p>
         Dobrodošli na našu platformu, mjesto gdje se turniri rađaju i takmičari

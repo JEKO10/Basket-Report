@@ -11,7 +11,7 @@ export default function PublicLayout({
       <Navbar />
       <div className="flex flex-grow">
         <Sidebar />
-        <main className="flex-grow py-5 sm:pl-10 md:px-10">{children}</main>
+        <main className="flex-grow">{children}</main>
       </div>
     </div>
   );
