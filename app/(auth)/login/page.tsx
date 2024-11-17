@@ -39,7 +39,7 @@ const LogInPage = () => {
   return (
     <Form label="Prijavi se">
       <form
-        className="flex items-start justify-center flex-col bg-accent mt-2 px-8 pt-7 pb-5 rounded-lg"
+        className="flex items-start justify-center flex-col bg-accent mt-2 px-5 sm:px-8 pt-7 pb-5 rounded-lg [&>p]:-mt-2 [&>p]:mb-3 [&>p]:text-red-500"
         onSubmit={handleSubmit(onSubmit)}
       >
         <FormField
@@ -72,7 +72,7 @@ const LogInPage = () => {
           <span className="text-sm font-medium">Prijavi se</span>
           <LuDoorOpen />
         </button>
-        {message && <p>{message}</p>}
+        {message && <p className="!mt-2 !text-white">{message}</p>}
       </form>
     </Form>
   );

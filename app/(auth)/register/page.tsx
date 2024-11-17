@@ -2,6 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import React, { useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { LuDoorClosed, LuDoorOpen } from "react-icons/lu";
@@ -18,6 +19,7 @@ import FormField from "../components/FormField";
 const RegisterPage = () => {
   const [message, setMessage] = useState("");
   const [isPending, startTransition] = useTransition();
+  const router = useRouter();
 
   const form = useForm<z.infer<typeof RegisterSchema>>({
     resolver: zodResolver(RegisterSchema),
@@ -34,7 +36,12 @@ const RegisterPage = () => {
     startTransition(() => {
       registerAction(values).then((data) => {
         if (data.error) setMessage(data.error);
-        if (data.success) setMessage(data.success);
+        if (data.success) {
+          setMessage(data.success);
+          setTimeout(() => {
+            router.push("/login");
+          }, 2000);
+        }
       });
     });
   };
@@ -42,7 +49,7 @@ const RegisterPage = () => {
   return (
     <Form label="Napravi nalog">
       <form
-        className="flex items-start justify-center flex-col bg-accent mt-2 px-8 pt-7 pb-5 rounded-lg"
+        className="flex items-start justify-center flex-col bg-accent mt-2 px-5 sm:px-8 pt-7 pb-5 rounded-lg [&>p]:-mt-2 [&>p]:mb-3 [&>p]:text-red-500"
         onSubmit={handleSubmit(onSubmit)}
       >
         <FormField
@@ -83,7 +90,7 @@ const RegisterPage = () => {
           <span className="text-sm font-medium">Prijavi se</span>
           <LuDoorOpen />
         </button>
-        {message && <p>{message}</p>}
+        {message && <p className="!mt-2 !text-white">{message}</p>}
       </form>
     </Form>
   );

@@ -31,5 +31,5 @@ export const register = async (formData: z.infer<typeof RegisterSchema>) => {
     },
   });
 
-  return { success: "Uspješno ste napravili nalog!" };
+  return { success: "Uspješno ste napravili nalog! Prijavite se..." };
 };
