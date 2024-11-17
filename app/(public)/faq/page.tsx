@@ -2,7 +2,7 @@ import React from "react";
 
 const FaqPage = () => {
   return (
-    <section className="p-5 sm:px-10 ">
+    <section className="p-5 sm:px-10">
       <h2 className="font-lusitana text-center sm:text-start text-4xl mt-5 mb-1">
         Često postavljana pitanja
       </h2>

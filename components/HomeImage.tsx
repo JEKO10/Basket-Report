@@ -18,15 +18,13 @@ const HomeImage = () => {
   if (!mounted) return null;
 
   return (
-    <section>
-      <Image
-        src={theme === "light" ? homeImg : homeDarkImg}
-        alt="homeImg"
-        height={525}
-        width={800}
-        className="absolute top-52 right-12 my-12 rounded-md"
-      />
-    </section>
+    <Image
+      src={theme === "light" ? homeImg : homeDarkImg}
+      alt="homeImg"
+      height={525}
+      width={800}
+      className="mt-5 sm:mt-10 w-full lg:w-3/5 h-auto rounded-md"
+    />
   );
 };
 
