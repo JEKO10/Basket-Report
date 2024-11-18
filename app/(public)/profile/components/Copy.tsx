@@ -14,7 +14,7 @@ const CopyContainer = ({ username }: { username: string | undefined }) => {
   };
 
   return (
-    <div className="flex justify-start items-end">
+    <div className="flex justify-start items-start flex-col">
       <button
         className="uppercase bg-background text-text text-sm font-medium tracking-wider w-max mt-2 px-3 py-1 rounded-lg transition hover:bg-primary"
         onClick={() => {
@@ -27,7 +27,7 @@ const CopyContainer = ({ username }: { username: string | undefined }) => {
         Kopiraj URL profila
       </button>
       <div
-        className={`flex justify-center items-center bg-accent w-fit h-7 mx-3 px-3 border-2 tracking-wider border-[#6EABDA] rounded-md transition-all duration-300 transform ${
+        className={`flex justify-center items-center bg-accent w-fit h-7 mt-3 sm:mx-3 px-3 border-2 tracking-wider border-[#6EABDA] rounded-md transition-all duration-300 transform ${
           isCopied ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2.5"
         }`}
       >

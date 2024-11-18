@@ -46,7 +46,7 @@ const TournamentsList = ({
           <Link
             href={`/tournaments/${tournament.tournamentId}`}
             key={tournament.tournamentId}
-            className={`flex ${page === "tournaments" && "justify-start"} justify-between align-center bg-body text-secondary text-xl italic font-medium px-10 py-4 border-b-2 border-accent cursor-default transition hover:bg-primary hover:text-[#fff]`}
+            className={`flex ${page === "tournaments" && "justify-start"} flex-wrap gap-x-5 gap-y-2 justify-between align-center bg-body text-secondary text-xl italic font-medium px-5 lg:px-10 py-4 border-b-2 border-accent cursor-default transition hover:bg-primary hover:text-[#fff]`}
           >
             {page === "tournaments" && (
               <>
@@ -65,10 +65,16 @@ const TournamentsList = ({
             )}
             {page === "profile" && (
               <>
-                <p>Ime: {tournament.tournamentName}</p>
-                <p>Organizator: {tournament.creator.username}</p>
-                <p>Sport: {tournament.tournamentSport}</p>
-                <p>
+                <p className="text-base md:text-lg">
+                  Ime: {tournament.tournamentName}
+                </p>
+                <p className="text-base md:text-lg">
+                  Organizator: {tournament.creator.username}
+                </p>
+                <p className="text-base md:text-lg">
+                  Sport: {tournament.tournamentSport}
+                </p>
+                <p className="text-base md:text-lg">
                   Početak:{" "}
                   {tournament.tournamentDate.toISOString().slice(5, 10)}
                 </p>

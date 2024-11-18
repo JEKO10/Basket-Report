@@ -12,7 +12,7 @@ type DeleteButtonProps = {
 const DeleteButton = ({ tournamentId, onDelete }: DeleteButtonProps) => {
   return (
     <PiTrashBold
-      className="text-3xl text-red-500 cursor-pointer"
+      className="text-2xl md:text-3xl text-red-500 cursor-pointer"
       onClick={(e) => {
         e.stopPropagation();
         e.nativeEvent.preventDefault();
