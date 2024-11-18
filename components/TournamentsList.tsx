@@ -26,7 +26,7 @@ const TournamentsList = ({
   return (
     <article className="bg-accent mt-5 mb-10 p-5 rounded">
       {page === "tournaments" && (
-        <div className="flex justify-start items-center mb-5 text-lg [&>p]:px-10 [&>p:not(:last-child)]:min-w-[300px] ">
+        <div className="flex justify-center sm:justify-between items-center sm:items-start flex-col sm:flex-row mb-5 text-lg px-5 2xl:[&>p]:px-10 xl:[&>p:not(:last-child)]:min-w-[100px] 2xl:[&>p:not(:last-child)]:min-w-[300px]">
           <p>Ime</p>
           <p>Organizator</p>
           <p>Sport</p>
@@ -46,19 +46,25 @@ const TournamentsList = ({
           <Link
             href={`/tournaments/${tournament.tournamentId}`}
             key={tournament.tournamentId}
-            className={`flex ${page === "tournaments" && "justify-start"} flex-wrap gap-x-5 gap-y-2 justify-between align-center bg-body text-secondary text-xl italic font-medium px-5 lg:px-10 py-4 border-b-2 border-accent cursor-default transition hover:bg-primary hover:text-[#fff]`}
+            className={`flex ${page === "tournaments" && "justify-center items-center flex-wrap flex-col sm:flex-row sm:flex-nowrap"} ${page === "profile" && "flex-wrap gap-x-5 gap-y-2"} justify-between align-center bg-body text-secondary text-xl italic font-medium px-5 2xl:px-10 py-4 border-b-2 border-accent cursor-default transition hover:bg-primary hover:text-[#fff]`}
           >
             {page === "tournaments" && (
               <>
-                <p className="min-w-[300px]">{tournament.tournamentName}</p>
-                <p className="min-w-[300px]">{tournament.creator.username}</p>
-                <p className="min-w-[300px]">{tournament.tournamentSport}</p>
-                <p className="min-w-[300px]">
+                <p className="xl:min-w-[100px] 2xl:min-w-[300px]">
+                  {tournament.tournamentName}
+                </p>
+                <p className="xl:min-w-[100px] 2xl:min-w-[300px]">
+                  {tournament.creator.username}
+                </p>
+                <p className="xl:min-w-[100px] 2xl:min-w-[300px]">
+                  {tournament.tournamentSport}
+                </p>
+                <p className="xl:min-w-[100px] 2xl:min-w-[300px]">
                   {tournament.teams.length === 0
                     ? tournament.participants
                     : tournament.teams.length}
                 </p>
-                <p className="min-w-[200px]">
+                <p className="2xl:min-w-[200px]">
                   {tournament.tournamentDate.toISOString().slice(5, 10)}
                 </p>
               </>

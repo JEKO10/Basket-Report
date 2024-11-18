@@ -43,7 +43,7 @@ const Search = ({ page }: { page: "users" | "tournaments" }) => {
   const debouncedSearch = debounce(handleSearch, 300);
 
   return (
-    <label className="flex items-center justify-center w-full bg-body my-5 mb-10 px-3 border-2 border-accent rounded">
+    <label className="flex items-center justify-center w-full bg-body my-10 px-3 border-2 border-accent rounded">
       <TbSearch className="text-[#8e8e8e] text-lg" />
       <input
         type="text"
