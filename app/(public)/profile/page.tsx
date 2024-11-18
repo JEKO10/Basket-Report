@@ -5,7 +5,7 @@ import UserTournaments from "./components/UserTournaments";
 
 const ProfilePage = async () => {
   return (
-    <div>
+    <div className="p-5 sm:px-10">
       <UserInfo />
       <UserTournaments />
     </div>
