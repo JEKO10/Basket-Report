@@ -18,12 +18,14 @@ const LastPageInput = ({
   field,
 }: LastPageInputProps) => {
   return (
-    <article className="flex flex-col mr-20">
-      <label className="text-2xl mb-4 italic font-medium">{label}</label>
+    <article className="flex flex-col w-full sm:w-auto px-1 sm:px-0">
+      <label className="text-xl sm:text-2xl mb-2 italic font-medium leading-none">
+        {label}
+      </label>
       <input
         type={type}
         placeholder={placeholder}
-        className="name bg-primary text-lg text-text w-52 px-3 py-2 border-2 border-transparent rounded-md outline-none focus:border-accent focus:border-2 placeholder-white"
+        className="name bg-primary text-lg text-text w-full sm:w-52 px-3 py-2 border-2 border-transparent rounded-md outline-none focus:border-accent focus:border-2 placeholder-white"
         onChange={(event) =>
           setFormData({
             ...formData,

@@ -5,7 +5,7 @@ import { TournamentProps } from "@/schemas/index";
 
 const LastPage = ({ formData, setFormData }: TournamentProps) => {
   return (
-    <section className="flex justify-start items-center my-6">
+    <section className="flex justify-center md:justify-start items-center flex-col sm:flex-row gap-10 lg:gap-20 my-6 flex-wrap">
       <LastPageInput
         formData={formData}
         setFormData={setFormData}
