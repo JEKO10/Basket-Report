@@ -14,7 +14,7 @@ const TournamentsPage = async ({
   return (
     <section>
       <Search page="tournaments" />
-      <TournamentsList data={data} page="tournaments" />
+      <TournamentsList data={data} page="tournaments" isUser={false} />
     </section>
   );
 };

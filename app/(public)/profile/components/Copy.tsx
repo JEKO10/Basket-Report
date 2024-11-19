@@ -28,7 +28,7 @@ const CopyContainer = ({ username }: { username: string | undefined }) => {
       </button>
       <div
         className={`flex justify-center items-center bg-accent w-fit h-7 mt-3 sm:mx-3 px-3 border-2 tracking-wider border-[#6EABDA] rounded-md transition-all duration-300 transform ${
-          isCopied ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2.5"
+          isCopied ? "opacity-100 -translate-y-1" : "opacity-0 translate-y-2.5"
         }`}
       >
         <p className="text-sm italic">Link kopiran</p>

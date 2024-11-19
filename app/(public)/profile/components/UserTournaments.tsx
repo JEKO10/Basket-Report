@@ -12,7 +12,7 @@ const UserTournaments = async () => {
   return (
     <section>
       <h2 className="font-lusitana text-3xl mt-5 mb-1">Vaši turniri</h2>
-      <TournamentsList data={data} page="profile" />
+      <TournamentsList data={data} page="profile" isUser={false} />
       <Link
         href="/create"
         className="flex justify-center align-center w-max bg-background text-text text-md italic font-medium tracking-wide py-3 px-5 rounded-lg cursor-pointer hover:bg-primary"

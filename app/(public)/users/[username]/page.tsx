@@ -1,50 +1,44 @@
-import Link from "next/link";
+import Image from "next/image";
 import React from "react";
 
 import { getUserByUsername } from "@/actions/user";
+import TournamentsList from "@/components/TournamentsList";
+
+import imgSrc from "../../../../public/profile.jpg";
 
 const SingleUserPage = async ({ params }: { params: { username: string } }) => {
   const data = await getUserByUsername(params.username);
 
   return (
-    <section>
-      <article className="mb-20">
-        <h3 className="font-lusitana text-3xl mt-5 font-medium leading-none">
-          {data?.username}
-        </h3>
-        <p className="text-secondary">{data?.email}</p>
+    <section className="px-2 py-5 sm:pl-10 sm:pr-0">
+      <article className="flex justify-start items-start mt-5 md:mt-0 mb-20 relative">
+        <Image
+          src={imgSrc}
+          alt="Profile picture"
+          className="rounded-full"
+          height={50}
+          width={50}
+        />
+        <div className="mx-5">
+          <h3 className="text-2xl italic">{data?.username}</h3>
+          <p className="text-sm text-secondary">{data?.email}</p>
+        </div>
       </article>
       <article>
-        <h3 className="font-lusitana text-3xl mb-5 font-medium leading-none">
+        <h3 className="font-lusitana text-3xl mb-5 font-medium leading-tight sm:leading-none">
           Turniri korisnika {data?.username}:
         </h3>
-        <div className="bg-accent mt-5 mb-10 p-5 rounded">
+        <div className="bg-accent mt-5 mb-10 rounded">
           {data?.tournaments.length === 0 && (
             <p className="text-xl italic font-medium">
               Nije pronađen nijedan turnir!
             </p>
           )}
-          {data &&
-            data?.tournaments.map((tournament) => (
-              <Link
-                href={`/tournaments/${tournament.tournamentId}`}
-                key={tournament.tournamentId}
-                className="flex justify-between align-center bg-body text-secondary text-xl italic font-medium px-10 py-4 border-b-2 border-accent cursor-default transition hover:bg-primary hover:text-[#fff]"
-              >
-                <p>Ime: {tournament.tournamentName}</p>
-                <p>Sport: {tournament.tournamentSport}</p>
-                <p>
-                  Učesnici:{" "}
-                  {tournament.teams.length === 0
-                    ? tournament.participants
-                    : tournament.teams.length}
-                </p>
-                <p>
-                  Početak:{" "}
-                  {tournament.tournamentDate.toISOString().slice(5, 10)}
-                </p>
-              </Link>
-            ))}
+          <TournamentsList
+            data={data?.tournaments}
+            page="profile"
+            isUser={true}
+          />
         </div>
       </article>
     </section>

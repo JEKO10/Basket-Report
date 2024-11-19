@@ -11,17 +11,21 @@ import { TournamentSchema } from "@/schemas";
 const ExtendedTournamentSchema = TournamentSchema.extend({
   tournamentId: z.string(),
   createdAt: z.date(),
-  creator: z.object({
-    username: z.string(),
-  }),
+  creator: z
+    .object({
+      username: z.string(),
+    })
+    .optional(),
 });
 
 const TournamentsList = ({
   data,
   page,
+  isUser,
 }: {
-  data: z.infer<typeof ExtendedTournamentSchema>[];
+  data: z.infer<typeof ExtendedTournamentSchema>[] | undefined;
   page: "profile" | "tournaments";
+  isUser: boolean;
 }) => {
   return (
     <article className="bg-accent mt-5 mb-10 p-5 rounded">
@@ -34,7 +38,7 @@ const TournamentsList = ({
           <p>Početak</p>
         </div>
       )}
-      {data.length === 0 && (
+      {data?.length === 0 && !isUser && (
         <p className="text-xl italic font-medium">
           {page === "profile"
             ? "Nemate nijedan turnir!"
@@ -54,7 +58,7 @@ const TournamentsList = ({
                   {tournament.tournamentName}
                 </p>
                 <p className="xl:min-w-[100px] 2xl:min-w-[300px]">
-                  {tournament.creator.username}
+                  {tournament.creator?.username}
                 </p>
                 <p className="xl:min-w-[100px] 2xl:min-w-[300px]">
                   {tournament.tournamentSport}
@@ -75,7 +79,10 @@ const TournamentsList = ({
                   Ime: {tournament.tournamentName}
                 </p>
                 <p className="text-base md:text-lg">
-                  Organizator: {tournament.creator.username}
+                  Učesnici:{" "}
+                  {tournament.teams.length === 0
+                    ? tournament.participants
+                    : tournament.teams.length}
                 </p>
                 <p className="text-base md:text-lg">
                   Sport: {tournament.tournamentSport}
