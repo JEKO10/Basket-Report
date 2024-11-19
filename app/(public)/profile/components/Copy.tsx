@@ -14,7 +14,7 @@ const CopyContainer = ({ username }: { username: string | undefined }) => {
   };
 
   return (
-    <div className="flex justify-start items-start flex-col">
+    <div className="flex justify-start items-start flex-col md:flex-row mt-2 absolute left-0">
       <button
         className="uppercase bg-background text-text text-sm font-medium tracking-wider w-max mt-2 px-3 py-1 rounded-lg transition hover:bg-primary"
         onClick={() => {
