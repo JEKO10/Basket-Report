@@ -9,7 +9,7 @@ import { TournamentProps } from "@/schemas";
 const TournamentForm = ({ formData, setFormData }: TournamentProps) => {
   return (
     <div>
-      <section className="flex items-center justify-around mt-10 mb-5">
+      <section className="flex items-center justify-around flex-wrap gap-10 sm:gap-5 mt-10 mb-5">
         <TournamentType
           index={1}
           title="Jedna eliminacija"

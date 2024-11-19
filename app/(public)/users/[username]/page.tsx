@@ -11,7 +11,7 @@ const SingleUserPage = async ({ params }: { params: { username: string } }) => {
 
   return (
     <section className="px-2 py-5 sm:pl-10 sm:pr-0">
-      <article className="flex justify-start items-start mt-5 md:mt-0 mb-20 relative">
+      <article className="flex justify-start items-start mb-20 relative">
         <Image
           src={imgSrc}
           alt="Profile picture"

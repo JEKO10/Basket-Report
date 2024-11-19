@@ -44,7 +44,7 @@ const TournamentType = ({
         width={200}
         className="my-12"
       />
-      <p className="text-left text-lg">{desc}</p>
+      <p className="text-center sm:text-start text-lg">{desc}</p>
     </article>
   );
 };
