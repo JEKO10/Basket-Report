@@ -11,16 +11,20 @@ const ProfilePicture = () => {
   const [image, setImage] = useState<string | null>(null);
   const imageInputRef = useRef<HTMLInputElement | null>(null);
 
-  const selectImage = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
+  const selectImage = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const selectedFile = event.target.files && event.target.files[0];
 
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = () => {
-        setImage(reader.result as string);
-      };
+    if (!selectedFile) return;
 
-      reader.readAsDataURL(file);
+    const imgLink = URL.createObjectURL(selectedFile);
+    setImage(imgLink);
+  };
+
+  const removeImage = () => {
+    setImage("");
+
+    if (imageInputRef.current) {
+      imageInputRef.current.value = "";
     }
   };
 
@@ -50,28 +54,40 @@ const ProfilePicture = () => {
               onClick={() => setIsModalOpen(false)}
             />
             <label
-              htmlFor="image-upload"
-              className="flex flex-col items-center justify-center mt-10 border-2 border-dashed border-gray-300 rounded-lg p-5 cursor-pointer"
+              htmlFor="file"
+              className="flex items-center justify-center mt-5 h-48 relative border-2 border-white rounded-sm border-dashed"
             >
               <input
-                id="image-upload"
                 name="file"
                 type="file"
                 accept="image/*"
                 ref={imageInputRef}
                 onChange={selectImage}
-                className="hidden"
+                className="absolute h-full w-full inset-0 opacity-0 z-10 cursor-pointer"
               />
               <p className="text-secondary">
                 Prevuci ili klikni da dodaš sliku
               </p>
             </label>
-            <button
-              onClick={() => setIsModalOpen(false)}
-              className="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
-            >
-              Sačuvaj
-            </button>
+            <div className="flex justify-between w-full mt-5">
+              <button
+                className="bg-blue-500 text-white py-1 px-3 rounded hover:bg-blue-600 transition"
+                onClick={() => {
+                  setIsModalOpen(false);
+                }}
+              >
+                Sačuvaj
+              </button>
+              <button
+                className="bg-blue-500 text-white py-1 px-3 rounded hover:bg-blue-600 transition"
+                onClick={() => {
+                  setIsModalOpen(false);
+                  removeImage();
+                }}
+              >
+                Izbriši sliku
+              </button>
+            </div>
           </div>
         </article>
       )}
