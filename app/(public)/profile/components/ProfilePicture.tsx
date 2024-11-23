@@ -10,6 +10,7 @@ const ProfilePicture = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [image, setImage] = useState<string | null>(null);
   const imageInputRef = useRef<HTMLInputElement | null>(null);
+  const containerRef = useRef<HTMLDivElement | null>(null);
 
   const selectImage = (event: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = event.target.files && event.target.files[0];
@@ -18,6 +19,8 @@ const ProfilePicture = () => {
 
     const imgLink = URL.createObjectURL(selectedFile);
     setImage(imgLink);
+
+    console.log(image);
   };
 
   const removeImage = () => {
@@ -28,6 +31,12 @@ const ProfilePicture = () => {
     }
   };
 
+  const clickOutside = (e: MouseEvent) => {
+    if (!containerRef.current?.contains(e.target as Node)) {
+      setIsModalOpen(false);
+    }
+  };
+
   useEffect(() => {
     if (isModalOpen) {
       document.body.style.overflow = "hidden";
@@ -35,6 +44,10 @@ const ProfilePicture = () => {
       document.body.style.overflow = "auto";
     }
   }, [isModalOpen]);
+
+  useEffect(() => {
+    document.addEventListener("click", clickOutside, true);
+  }, []);
 
   return (
     <section>
@@ -48,7 +61,10 @@ const ProfilePicture = () => {
       />
       {isModalOpen && (
         <article className="fixed top-0 left-0 w-full h-full bg-black/80 flex items-center justify-center z-50">
-          <div className="bg-background rounded-lg shadow-lg p-5 w-96 relative">
+          <div
+            ref={containerRef}
+            className="bg-background rounded-lg shadow-lg p-5 w-96 relative"
+          >
             <IoMdClose
               className="text-red-600 text-2xl absolute top-2 right-2 cursor-pointer transition hover:text-red-400"
               onClick={() => setIsModalOpen(false)}
@@ -72,9 +88,7 @@ const ProfilePicture = () => {
             <div className="flex justify-between w-full mt-5">
               <button
                 className="bg-blue-500 text-white py-1 px-3 rounded hover:bg-blue-600 transition"
-                onClick={() => {
-                  setIsModalOpen(false);
-                }}
+                onClick={() => setIsModalOpen(false)}
               >
                 Sačuvaj
               </button>
