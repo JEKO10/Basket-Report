@@ -32,6 +32,7 @@ const ProfilePicture = () => {
 
   const handleClose = () => {
     setIsClosing(true);
+
     setTimeout(() => {
       setIsModalOpen(false);
       setIsClosing(false);
@@ -41,6 +42,7 @@ const ProfilePicture = () => {
   const clickOutside = (e: MouseEvent) => {
     if (!containerRef.current?.contains(e.target as Node)) {
       handleClose();
+      removeImage();
     }
   };
 
@@ -52,7 +54,7 @@ const ProfilePicture = () => {
       document.body.style.overflow = "auto";
       document.removeEventListener("click", clickOutside, true);
     }
-    // Clean up the listener when the component is unmounted
+
     return () => document.removeEventListener("click", clickOutside, true);
   }, [isModalOpen]);
 
@@ -61,11 +63,11 @@ const ProfilePicture = () => {
       <Image
         src={image || imgSrc}
         alt="Profile picture"
-        className="rounded-full cursor-pointer"
+        className="rounded-full h-[54px] w-[54px] cursor-pointer"
         height={50}
         width={50}
         onClick={(e) => {
-          e.stopPropagation(); // Prevent triggering clickOutside
+          e.stopPropagation();
           setIsModalOpen(true);
         }}
       />
@@ -83,7 +85,10 @@ const ProfilePicture = () => {
           >
             <IoMdClose
               className="text-red-600 text-2xl absolute top-2 right-2 cursor-pointer transition hover:text-red-400"
-              onClick={handleClose}
+              onClick={() => {
+                handleClose();
+                removeImage();
+              }}
             />
             <label
               htmlFor="file"
@@ -101,6 +106,13 @@ const ProfilePicture = () => {
                 Prevuci ili klikni da dodaš sliku
               </p>
             </label>
+            <p className="text-center my-5">ili</p>
+            <input
+              type="text"
+              placeholder="Dodaj URL slike..."
+              className="w-full border-2 border-white rounded-sm border-dashed bg-background px-2"
+              onChange={(e) => setImage(e.target.value)}
+            />
             <div className="flex justify-between w-full mt-5">
               <button
                 className="bg-blue-500 text-white py-1 px-3 rounded hover:bg-blue-600 transition"
