@@ -39,6 +39,15 @@ input:-webkit-autofill:active {
     -webkit-appearance: none;
     margin: 0;
   }
+
+  footer {
+    position: relative;
+    bottom: -1.2rem;
+    left: -1.2rem;
+    margin-top: 10rem;
+    padding: 20px 40px;
+    width: 98.9vw;
+  }
 }
 
 @layer components {

@@ -13,6 +13,9 @@ export default function PublicLayout({
         <Sidebar />
         <main className="flex-grow">{children}</main>
       </div>
+      <footer className="bg-background text-center text-white">
+        <p className="text-lg">Turniri ©</p>
+      </footer>
     </div>
   );
 }
