@@ -20,6 +20,7 @@ const ProfilePicture = () => {
 
     const imgLink = URL.createObjectURL(selectedFile);
     setImage(imgLink);
+    console.log(imgLink);
   };
 
   const removeImage = () => {

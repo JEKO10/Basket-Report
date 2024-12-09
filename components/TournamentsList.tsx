@@ -50,7 +50,7 @@ const TournamentsList = ({
           <Link
             href={`/tournaments/${tournament.tournamentId}`}
             key={tournament.tournamentId}
-            className={`flex ${page === "tournaments" && "justify-center items-center flex-wrap flex-col sm:flex-row sm:flex-nowrap"} ${page === "profile" && "flex-wrap gap-x-5 gap-y-2"} justify-between align-center bg-body text-secondary text-xl italic font-medium px-5 2xl:px-10 py-4 border-b-2 border-accent cursor-default transition hover:bg-primary hover:text-[#fff]`}
+            className={`flex ${page === "tournaments" && "justify-center items-center flex-wrap flex-col sm:flex-row sm:flex-nowrap"} ${page === "profile" && "flex-wrap gap-x-5 gap-y-2"} justify-between align-center bg-body text-secondary text-xl italic font-medium px-5 2xl:px-10 py-4 border-b-2 border-accent cursor-pointer transition hover:bg-primary hover:text-[#fff]`}
           >
             {page === "tournaments" && (
               <>

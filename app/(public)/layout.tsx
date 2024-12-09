@@ -14,7 +14,7 @@ export default function PublicLayout({
         <main className="flex-grow">{children}</main>
       </div>
       <footer className="bg-background text-center text-white">
-        <p className="text-lg">Turniri ©</p>
+        <p className="text-lg">Turniri © 2024</p>
       </footer>
     </div>
   );

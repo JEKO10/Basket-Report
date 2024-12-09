@@ -36,9 +36,9 @@ const SidebarList = ({
 
   return (
     <aside
-      className={`flex justify-center items-end absolute my-4 -mt-[1.2rem] -ml-[1.2rem] bg-black/70 w-full h-full z-10 sm:static sm:mt-5 sm:ml-0 sm:bg-transparent sm:block sm:flex-shrink-0 md:rounded-lg sm:w-44 md:w-48 lg:w-52 ${!isNav && "hidden"}`}
+      className={`flex justify-center items-center fixed top-0 left-0 w-full h-full bg-black/70 z-10 sm:static sm:mt-5 sm:ml-0 sm:bg-transparent sm:block sm:flex-shrink-0 md:rounded-lg sm:w-44 md:w-48 lg:w-52 ${!isNav && "hidden"}`}
     >
-      <ul className="text-text text-2xl w-4/5 sm:w-auto [&_li]:mb-5 [&_li]:sm:mb-0">
+      <ul className="text-text text-2xl w-4/5 mt-20 sm:mt-0 sm:w-auto [&_li]:mb-5 [&_li]:sm:mb-0">
         <li>
           <Link
             href="/about"

@@ -30,7 +30,7 @@ const SingleUserPage = async ({ params }: { params: { username: string } }) => {
         </h3>
         <div className="bg-accent mt-5 mb-10 rounded">
           {data?.tournaments.length === 0 && (
-            <p className="text-xl italic font-medium">
+            <p className="text-xl italic font-medium p-5">
               Nije pronađen nijedan turnir!
             </p>
           )}
