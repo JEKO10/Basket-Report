@@ -21,7 +21,7 @@ const BracketSize = ({ formData, setFormData }: BracketSizeProps) => {
       <article className="my-10">
         <button
           type="button"
-          className={`bg-accent mr-5 py-3 px-5 border-4 rounded-lg hover:border-[#6EABDA] ${
+          className={`bg-accent w-full sm:w-auto sm:mr-5 mb-2 md:mb-0 py-3 px-5 border-4 rounded-lg hover:border-[#6EABDA] ${
             !formData.bracketSize ? "border-[#6EABDA]" : "border-transparent"
           }`}
           onClick={() => setFormData({ ...formData, bracketSize: false })}
@@ -30,7 +30,7 @@ const BracketSize = ({ formData, setFormData }: BracketSizeProps) => {
         </button>
         <button
           type="button"
-          className={`bg-primary text-text mr-5 py-3 px-5 border-4 rounded-lg hover:border-[#f08953] ${
+          className={`bg-primary w-full sm:w-auto text-text py-3 px-5 border-4 rounded-lg hover:border-[#f08953] ${
             formData.bracketSize ? "border-[#f08953]" : "border-transparent"
           }`}
           onClick={() => setFormData({ ...formData, bracketSize: true })}

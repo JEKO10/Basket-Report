@@ -65,7 +65,7 @@ const BracketSizeFormat = ({
         Jedan ispod drugog, od najboljeg ka najlošijem
       </p>
       <textarea
-        className="bg-primary text-base text-text w-1/2 h-60 my-2 py-4 px-5 resize-none rounded-md outline-none placeholder-text"
+        className="bg-primary text-base text-text w-full md:w-1/2 h-60 my-2 py-4 px-5 resize-none rounded-md outline-none placeholder-text"
         placeholder="Unesite učesnike, jedan učesnik ispod drugog"
         onChange={(event) => setTeams(event.target.value)}
       />
