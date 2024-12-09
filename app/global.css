@@ -43,10 +43,11 @@ input:-webkit-autofill:active {
   footer {
     position: relative;
     bottom: -1.2rem;
-    left: -1.2rem;
-    margin-top: 10rem;
+    left: 0;
+    margin: 10rem 0 0 0;
     padding: 20px 40px;
-    width: 98.9vw;
+    width: 100%;
+    border-radius: 0.5rem 0.5rem 0 0;
   }
 }
 
