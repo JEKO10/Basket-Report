@@ -75,6 +75,11 @@ export const handleRounds = (participantsCount: number) => {
     }
   });
 
+  const semiFinalsIndex = rounds - 2;
+  const thirdPlaceMatch = [[null, null]];
+
+  bracketRounds.splice(semiFinalsIndex + 1, 0, thirdPlaceMatch);
+
   return bracketRounds;
 };
 
@@ -84,7 +89,7 @@ export const advancePlayers = (
   matchIndex: number,
   winner: number
 ) => {
-  if (roundIndex >= bracketRounds.length - 1) {
+  if (roundIndex >= bracketRounds.length - 2) {
     return bracketRounds;
   }
 
@@ -92,8 +97,18 @@ export const advancePlayers = (
 
   if (matchIndex % 2 === 0) {
     bracketRounds[roundIndex + 1][nextMatchIndex][0] = winner;
+
+    if (roundIndex === bracketRounds.length - 3) {
+      const loser = bracketRounds[roundIndex][matchIndex][1];
+      bracketRounds[roundIndex + 2][0][0] = loser;
+    }
   } else {
     bracketRounds[roundIndex + 1][nextMatchIndex][1] = winner;
+
+    if (roundIndex === bracketRounds.length - 3) {
+      const loser = bracketRounds[roundIndex][matchIndex][0];
+      bracketRounds[roundIndex + 2][0][1] = loser;
+    }
   }
 
   return bracketRounds;
@@ -132,12 +147,24 @@ export const getWinner = async (tournamentId: string | undefined) => {
       ? [finalMatch[0], finalMatch[1]]
       : [finalMatch[1], finalMatch[0]];
 
+  const thirdPlaceScore = scores.find(
+    (score) => score.roundIndex === bracket.length - 2 && score.matchIndex === 0
+  );
+  const thirdPlaceMatch = (
+    bracket[bracket.length - 2] as [number, number][]
+  )[0];
+  const thirdPlaceIndex =
+    thirdPlaceScore.teamA > thirdPlaceScore.teamB
+      ? thirdPlaceMatch[0]
+      : thirdPlaceMatch[1];
+
   const winner = teams[winnerIndex - 1];
   const secondPlace = teams[secondIndex - 1];
+  const thirdPlace = teams[thirdPlaceIndex - 1];
 
   if (teams.length !== 0) {
     return { winner, secondPlace };
   } else {
-    return { winner: winnerIndex, secondPlace: secondIndex };
+    return { winner: winnerIndex, secondPlace: secondIndex, thirdPlace };
   }
 };

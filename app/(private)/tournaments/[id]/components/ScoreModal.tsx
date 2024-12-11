@@ -2,7 +2,7 @@ import { JsonValue } from "next-auth/adapters";
 import React, { useEffect, useRef, useState, useTransition } from "react";
 
 import { updateBracket } from "@/actions/tournaments";
-import { advancePlayers, getWinner } from "@/utils/brackets";
+import { advanceTeams, getWinner } from "@/utils/brackets";
 
 interface ScoreModalProps {
   match: number[];
@@ -59,7 +59,7 @@ const ScoreModal = ({
           ? match[0]
           : match[1];
 
-      const updatedBracket = advancePlayers(
+      const updatedBracket = advanceTeams(
         bracketRounds as number[][][],
         roundIndex,
         matchIndex,

@@ -102,7 +102,7 @@ const BracketSizeFormat = ({
         value={getLineNumbers()}
         readOnly
         id="line-numbers"
-        className="bg-primary resize-none overflow-hidden h-60 w-8 my-2 py-2 pl-2 text-text text-base rounded-l-md"
+        className="bg-primary resize-none overflow-hidden h-60 w-[1.8rem] my-2 py-2 pl-2 text-text text-base rounded-l-md"
       />
       <textarea
         value={content}
@@ -112,7 +112,7 @@ const BracketSizeFormat = ({
         }}
         ref={scrollRef}
         onScroll={syncScroll}
-        className="bg-primary text-base text-text w-full md:w-1/2 h-60 my-2 py-2 px-3 resize-none rounded-r-md outline-none placeholder-text"
+        className="bg-primary text-base text-text w-full md:w-1/2 h-60 my-2 p-2 resize-none rounded-r-md outline-none placeholder-text"
         placeholder="Unesite učesnike, jedan učesnik ispod drugog"
       />
       <label className="flex align-center justify-start flex-col w-fit">
