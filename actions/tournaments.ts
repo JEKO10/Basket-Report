@@ -34,7 +34,7 @@ export const createTournament = async (
     const participantsCount = formData.teams.length
       ? formData.teams.length
       : formData.participants;
-    const bracket = handleRounds(participantsCount, formData.thirdPlace);
+    const bracket = handleRounds(participantsCount);
 
     await db.tournament.create({
       data: {
