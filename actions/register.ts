@@ -1,6 +1,6 @@
 "use server";
 
-import bcrypt from "bcryptjs";
+import bcrypt from "bcrypt";
 import * as z from "zod";
 
 import db from "@/prisma/db";
